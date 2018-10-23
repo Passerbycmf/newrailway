@@ -2,7 +2,7 @@ package ${package}.bean;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import zjnu.cmf.framework.web.BaseEntity;
+import zjnu.newrailway.framework.web.BaseEntity;
 #foreach ($column in $columns)
 #if($column.attrType == 'Date')
 import java.util.Date;

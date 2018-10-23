@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ${package}.mapper.${className}Mapper;
 import ${package}.bean.${className};
 import ${package}.service.I${className}Service;
-import zjnu.cmf.common.utils.Convert;
+import zjnu.newrailway.common.utils.Convert;
 
 /**
  * ${tableComment} 服务层实现

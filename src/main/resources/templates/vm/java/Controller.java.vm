@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import zjnu.cmf.framework.aspectj.lang.annotation.Log;
-import zjnu.cmf.framework.aspectj.lang.constant.BusinessType;
+import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
+import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import ${package}.bean.${className};
 import ${package}.service.I${className}Service;
-import zjnu.cmf.framework.web.TableDataInfo;
-import zjnu.cmf.framework.web.AjaxResult;
-import zjnu.cmf.framework.web.BaseController;
+import zjnu.newrailway.framework.web.TableDataInfo;
+import zjnu.newrailway.framework.web.AjaxResult;
+import zjnu.newrailway.framework.web.BaseController;
 
 /**
  * ${tableComment} 信息操作处理
