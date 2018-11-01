@@ -85,17 +85,7 @@ public class RegularSecurityInformationController extends BaseController
 	    return prefix + "/edit";
 	}
 	
-	/**
-	 * 修改保存常规安全
-	 */
-	@RequiresPermissions("system:regularSecurityInformation:edit")
-	@Log(title = "常规安全", action = BusinessType.UPDATE)
-	@PostMapping("/edit")
-	@ResponseBody
-	public AjaxResult editSave(RegularSecurityInformation regularSecurityInformation)
-	{		
-		return toAjax(regularSecurityInformationService.updateRegularSecurityInformation(regularSecurityInformation));
-	}
+
 	
 	/**
 	 * 删除常规安全
