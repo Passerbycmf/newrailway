@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * 
  * @author ruoyi
  */
-@WebFilter(filterName = "xssFilter", urlPatterns = "/system/*")
+@WebFilter(filterName = "xssFilter", urlPatterns = "/system")
 public class XssFilter implements Filter
 {
 
