@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zjnu.newrailway.project.system.mapper.RepairProjectsMapper">
+    
+    <resultMap type="RepairProjects" id="RepairProjectsResult">
+        <result property="id"    column="id"    />
+        <result property="repairNumber"    column="repair_number"    />
+        <result property="repairName"    column="repair_name"    />
+        <result property="repairPlan"    column="repair_plan"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="finshTime"    column="finsh_time"    />
+        <result property="constructionUnit"    column="construction_unit"    />
+        <result property="budget"    column="budget"    />
+        <result property="prePicture"    column="pre_picture"    />
+        <result property="picture"    column="picture"    />
+    </resultMap>
+	
+	<sql id="selectRepairProjectsVo">
+        select id, repair_number, repair_name, repair_plan, start_time, finsh_time, construction_unit, budget, pre_picture, picture from sys_repair_projects
+    </sql>
+	
+    <select id="selectRepairProjectsList" parameterType="RepairProjects" resultMap="RepairProjectsResult">
+        <include refid="selectRepairProjectsVo"/>
+        <where>  
+            <if test="id != null and id != ''"> and id = #{id}</if>
+             <if test="repairNumber != null and repairNumber != ''"> and repair_number = #{repairNumber}</if>
+             <if test="repairName != null and repairName != ''"> and repair_name = #{repairName}</if>
+             <if test="repairPlan != null and repairPlan != ''"> and repair_plan = #{repairPlan}</if>
+             <if test="startTime != null and startTime != ''"> and start_time = #{startTime}</if>
+             <if test="finshTime != null and finshTime != ''"> and finsh_time = #{finshTime}</if>
+             <if test="constructionUnit != null and constructionUnit != ''"> and construction_unit = #{constructionUnit}</if>
+             <if test="budget != null and budget != ''"> and budget = #{budget}</if>
+             <if test="prePicture != null and prePicture != ''"> and pre_picture = #{prePicture}</if>
+             <if test="picture != null and picture != ''"> and picture = #{picture}</if>
+         </where>
+    </select>
+    
+    <select id="selectRepairProjectsById" parameterType="Integer" resultMap="RepairProjectsResult">
+        <include refid="selectRepairProjectsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertRepairProjects" parameterType="RepairProjects">
+        insert into sys_repair_projects
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != '' ">id,</if>
+			<if test="repairNumber != null and repairNumber != '' ">repair_number,</if>
+			<if test="repairName != null and repairName != '' ">repair_name,</if>
+			<if test="repairPlan != null and repairPlan != '' ">repair_plan,</if>
+			<if test="startTime != null and startTime != '' ">start_time,</if>
+			<if test="finshTime != null and finshTime != '' ">finsh_time,</if>
+			<if test="constructionUnit != null and constructionUnit != '' ">construction_unit,</if>
+			<if test="budget != null and budget != '' ">budget,</if>
+			<if test="prePicture != null and prePicture != '' ">pre_picture,</if>
+			<if test="picture != null and picture != '' ">picture,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">#{id},</if>
+			<if test="repairNumber != null and repairNumber != ''">#{repairNumber},</if>
+			<if test="repairName != null and repairName != ''">#{repairName},</if>
+			<if test="repairPlan != null and repairPlan != ''">#{repairPlan},</if>
+			<if test="startTime != null and startTime != ''">#{startTime},</if>
+			<if test="finshTime != null and finshTime != ''">#{finshTime},</if>
+			<if test="constructionUnit != null and constructionUnit != ''">#{constructionUnit},</if>
+			<if test="budget != null and budget != ''">#{budget},</if>
+			<if test="prePicture != null and prePicture != ''">#{prePicture},</if>
+			<if test="picture != null and picture != ''">#{picture},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateRepairProjects" parameterType="RepairProjects">
+        update sys_repair_projects
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="repairNumber != null  ">repair_number = #{repairNumber},</if>
+            <if test="repairName != null  and repairName != ''  ">repair_name = #{repairName},</if>
+            <if test="repairPlan != null  and repairPlan != ''  ">repair_plan = #{repairPlan},</if>
+            <if test="startTime != null  ">start_time = #{startTime},</if>
+            <if test="finshTime != null  ">finsh_time = #{finshTime},</if>
+            <if test="constructionUnit != null  and constructionUnit != ''  ">construction_unit = #{constructionUnit},</if>
+            <if test="budget != null  and budget != ''  ">budget = #{budget},</if>
+            <if test="prePicture != null  and prePicture != ''  ">pre_picture = #{prePicture},</if>
+            <if test="picture != null  and picture != ''  ">picture = #{picture},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteRepairProjectsById" parameterType="Integer">
+        delete from sys_repair_projects where id = #{id}
+    </delete>
+	
+    <delete id="deleteRepairProjectsByIds" parameterType="String">
+        delete from sys_repair_projects where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
