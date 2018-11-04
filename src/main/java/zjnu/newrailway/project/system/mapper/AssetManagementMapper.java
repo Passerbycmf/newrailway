@@ -73,4 +73,11 @@ public interface AssetManagementMapper
 	 * @return 结果
 	 */
 	public AssetManagement checkAssetNumber(Integer assetNumber);
+
+	/**
+	 *
+	 * @param assetNumber
+	 * @return 结果
+	 */
+	public AssetManagement checkNumber(Integer assetNumber);
 }

@@ -5,7 +5,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import zjnu.newrailway.common.utils.ShiroUtils;
 import zjnu.newrailway.common.utils.StringUtils;
+import zjnu.newrailway.project.system.bean.User;
 
 
 import java.text.SimpleDateFormat;
@@ -115,6 +117,26 @@ public class BaseController
     public String redirect(String url)
     {
         return StringUtils.format("redirect:{}", url);
+    }
+
+    public User getUser()
+    {
+        return ShiroUtils.getUser();
+    }
+
+    public void setUser(User user)
+    {
+        ShiroUtils.setUser(user);
+    }
+
+    public Integer getUserId()
+    {
+        return getUser().getUserId();
+    }
+
+    public String getLoginName()
+    {
+        return getUser().getLoginName();
     }
 
 

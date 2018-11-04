@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-land-edit" th:object="${land}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">资产名称：</label>
+                <div class="col-sm-8">
+                    <input id="assetName" name="assetName" th:field="*{assetName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">资产编号：</label>
+                <div class="col-sm-8">
+                    <input id="assetNumber" name="assetNumber" th:field="*{assetNumber}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">资产所属片区：</label>
+                <div class="col-sm-8">
+                    <input id="assetTranslation" name="assetTranslation" th:field="*{assetTranslation}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">资产面积(平方米)：</label>
+                <div class="col-sm-8">
+                    <input id="assetArea" name="assetArea" th:field="*{assetArea}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">资产位置：</label>
+                <div class="col-sm-8">
+                    <input id="assetLocation" name="assetLocation" th:field="*{assetLocation}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">所属派出所：</label>
+                <div class="col-sm-8">
+                    <input id="policeStation" name="policeStation" th:field="*{policeStation}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">所属消防队：</label>
+                <div class="col-sm-8">
+                    <input id="fireBrigade" name="fireBrigade" th:field="*{fireBrigade}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">资产类别：</label>
+                <div class="col-sm-8">
+                    <input id="assetType" name="assetType" th:field="*{assetType}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">侵占违建情况：</label>
+                <div class="col-sm-8">
+                    <input id="squatterHouse" name="squatterHouse" th:field="*{squatterHouse}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">历史遗留问题：</label>
+                <div class="col-sm-8">
+                    <input id="legacy" name="legacy" th:field="*{legacy}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">资产移交手续清单（文件）：</label>
+                <div class="col-sm-8">
+                    <input id="assetDeliver" name="assetDeliver" th:field="*{assetDeliver}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">卫星定位（文件）：</label>
+                <div class="col-sm-8">
+                    <input id="sateliteFix" name="sateliteFix" th:field="*{sateliteFix}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">房产证（文件）：</label>
+                <div class="col-sm-8">
+                    <input id="ownershipCertificate" name="ownershipCertificate" th:field="*{ownershipCertificate}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">航拍图（文件）：</label>
+                <div class="col-sm-8">
+                    <input id="aerialMap" name="aerialMap" th:field="*{aerialMap}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">现场照片（文件）：</label>
+                <div class="col-sm-8">
+                    <input id="livePic" name="livePic" th:field="*{livePic}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">安全结构证明（文件）：</label>
+                <div class="col-sm-8">
+                    <input id="safeCertificate" name="safeCertificate" th:field="*{safeCertificate}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">	
+                <label class="col-sm-3 control-label">资产类型（0房屋/1土地）：</label>
+                <div class="col-sm-8">
+                    <input id="assetDifference" name="assetDifference" th:field="*{assetDifference}" class="form-control" type="text">
+                </div>
+            </div>
+			<div class="form-group">
+				<div class="form-control-static col-sm-offset-9">
+					<button type="submit" class="btn btn-primary">提交</button>
+					<button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/land"
+		$("#form-land-edit").validate({
+            rules:{
+                assetName:{
+                    required:true,
+                    remote: {
+                        url: prefix + "/checkAssetName",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "assetName" : function() {
+                                return $("input[name='assetName']").val();
+                            }
+                        },
+                        dataFilter: function(data, type) {
+                            if (data == "0") return true;
+                            else return false;
+                        }
+                    }
+                },
+
+            }	,
+            messages: {
+                "assetName": {
+                    remote: "该资产名称已经存在，请重新输入"
+                }
+            },
+			submitHandler: function(form) {
+				$.operate.save(prefix + "/edit", $('#form-land-edit').serialize());
+			}
+		});
+	</script>
+</body>
+</html>

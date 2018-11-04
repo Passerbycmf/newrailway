@@ -150,4 +150,17 @@ public class AssetManagementController extends BaseController
 		}
 		return flag;
 	}
+	/**
+	 *校检资产编号
+	 */
+	@PostMapping("/checkAssetNumber")
+	@ResponseBody
+	public String checkNumber(AssetManagement assetManagement){
+		String flag = "0";
+		if(StringUtils.isNotNull(assetManagement)){
+			flag = assetManagementService.checkAssetNumber(assetManagement);
+		}
+		return flag;
+	}
+
 }

@@ -108,5 +108,21 @@ public class AssetManagementServiceImpl implements IAssetManagementService {
 		return UserConstants.TYPE_UNIQUE;
 
 	}
+
+	/**
+	 * 校检资产编号
+	 *
+	 * @param assetManagement
+	 * @return 结果
+	 */
+	@Override
+	public String checkNumber(AssetManagement assetManagement) {
+		AssetManagement management = assetManagementMapper.checkAssetNumber(assetManagement.getAssetNumber());
+		if (StringUtils.isNotNull(management)) {
+			return UserConstants.TYPE_NOT_UNIQUE;
+		}
+		return UserConstants.TYPE_UNIQUE;
+
+	}
 }
 

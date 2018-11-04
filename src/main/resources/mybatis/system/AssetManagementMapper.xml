@@ -68,6 +68,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE asset_number = #{assetNumber}
     </select>
 
+    <select id="checkNumber" parameterType="Integer" resultMap="AssetManagementResult">
+        SELECT * FROM sys_asset_management
+        WHERE asset_number = #{assetNumber}
+    </select>
+
     <insert id="insertAssetManagement" parameterType="AssetManagement">
         insert into sys_asset_management
 		<trim prefix="(" suffix=")" suffixOverrides=",">
