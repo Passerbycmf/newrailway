@@ -51,6 +51,8 @@ public class AssetManagement extends BaseEntity
 	/** 资产类型（0房屋/1土地） */
 	private Integer assetDifference;
 
+	private Integer number;
+
 	public void setId(Integer id) 
 	{
 		this.id = id;

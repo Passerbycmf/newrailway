@@ -64,4 +64,11 @@ public interface IAssetManagementService
 	 * @return 结果
 	 */
     public String checkAssetNumber(AssetManagement assetManagement);
+
+	/**
+	 * 校检资产编号
+	 * @param assetManagement 资产管理信息
+	 * @return 结果
+	 */
+	public String checkNumber(AssetManagement assetManagement);
 }
