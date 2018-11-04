@@ -60,6 +60,9 @@ public class UserConstants
     public final static String MENU_NAME_UNIQUE = "0";
     public final static String MENU_NAME_NOT_UNIQUE = "1";
 
+    /** 资产类型是否唯一的返回结果码 */
+    public final static String TYPE_NOT_UNIQUE = "1";
+    public final static String TYPE_UNIQUE = "0";
     /** 字典类型是否唯一的返回结果码 */
     public final static String DICT_TYPE_UNIQUE = "0";
     public final static String DICT_TYPE_NOT_UNIQUE = "1";

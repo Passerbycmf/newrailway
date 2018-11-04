@@ -95,8 +95,10 @@ public class RegularSecurityInformationController extends BaseController
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
-	{		
+	{
+
 		return toAjax(regularSecurityInformationService.deleteRegularSecurityInformationByIds(ids));
 	}
+
 	
 }
