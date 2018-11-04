@@ -14,7 +14,7 @@ import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Asset;
-import zjnu.newrailway.project.system.service.ILandService;
+import zjnu.newrailway.project.system.service.IHouseService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
 import zjnu.newrailway.framework.web.BaseController;
@@ -26,31 +26,32 @@ import zjnu.newrailway.framework.web.BaseController;
  * @date 2018-11-01
  */
 @Controller
-@RequestMapping("/system/land")
-public class LandController extends BaseController
+@RequestMapping("/system/house")
+public class HouseController extends BaseController
 {
-    private String prefix = "system/land";
+    private String prefix = "system/house";
 	
 	@Autowired
-	private ILandService landService;
+	private IHouseService houseService;
 	
-	@RequiresPermissions("system:land:view")
+	@RequiresPermissions("system:house:view")
 	@GetMapping()
-	public String land()
+	public String house()
 	{
-	    return prefix + "/land";
+	    return prefix + "/house";
 	}
 	
 	/**
 	 * 查询资产管理列表
 	 */
-	@RequiresPermissions("system:land:list")
+	@RequiresPermissions("system:house:list")
 	@PostMapping("/list")
 	@ResponseBody
-	public TableDataInfo list(Asset land, ModelMap map, String assetName)
+	public TableDataInfo list(Asset house,ModelMap map,String assetName)
 	{
 		startPage();
-        List<Asset> list = landService.selectLandList(land);
+        List<Asset> list = houseService.selectHouseList(house);
+
         map.put("assetName",assetName);
 		return getDataTable(list);
 	}
@@ -67,13 +68,13 @@ public class LandController extends BaseController
 	/**
 	 * 新增保存资产管理
 	 */
-	@RequiresPermissions("system:land:add")
+	@RequiresPermissions("system:house:add")
 	@Log(title = "资产管理", action = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Asset land)
+	public AjaxResult addSave(Asset house)
 	{		
-		return toAjax(landService.insertLand(land));
+		return toAjax(houseService.insertHouse(house));
 	}
 
 	/**
@@ -82,33 +83,33 @@ public class LandController extends BaseController
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Integer id, ModelMap mmap)
 	{
-		Asset land = landService.selectLandById(id);
-		mmap.put("land", land);
+		Asset house = houseService.selectHouseById(id);
+		mmap.put("house", house);
 	    return prefix + "/edit";
 	}
 	
 	/**
 	 * 修改保存资产管理
 	 */
-	@RequiresPermissions("system:land:edit")
+	@RequiresPermissions("system:house:edit")
 	@Log(title = "资产管理", action = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
-	public AjaxResult editSave(Asset land)
+	public AjaxResult editSave(Asset house)
 	{		
-		return toAjax(landService.updateLand(land));
+		return toAjax(houseService.updateHouse(house));
 	}
 	
 	/**
 	 * 删除资产管理
 	 */
-	@RequiresPermissions("system:land:remove")
+	@RequiresPermissions("system:house:remove")
 	@Log(title = "资产管理", action = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
 	{		
-		return toAjax(landService.deleteLandByIds(ids));
+		return toAjax(houseService.deleteHouseByIds(ids));
 	}
 	/**
 	 * 查看资产管理
@@ -116,39 +117,37 @@ public class LandController extends BaseController
 	@GetMapping("/check/{id}")
 	public String check(@PathVariable("id") Integer id, ModelMap mmap)
 	{
-		Asset land = landService.selectLandById(id);
-		mmap.put("land", land);
+		Asset house = houseService.selectHouseById(id);
+		mmap.put("house", house);
 		return prefix + "/check";
 	}
 
 	/**
 	 *校检资产名称
 	 */
-	@PostMapping("/checkAssetName")
+	@PostMapping("/checkAssetNameUnique")
 	@ResponseBody
-	public String checkAssetName(Asset land){
+	public String checkAssetName(Asset house){
 		String flag = "0";
-		if(StringUtils.isNotNull(land)){
-			flag = landService.checkAssetName(land);
+		if(StringUtils.isNotNull(house)){
+			flag = houseService.checkAssetName(house);
 		}
 		return flag;
 	}
+
 
 	/**
 	 *校检资产编号
 	 */
-	@PostMapping("/checkAssetNumber")
+	@PostMapping("/checkAssetNumberUnique")
 	@ResponseBody
-	public String checkAssetNumber(Asset land){
+	public String checkAssetNumber(Asset house){
 		String flag = "0";
-		if(StringUtils.isNotNull(land)){
-			flag = landService.checkAssetNumber(land);
+		if(StringUtils.isNotNull(house)){
+			flag = houseService.checkAssetNumber(house);
 		}
 		return flag;
 	}
-
-
-
 
 
 }

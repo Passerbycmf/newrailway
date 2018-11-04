@@ -1,7 +1,6 @@
 package zjnu.newrailway.project.system.service;
 
 import zjnu.newrailway.project.system.bean.Asset;
-
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ import java.util.List;
  * @author cmf
  * @date 2018-11-01
  */
-public interface ILandService
+public interface IHouseService
 {
 	/**
      * 查询资产管理信息
@@ -18,31 +17,31 @@ public interface ILandService
      * @param id 资产管理ID
      * @return 资产管理信息
      */
-	public Asset selectLandById(Integer id);
+	public Asset selectHouseById(Integer id);
 	
 	/**
      * 查询资产管理列表
      * 
-     * @param land 资产管理信息
+     * @param house 资产管理信息
      * @return 资产管理集合
      */
-	public List<Asset> selectLandList(Asset land);
+	public List<Asset> selectHouseList(Asset house);
 	
 	/**
      * 新增资产管理
      * 
-     * @param land 资产管理信息
+     * @param house 资产管理信息
      * @return 结果
      */
-	public int insertLand(Asset land);
+	public int insertHouse(Asset house);
 	
 	/**
      * 修改资产管理
      * 
-     * @param land 资产管理信息
+     * @param House 资产管理信息
      * @return 结果
      */
-	public int updateLand(Asset land);
+	public int updateHouse(Asset House);
 		
 	/**
      * 删除资产管理信息
@@ -50,19 +49,21 @@ public interface ILandService
      * @param ids 需要删除的数据ID
      * @return 结果
      */
-	public int deleteLandByIds(String ids);
+	public int deleteHouseByIds(String ids);
 
 	/**
 	 * 校检资产名称
-	 * @param land 资产管理信息
+	 * @param house 资产管理信息
 	 * @return 结果
 	 */
-	public 	String checkAssetName(Asset land);
+	public 	String checkAssetName(Asset house);
 
 	/**
 	 * 校检资产编号
-	 * @param land 资产管理信息
+	 * @param house 资产管理信息
 	 * @return 结果
 	 */
-    public String checkAssetNumber(Asset land);
+    public String checkAssetNumber(Asset house);
+
+
 }

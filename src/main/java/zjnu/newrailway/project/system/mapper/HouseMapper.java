@@ -10,7 +10,7 @@ import java.util.List;
  * @date 2018-11-01
  */
 
-public interface LandMapper
+public interface HouseMapper
 {
 	/**
      * 查询资产管理信息
@@ -18,31 +18,31 @@ public interface LandMapper
      * @param id 资产管理ID
      * @return 资产管理信息
      */
-	public Asset selectLandById(Integer id);
+	public Asset selectHouseById(Integer id);
 	
 	/**
      * 查询资产管理列表
      * 
-     * @param land 资产管理信息
+     * @param house 资产管理信息
      * @return 资产管理集合
      */
-	public List<Asset> selectLandList(Asset land);
+	public List<Asset> selectHouseList(Asset house);
 	
 	/**
      * 新增资产管理
      * 
-     * @param land 资产管理信息
+     * @param house 资产管理信息
      * @return 结果
      */
-	public int insertLand(Asset land);
+	public int insertHouse(Asset house);
 	
 	/**
      * 修改资产管理
      * 
-     * @param land 资产管理信息
+     * @param house 资产管理信息
      * @return 结果
      */
-	public int updateLand(Asset land);
+	public int updateHouse(Asset house);
 	
 	/**
      * 删除资产管理
@@ -50,7 +50,7 @@ public interface LandMapper
      * @param id 资产管理ID
      * @return 结果
      */
-	public int deleteLandById(Integer id);
+	public int deleteHouseById(Integer id);
 	
 	/**
      * 批量删除资产管理
@@ -58,14 +58,14 @@ public interface LandMapper
      * @param ids 需要删除的数据ID
      * @return 结果
      */
-	public int deleteLandByIds(String[] ids);
+	public int deleteHouseByIds(String[] ids);
 
 	/**
 	 *
 	 * @param assetName
 	 * @return 结果
 	 */
-	public Asset checkAssetName(String assetName);
+	public 	Asset checkAssetName(String assetName);
 
 	/**
 	 *
@@ -73,4 +73,6 @@ public interface LandMapper
 	 * @return 结果
 	 */
 	public Asset checkAssetNumber(Integer assetNumber);
+
+
 }

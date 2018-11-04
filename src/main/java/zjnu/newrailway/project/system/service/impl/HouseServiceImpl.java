@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zjnu.newrailway.common.constant.UserConstants;
 import zjnu.newrailway.common.utils.StringUtils;
+import zjnu.newrailway.project.system.mapper.HouseMapper;
 import zjnu.newrailway.project.system.bean.Asset;
-import zjnu.newrailway.project.system.mapper.LandMapper;
-import zjnu.newrailway.project.system.service.ILandService;
+import zjnu.newrailway.project.system.service.IHouseService;
 import zjnu.newrailway.common.utils.Convert;
+
+
 
 /**
  * 资产管理 服务层实现
@@ -17,9 +19,9 @@ import zjnu.newrailway.common.utils.Convert;
  * @date 2018-11-01
  */
 @Service
-public class ILandServiceImpl implements ILandService {
+public class HouseServiceImpl implements IHouseService {
 	@Autowired
-	private LandMapper landMapper;
+	private HouseMapper houseMapper;
 
 	/**
 	 * 查询资产管理信息
@@ -28,41 +30,41 @@ public class ILandServiceImpl implements ILandService {
 	 * @return 资产管理信息
 	 */
 	@Override
-	public Asset selectLandById(Integer id) {
-		return landMapper.selectLandById(id);
+	public Asset selectHouseById(Integer id) {
+		return houseMapper.selectHouseById(id);
 	}
 
 	/**
 	 * 查询资产管理列表
 	 *
-	 * @param land 资产管理信息
+	 * @param house 资产管理信息
 	 * @return 资产管理集合
 	 */
 	@Override
-	public List<Asset> selectLandList(Asset land) {
-		return landMapper.selectLandList(land);
+	public List<Asset> selectHouseList(Asset house) {
+		return houseMapper.selectHouseList(house);
 	}
 
 	/**
 	 * 新增资产管理
 	 *
-	 * @param land 资产管理信息
+	 * @param house 资产管理信息
 	 * @return 结果
 	 */
 	@Override
-	public int insertLand(Asset land) {
-		return landMapper.insertLand(land);
+	public int insertHouse(Asset house) {
+		return houseMapper.insertHouse(house);
 	}
 
 	/**
 	 * 修改资产管理
 	 *
-	 * @param land 资产管理信息
+	 * @param house 资产管理信息
 	 * @return 结果
 	 */
 	@Override
-	public int updateLand(Asset land) {
-		return landMapper.updateLand(land);
+	public int updateHouse(Asset house) {
+		return houseMapper.updateHouse(house);
 	}
 
 	/**
@@ -72,19 +74,19 @@ public class ILandServiceImpl implements ILandService {
 	 * @return 结果
 	 */
 	@Override
-	public int deleteLandByIds(String ids) {
-		return landMapper.deleteLandByIds(Convert.toStrArray(ids));
+	public int deleteHouseByIds(String ids) {
+		return houseMapper.deleteHouseByIds(Convert.toStrArray(ids));
 	}
 
 	/**
 	 * 校检资产名称
 	 *
-	 * @param land
+	 * @param house
 	 * @return 结果
 	 */
 	@Override
-	public String checkAssetName(Asset land) {
-		Asset management = landMapper.checkAssetName(land.getAssetName());
+	public String checkAssetName(Asset house) {
+		Asset management = houseMapper.checkAssetName(house.getAssetName());
 		if (StringUtils.isNotNull(management)) {
 			return UserConstants.TYPE_NOT_UNIQUE;
 		}
@@ -94,17 +96,18 @@ public class ILandServiceImpl implements ILandService {
 	/**
 	 * 校检资产编号
 	 *
-	 * @param land
+	 * @param house
 	 * @return 结果
 	 */
 	@Override
-	public String checkAssetNumber(Asset land) {
-		Asset management = landMapper.checkAssetNumber(land.getAssetNumber());
+	public String checkAssetNumber(Asset house) {
+		Asset management = houseMapper.checkAssetNumber(house.getAssetNumber());
 		if (StringUtils.isNotNull(management)) {
 			return UserConstants.TYPE_NOT_UNIQUE;
 		}
 		return UserConstants.TYPE_UNIQUE;
 
 	}
+
 }
 

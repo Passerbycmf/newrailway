@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="zjnu.newrailway.project.system.mapper.LandMapper">
+<mapper namespace="zjnu.newrailway.project.system.mapper.HouseMapper">
     
-    <resultMap type="Asset" id="LandResult">
+    <resultMap type="Asset" id="AssetResult">
         <result property="id"    column="id"    />
         <result property="assetName"    column="asset_name"    />
         <result property="assetNumber"    column="asset_number"    />
@@ -25,32 +25,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="assetDifference"    column="asset_difference"    />
     </resultMap>
 	
-	<sql id="selectLandVo">
+	<sql id="selectHouseVo">
         select id, asset_name, asset_number, asset_translation, asset_area, asset_location, police_station, fire_brigade, asset_type, squatter_house, legacy, asset_deliver, satelite_fix, ownership_certificate, aerial_map, live_pic, safe_certificate, asset_difference from sys_asset_management
     </sql>
 	
-    <select id="selectLandList" parameterType="Asset" resultMap="LandResult">
-        <include refid="selectLandVo"/>
-      where asset_difference = 1
+    <select id="selectHouseList" parameterType="Asset" resultMap="AssetResult">
+        <include refid="selectHouseVo"/>
+        where asset_difference = 0
     </select>
-
-
-    <select id="selectLandById" parameterType="Integer" resultMap="LandResult">
-        <include refid="selectLandVo"/>
+    
+    <select id="selectHouseById" parameterType="Integer" resultMap="AssetResult">
+        <include refid="selectHouseVo"/>
         where id = #{id}
     </select>
 
-    <select id="checkAssetName" parameterType="String" resultMap="LandResult">
+    <select id="checkAssetName" parameterType="String" resultMap="AssetResult">
         SELECT * FROM sys_asset_management
         WHERE asset_name = #{assetName}
     </select>
 
-    <select id="checkAssetNumber" parameterType="Integer" resultMap="LandResult">
+    <select id="checkAssetNumber" parameterType="Integer" resultMap="AssetResult">
         SELECT * FROM sys_asset_management
         WHERE asset_number = #{assetNumber}
     </select>
 
-    <insert id="insertLand" parameterType="Asset">
+    <select id="checkNumber" parameterType="Integer" resultMap="AssetResult">
+        SELECT * FROM sys_asset_management
+        WHERE asset_number = #{assetNumber}
+    </select>
+
+    <insert id="insertHouse" parameterType="Asset">
         insert into sys_asset_management
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != '' ">id,</if>
@@ -94,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 	 
-    <update id="updateLand" parameterType="Asset">
+    <update id="updateHouse" parameterType="Asset">
         update sys_asset_management
         <trim prefix="SET" suffixOverrides=",">
             <if test="assetName != null  and assetName != ''  ">asset_name = #{assetName},</if>
@@ -118,11 +122,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
-	<delete id="deleteLandById" parameterType="Integer">
+	<delete id="deleteHouseById" parameterType="Integer">
         delete from sys_asset_management where id = #{id}
     </delete>
 	
-    <delete id="deleteLandByIds" parameterType="String">
+    <delete id="deleteHouseByIds" parameterType="String">
         delete from sys_asset_management where id in 
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
