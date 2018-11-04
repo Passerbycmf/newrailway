@@ -123,6 +123,4 @@ public class RepairProjectsController extends BaseController
 		return prefix + "/detail";
 	}
 
-
-
 }

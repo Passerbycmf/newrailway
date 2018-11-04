@@ -5507,8 +5507,8 @@ del {
     }
 
     20% {
-        -webkit-transform: scaleY (1);
-        transform: scaleY (1);
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
     }
 }
 
@@ -5563,25 +5563,26 @@ del {
 
     50% {
         /* Hack to make FF rotate in the right direction */
-        -webkit-transform: translateX(42px)  translateY(42px)  rotate(-179deg);
-        transform: translateX(42px)  translateY(42px)  rotate(-179deg);
+        -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+        transform: translateX(42px) translateY(42px) rotate(-179deg);
     }
 
-50 .1 % {
-    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
-    transform: translateX(42px) translateY(42px) rotate(-180deg);
+    50.1% {
+        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+        transform: translateX(42px) translateY(42px) rotate(-180deg);
+    }
+
+    75% {
+        -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0 .5);
+        transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0 .5);
+    }
+
+    100% {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
 }
 
-75% {
-    -webkit-transform: translateX(0px)  translateY(42px)  rotate(-270deg)  scale(0 .5 );
-    transform: translateX(0px)  translateY(42px)  rotate(-270deg)  scale(0 .5 );
-}
-
-100% {
-    -webkit-transform: rotate(-360deg);
-    transform: rotate(-360deg);
-}
-}
 
 @keyframes sk-wanderingCubeMove {
     25% {
@@ -7345,5 +7346,11 @@ body.skin-yellow {
     color: #333333!important;
     background-color: #ffffff!important;
     border-color: #cccccc!important;
+}
+
+.dt{
+    top:120px;
+    position: absolute;
+
 }
 

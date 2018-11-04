@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    <div class="container-div">
+		<div class="btn-group hidden-xs" id="toolbar" role="group">
+			<a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" shiro:hasPermission="system:rent:add">
+				<i class="fa fa-plus"></i> 新增
+			</a>
+			<a class="btn btn-outline btn-danger btn-rounded" onclick="$.operate.batRemove()" shiro:hasPermission="system:rent:remove">
+				<i class="fa fa-trash-o"></i> 删除
+			</a>
+		</div>
+			
+		<div class="col-sm-12 select-info table-striped">
+			<table id="bootstrap-table" data-mobile-responsive="true"></table>
+		</div>
+    </div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:rent:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:rent:remove')}]];
+        var prefix = ctx + "system/rent"
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                modalName: "承租项点",
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'id', 
+					title : '序号'
+				},
+				{
+					field : 'assetName',
+					title : '对应资产名称'
+				},
+				{
+					field : 'rentName', 
+					title : '承租方单位或个人名称' 
+				},
+				{
+					field : 'area',
+					title : '面积（平方米）'
+				},
+				{
+					field : 'telephone',
+					title : '联系电话'
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="detail(\'' + row.id + '\')"><i class="fa fa-remove"></i>详情</a>');
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('  ');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+
+        function detail(id) {
+			url = prefix + "/detail/" + id;
+            $.modal.open("详情" + $.table._option.modalName, url);
+        }
+    </script>
+</body>
+</html>

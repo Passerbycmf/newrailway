@@ -137,11 +137,30 @@
                         }
                     }
                 },
-
+                assetNumber:{
+                    required:true,
+                    remote: {
+                        url: prefix + "/checkAssetNumber",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "assetNumber" : function() {
+                                return $("input[name='assetNumber']").val();
+                            }
+                        },
+                        dataFilter: function(data, type) {
+                            if (data == "0") return true;
+                            else return false;
+                        }
+                    }
+                },
             }	,
             messages: {
                 "assetName": {
                     remote: "该资产名称已经存在，请重新输入"
+                },
+                "assetNumber": {
+                    remote: "该资产编号已经存在，请重新输入"
                 }
             },
 

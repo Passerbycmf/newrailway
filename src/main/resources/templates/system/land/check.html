@@ -4,7 +4,7 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-    <form class="form-horizontal m" id="form-land-edit" th:object="${land}">
+    <form class="form-horizontal m" id="form-house-edit" th:object="${land}">
         <input id="id" name="id" th:field="*{id}"  type="hidden">
         <div class="form-group">
             <label class="col-sm-3 control-label">资产名称：</label>
@@ -99,7 +99,7 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">安全结构证明（文件）：</label>
             <div class="col-sm-8">
-                <input id="safeCertificate" name="safeCertificate" th:field="*{safeCertificate}" class="form-control" type="text"readonly="readonly">
+                <input id="safeCertificate" name="safeCertificate" th:field="*{safeCertificate}" class="form-control" type="text" readonly="readonly">
             </div>
         </div>
         <div class="form-group">
@@ -110,18 +110,7 @@
     </form>
 </div>
 <div th:include="include::footer"></div>
-<script type="text/javascript">
-    var prefix = ctx + "system/land"
-    $("#form-land-edit").validate({
-        rules:{
-            xxxx:{
-                required:true,
-            },
-        },
-        submitHandler: function(form) {
-            $.operate.save(prefix + "/edit", $('#form-land-edit').serialize());
-        }
-    });
+
 </script>
 </body>
 </html>

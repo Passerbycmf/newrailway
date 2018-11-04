@@ -17,7 +17,7 @@ import zjnu.newrailway.common.utils.Convert;
  * @date 2018-11-01
  */
 @Service
-public class ILandServiceImpl implements ILandService {
+public class LandServiceImpl implements ILandService {
 	@Autowired
 	private LandMapper landMapper;
 

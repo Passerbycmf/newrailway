@@ -6,7 +6,7 @@
     <div class="container-div">
 		<div class="btn-group hidden-xs" id="toolbar" role="group">
 			<a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" shiro:hasPermission="system:house:add" >
-				<i class="fa fa-plus"></i> 添加土地
+				<i class="fa fa-plus"></i> 添加房屋
 			</a>
 			<a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" >
 				<i class="fa fa-plus"></i> 查询
@@ -102,6 +102,7 @@
                 $.modal.open("查看" + $.table._option.modalName, url);
 
         }
+
     </script>
 </body>
 </html>
