@@ -25,15 +25,15 @@ import java.util.List;
  * @author cmf
  */
 @Controller
-@RequestMapping("/system/dict")
+@RequestMapping("/monitor/dict")
 public class DictTypeController extends BaseController
 {
-    private String prefix = "system/dict/type";
+    private String prefix = "monitor/dict/type";
 
     @Autowired
     private IDictTypeService dictTypeService;
 
-    @RequiresPermissions("system:dict:view")
+    @RequiresPermissions("monitor:dict:view")
     @GetMapping()
     public String dictType()
     {
@@ -41,7 +41,7 @@ public class DictTypeController extends BaseController
     }
 
     @PostMapping("/list")
-    @RequiresPermissions("system:dict:list")
+    @RequiresPermissions("monitor:dict:list")
     @ResponseBody
     public TableDataInfo list(DictType dictType)
     {
@@ -51,7 +51,7 @@ public class DictTypeController extends BaseController
     }
 
     @Log(title = "字典类型", action = BusinessType.EXPORT)
-    @RequiresPermissions("system:dict:export")
+    @RequiresPermissions("monitor:dict:export")
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(DictType dictType) throws Exception
@@ -81,7 +81,7 @@ public class DictTypeController extends BaseController
      * 新增保存字典类型
      */
     @Log(title = "字典类型", action = BusinessType.INSERT)
-    @RequiresPermissions("system:dict:add")
+    @RequiresPermissions("monitor:dict:add")
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(DictType dict)
@@ -103,7 +103,7 @@ public class DictTypeController extends BaseController
      * 修改保存字典类型
      */
     @Log(title = "字典类型", action = BusinessType.UPDATE)
-    @RequiresPermissions("system:dict:edit")
+    @RequiresPermissions("monitor:dict:edit")
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(DictType dict)
@@ -112,7 +112,7 @@ public class DictTypeController extends BaseController
     }
 
     @Log(title = "字典类型", action = BusinessType.DELETE)
-    @RequiresPermissions("system:dict:remove")
+    @RequiresPermissions("monitor:dict:remove")
     @PostMapping("/remove")
     @ResponseBody
     public AjaxResult remove(String ids)
@@ -130,13 +130,13 @@ public class DictTypeController extends BaseController
     /**
      * 查询字典详细
      */
-    @RequiresPermissions("system:dict:list")
+    @RequiresPermissions("monitor:dict:list")
     @GetMapping("/detail/{dictId}")
     public String detail(@PathVariable("dictId") Integer dictId, ModelMap mmap)
     {
         mmap.put("dict", dictTypeService.selectDictTypeById(dictId));
         mmap.put("dictList", dictTypeService.selectDictTypeAll());
-        return "system/dict/data/data";
+        return "monitor/dict/data/data";
     }
 
     /**

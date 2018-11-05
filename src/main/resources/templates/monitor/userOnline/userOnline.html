@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="btn-group hidden-xs" id="toolbar" role="group">
-			<a class="btn btn-outline btn-danger btn-rounded" onclick="javascript:batchForceLogout()" shiro:hasPermission="monitor:online:batchForceLogout">
+			<a class="btn btn-outline btn-danger btn-rounded" onclick="javascript:batchForceLogout()" shiro:hasPermission="monitor:userOnline:batchForceLogout">
 				<i class="fa fa-trash-o"></i> 删除
 			</a>
 		</div>
@@ -39,6 +39,7 @@
 <div th:include="include :: footer"></div>
 <script th:inline="javascript">
     var forceFlag = [[${@permission.hasPermi('monitor:userOnline:forceLogout')}]];
+
     var prefix = ctx + "monitor/userOnline"
 
     $(function() {
@@ -59,10 +60,6 @@
                     field: 'loginName',
                     title: '登录名称',
                     sortable: true
-                },
-                {
-                    field: 'deptName',
-                    title: '部门名称'
                 },
                 {
                     field: 'ipaddr',

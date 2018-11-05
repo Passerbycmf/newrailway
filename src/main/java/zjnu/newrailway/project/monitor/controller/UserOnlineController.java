@@ -37,7 +37,7 @@ public class UserOnlineController extends BaseController
 	@Autowired
 	private OnlineSessionDAO onlineSessionDAO;
 
-	@RequiresPermissions("monitor:online:view")
+	@RequiresPermissions("monitor:userOnline:view")
 	@GetMapping()
 	public String userOnline()
 	{
@@ -47,7 +47,7 @@ public class UserOnlineController extends BaseController
 	/**
 	 * 查询在线用户记录列表
 	 */
-	@RequiresPermissions("monitor:online:list")
+	@RequiresPermissions("monitor:userOnline:list")
 	@PostMapping("/list")
 	@ResponseBody
 	public TableDataInfo list(UserOnline userOnline)
@@ -60,7 +60,7 @@ public class UserOnlineController extends BaseController
 	/**
 	 *在线用户
 	 */
-	@RequiresPermissions("monitor:online:batchForceLogout")
+	@RequiresPermissions("monitor:userOnline:batchForceLogout")
 	@Log(title = "在线用户", action = BusinessType.FORCE)
 	@PostMapping("/batchForceLogout")
 	@ResponseBody
@@ -94,7 +94,7 @@ public class UserOnlineController extends BaseController
 	 * @param sessionId
 	 * @return
 	 */
-	@RequiresPermissions("monitor:online:forceLogout")
+	@RequiresPermissions("monitor:userOnline:forceLogout")
 	@Log(title = "在线用户", action = BusinessType.FORCE)
 	@PostMapping("/forceLogout")
 	@ResponseBody
@@ -132,7 +132,7 @@ public class UserOnlineController extends BaseController
 	/**
 	 * 新增保存在线用户记录
 	 */
-	@RequiresPermissions("monitor:online:add")
+	@RequiresPermissions("monitor:userOnline:add")
 	@Log(title = "在线用户记录", action = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
@@ -155,7 +155,7 @@ public class UserOnlineController extends BaseController
 	/**
 	 * 修改保存在线用户记录
 	 */
-	@RequiresPermissions("monitor:online:edit")
+	@RequiresPermissions("monitor:userOnline:edit")
 	@Log(title = "在线用户记录", action = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
@@ -167,7 +167,7 @@ public class UserOnlineController extends BaseController
 	/**
 	 * 删除在线用户记录
 	 */
-	@RequiresPermissions("monitor:online:remove")
+	@RequiresPermissions("monitor:userOnline:remove")
 	@Log(title = "在线用户记录", action = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody

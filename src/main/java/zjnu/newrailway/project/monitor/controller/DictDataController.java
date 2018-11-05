@@ -24,15 +24,15 @@ import java.util.List;
  * @author cmf
  */
 @Controller
-@RequestMapping("/system/dict/data")
+@RequestMapping("/monitor/dict/data")
 public class DictDataController extends BaseController
 {
-    private String prefix = "system/dict/data";
+    private String prefix = "monitor/dict/data";
 
     @Autowired
     private IDictDataService dictDataService;
 
-    @RequiresPermissions("system:dict:view")
+    @RequiresPermissions("monitor:dict:view")
     @GetMapping()
     public String dictData()
     {
@@ -40,7 +40,7 @@ public class DictDataController extends BaseController
     }
 
     @PostMapping("/list")
-    @RequiresPermissions("system:dict:list")
+    @RequiresPermissions("monitor:dict:list")
     @ResponseBody
     public TableDataInfo list(DictData dictData)
     {
@@ -50,7 +50,7 @@ public class DictDataController extends BaseController
     }
 
     @Log(title = "字典数据", action = BusinessType.EXPORT)
-    @RequiresPermissions("system:dict:export")
+    @RequiresPermissions("monitor:dict:export")
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(DictData dictData) throws Exception
@@ -81,7 +81,7 @@ public class DictDataController extends BaseController
      * 新增保存字典类型
      */
     @Log(title = "字典数据", action = BusinessType.INSERT)
-    @RequiresPermissions("system:dict:add")
+    @RequiresPermissions("monitor:dict:add")
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(DictData dict)
@@ -103,7 +103,7 @@ public class DictDataController extends BaseController
      * 修改保存字典类型
      */
     @Log(title = "字典数据", action = BusinessType.UPDATE)
-    @RequiresPermissions("system:dict:edit")
+    @RequiresPermissions("monitor:dict:edit")
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(DictData dict)
@@ -112,7 +112,7 @@ public class DictDataController extends BaseController
     }
 
     @Log(title = "字典数据", action = BusinessType.DELETE)
-    @RequiresPermissions("system:dict:remove")
+    @RequiresPermissions("monitor:dict:remove")
     @PostMapping("/remove")
     @ResponseBody
     public AjaxResult remove(String ids)

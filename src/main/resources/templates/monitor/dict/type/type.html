@@ -31,7 +31,7 @@
 							</li>
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-							    <a class="btn btn-success btn-rounded btn-sm" onclick="$.table.exportExcel()" shiro:hasPermission="system:dict:export"><i class="fa fa-download"></i>&nbsp;导出</a>
+							    <a class="btn btn-success btn-rounded btn-sm" onclick="$.table.exportExcel()" shiro:hasPermission="monitor:dict:export"><i class="fa fa-download"></i>&nbsp;导出</a>
 							</li>
 						</ul>
 					</div>
@@ -39,10 +39,10 @@
 			</div>
 			
 	       <div class="btn-group hidden-xs" id="toolbar" role="group">
-	            <a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" shiro:hasPermission="system:dict:add">
+	            <a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" shiro:hasPermission="monitor:dict:add">
 	                <i class="fa fa-plus"></i> 新增
 	            </a>
-				<a class="btn btn-outline btn-danger btn-rounded" onclick="$.operate.batRemove()" shiro:hasPermission="system:dict:remove">
+				<a class="btn btn-outline btn-danger btn-rounded" onclick="$.operate.batRemove()" shiro:hasPermission="monitor:dict:remove">
 		            <i class="fa fa-trash-o"></i> 删除
 		        </a>
 	        </div>
@@ -54,11 +54,11 @@
 	</div>
 	<div th:include="include :: footer"></div>
 	<script th:inline="javascript">
-		var editFlag = [[${@permission.hasPermi('system:dict:edit')}]];
-		var listFlag = [[${@permission.hasPermi('system:dict:list')}]];
-		var removeFlag = [[${@permission.hasPermi('system:dict:remove')}]];
+		var editFlag = [[${@permission.hasPermi('monitor:dict:edit')}]];
+		var listFlag = [[${@permission.hasPermi('monitor:dict:list')}]];
+		var removeFlag = [[${@permission.hasPermi('monitor:dict:remove')}]];
 		var datas = [[${@dict.getType('sys_normal_disable')}]];
-		var prefix = ctx + "system/dict"
+		var prefix = ctx + "monitor/dict"
 
 		$(function() {
 		    var options = {
