@@ -14,6 +14,7 @@ import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.RepairProjects;
 import zjnu.newrailway.project.system.bean.model.TestRepair;
+import zjnu.newrailway.project.system.mapper.RepairProjectsMapper;
 import zjnu.newrailway.project.system.service.IRepairProjectsService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
@@ -77,7 +78,7 @@ public class RepairProjectsController extends BaseController
 	}
 
 	/**
-	 * 测试添加修缮信息
+	 * 添加修缮信息
 	 * @param testRepair
 	 * @return
 	 */
@@ -85,7 +86,27 @@ public class RepairProjectsController extends BaseController
 	@ResponseBody
 	public AjaxResult testAdd(TestRepair testRepair) {
 		return toAjax(repairProjectsService.addTest(testRepair));
+	}
 
+	/**
+	 * 新增相应资产名称的修缮信息
+	 */
+	@GetMapping("/toAdd")
+	public String toAdd()
+	{
+
+		return prefix + "/repairAdd";
+	}
+
+	/**
+	 * 添加相应资产名称的修缮信息
+	 * @param testRepair
+	 * @return
+	 */
+	@PostMapping("/addRepair")
+	@ResponseBody
+	public AjaxResult addRepair(TestRepair testRepair){
+		return  toAjax(repairProjectsService.addRepair(testRepair));
 	}
 
 

@@ -107,12 +107,21 @@
         values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{startTime},#{finshTime},#{constructionUnit},#{budget},#{picture},#{prePicture})
     </insert>
 
+    <insert id="addRepair" parameterType="RepairProjects">
+        insert into sys_repair_projects(id,asset_name,repair_name,repair_number,repair_plan,start_time,finsh_time,construction_unit,budget,picture,pre_picture)
+        values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{startTime},#{finshTime},#{constructionUnit},#{budget},#{picture},#{prePicture})
+    </insert>
+
     <select id="selectRepairProjectsAll" resultMap="RepairProjectsResult">
         <include refid="selectRepairProjectsVo"/>
     </select>
-    <select id="selectRepairProjectsByAssetName"
-            parameterType="RepairProjects" resultMap="RepairProjectsResult">
+
+    <select id="selectRepairProjectsByAssetName" parameterType="RepairProjects" resultMap="RepairProjectsResult">
         select * from sys_repair_projects where asset_name = #{assetName}
+    </select>
+
+    <select id="getAssetName" parameterType="String" resultType="java.lang.String">
+        select asset_name from sys_repair_projects where id = #{id}
     </select>
 
 </mapper>

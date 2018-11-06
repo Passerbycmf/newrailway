@@ -11,7 +11,7 @@
                     <li>
 
                         <select id="assetName" name="assetName">
-                            <option th:each="repair : ${assetList}" th:text="${repair['repairName']}" th:value="${repair['assetName']}" th:field="*{repair.assetName}"></option>
+                            <option th:each="repair : ${assetList}" th:text="${repair['assetName']}" th:value="${repair['assetName']}" th:field="*{repair.assetName}"></option>
                         </select>
                     </li>
                     <li class="time">
@@ -105,7 +105,7 @@
     }
 
     function add() {
-        url = prefix+"/add",
+        url = prefix+"/toAdd",
         $.modal.open("添加" + $.table._option.modalName, url);
 
     }

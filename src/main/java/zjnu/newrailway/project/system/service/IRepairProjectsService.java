@@ -54,13 +54,17 @@ public interface IRepairProjectsService
 	public int deleteRepairProjectsByIds(String ids);
 
 	/**
-	 * 测试添加修缮信息
+	 * 添加修缮信息
 	 * @param testRepair
 	 * @return
 	 */
     int addTest(TestRepair testRepair);
 
-    List<RepairProjects> selectRepairProjectsAll();
+	/**
+	 * 查询全部修缮信息
+	 * @return
+	 */
+	List<RepairProjects> selectRepairProjectsAll();
 
 	/**
 	 * 根据资产名称查询修缮信息
@@ -68,4 +72,11 @@ public interface IRepairProjectsService
 	 * @return
 	 */
 	List<RepairProjects> selectRepairProjectsByAssetName(String assetName);
+
+	/**
+	 * 添加相应资产信息的修缮信息
+	 * @param testRepair
+	 * @return
+	 */
+	int addRepair(TestRepair testRepair);
 }

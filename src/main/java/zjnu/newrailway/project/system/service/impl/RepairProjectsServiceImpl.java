@@ -83,7 +83,7 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 	}
 
 	/**
-	 * 测试添加修缮信息
+	 * 添加修缮信息
 	 * @param testRepair
 	 * @return
 	 */
@@ -103,6 +103,10 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 		return repairProjectsMapper.insert(repairProjects);
 	}
 
+	/**
+	 * 查询全部修缮信息
+	 * @return
+	 */
 	@Override
 	public List<RepairProjects> selectRepairProjectsAll() {
 		return repairProjectsMapper.selectRepairProjectsAll();
@@ -116,6 +120,27 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 	@Override
 	public  List<RepairProjects> selectRepairProjectsByAssetName(String assetName){
 		return repairProjectsMapper.selectRepairProjectsByAssetName(assetName);
+	}
+
+	/**
+	 * 添加相应资产信息的修缮信息
+	 * @param testRepair
+	 * @return
+	 */
+	@Override
+	public int addRepair(TestRepair testRepair) {
+		RepairProjects repairProjects = new RepairProjects();
+		repairProjects.setAssetName(repairProjectsMapper.getAssetName());
+		repairProjects.setRepairNumber(testRepair.getRepairNumber());
+		repairProjects.setRepairName(testRepair.getRepairName());
+		repairProjects.setRepairPlan(testRepair.getRepairPlan());
+		repairProjects.setBudget(testRepair.getBudget());
+		repairProjects.setConstructionUnit(testRepair.getConstructionUnit());
+		repairProjects.setPicture(testRepair.getPicture());
+		repairProjects.setPrePicture(testRepair.getPrePicture());
+		repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
+		repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
+		return repairProjectsMapper.addRepair(repairProjects);
 	}
 
 }

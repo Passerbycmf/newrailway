@@ -60,12 +60,16 @@ public interface RepairProjectsMapper
 	public int deleteRepairProjectsByIds(String[] ids);
 
 	/**
-	 * 测试增加修缮信息
+	 * 增加修缮信息
 	 * @param repairProjects
 	 * @return
 	 */
     int insert(RepairProjects repairProjects);
 
+	/**
+	 * 查询全部修缮信息
+	 * @return
+	 */
 	List<RepairProjects> selectRepairProjectsAll();
 
 	/**
@@ -74,4 +78,17 @@ public interface RepairProjectsMapper
 	 * @return
 	 */
     List<RepairProjects> selectRepairProjectsByAssetName(String assetName);
+
+	/**
+	 * 获得资产信息的资产名
+	 * @return
+	 */
+	String getAssetName();
+
+	/**
+	 * 添加相应资产名称的修缮信息
+	 * @param repairProjects
+	 * @return
+	 */
+	int addRepair(RepairProjects repairProjects);
 }
