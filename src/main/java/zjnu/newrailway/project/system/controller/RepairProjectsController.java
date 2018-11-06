@@ -34,6 +34,9 @@ public class RepairProjectsController extends BaseController
 	
 	@Autowired
 	private IRepairProjectsService repairProjectsService;
+
+	@Autowired
+	private RepairProjectsMapper repairProjectsMapper;
 	
 	@RequiresPermissions("system:repairProjects:view")
 	@GetMapping()
@@ -89,24 +92,23 @@ public class RepairProjectsController extends BaseController
 	}
 
 	/**
-	 * 新增相应资产名称的修缮信息
+	 * 新增相应资产名称的修缮项目
 	 */
 	@GetMapping("/toAdd")
 	public String toAdd()
 	{
-
 		return prefix + "/repairAdd";
 	}
 
 	/**
-	 * 添加相应资产名称的修缮信息
+	 * 资产名称写死
 	 * @param testRepair
 	 * @return
 	 */
-	@PostMapping("/addRepair")
+	@RequestMapping("/addRepair")
 	@ResponseBody
 	public AjaxResult addRepair(TestRepair testRepair){
-		return  toAjax(repairProjectsService.addRepair(testRepair));
+		return toAjax(repairProjectsService.addRepair(testRepair));
 	}
 
 

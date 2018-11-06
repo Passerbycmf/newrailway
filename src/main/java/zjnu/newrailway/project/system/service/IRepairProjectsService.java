@@ -74,7 +74,7 @@ public interface IRepairProjectsService
 	List<RepairProjects> selectRepairProjectsByAssetName(String assetName);
 
 	/**
-	 * 添加相应资产信息的修缮信息
+	 * 资产名称写死
 	 * @param testRepair
 	 * @return
 	 */

@@ -12,12 +12,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">资产名称：</label>
-            <div class="col-sm-8">
-                <input id="assetName" name="assetName"  class="form-control" type="text">
-            </div>
-        </div>
-        <div class="form-group">
             <label class="col-sm-3 control-label">改造修缮名称：</label>
             <div class="col-sm-8">
                 <input id="repairName" name="repairName" class="form-control" type="text">
@@ -75,7 +69,7 @@
 </div>
 <div th:include="include::footer"></div>
 <script type="text/javascript">
-    var prefix = ctx + "system/repairProjects"
+    var prefix = ctx + "system/repairProjects";
     $("#form-repairProjects-add").validate({
         rules:{
             xxxx:{

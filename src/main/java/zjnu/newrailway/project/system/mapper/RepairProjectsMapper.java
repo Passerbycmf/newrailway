@@ -80,15 +80,14 @@ public interface RepairProjectsMapper
     List<RepairProjects> selectRepairProjectsByAssetName(String assetName);
 
 	/**
-	 * 获得资产信息的资产名
+	 * 获得资产名称
 	 * @return
 	 */
 	String getAssetName();
 
 	/**
-	 * 添加相应资产名称的修缮信息
-	 * @param repairProjects
+	 * 获得资产类型
 	 * @return
 	 */
-	int addRepair(RepairProjects repairProjects);
+	Integer getDifference();
 }

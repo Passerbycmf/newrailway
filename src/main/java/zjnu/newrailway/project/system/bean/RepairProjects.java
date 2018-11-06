@@ -17,7 +17,7 @@ public class RepairProjects extends BaseEntity
 
 	/**  */
 	private Integer id;
-	/**  */
+	/** 资产名称 */
 	private String assetName;
 	/** 资产编号 */
 	private Integer repairNumber;
@@ -37,6 +37,8 @@ public class RepairProjects extends BaseEntity
 	private String prePicture;
 	/** 改造后照片 */
 	private String picture;
+	/**  */
+	private Integer difference;
 
 	public void setId(Integer id)
 	{
@@ -137,6 +139,15 @@ public class RepairProjects extends BaseEntity
 	{
 		return picture;
 	}
+	public void setDifference(Integer difference)
+	{
+		this.difference = difference;
+	}
+
+	public Integer getDifference()
+	{
+		return difference;
+	}
 
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -151,6 +162,7 @@ public class RepairProjects extends BaseEntity
 				.append("budget", getBudget())
 				.append("prePicture", getPrePicture())
 				.append("picture", getPicture())
+				.append("difference", getDifference())
 				.toString();
 	}
 }

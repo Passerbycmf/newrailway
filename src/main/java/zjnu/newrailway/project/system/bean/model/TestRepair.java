@@ -38,6 +38,8 @@ public class TestRepair extends BaseEntity
 	private String prePicture;
 	/** 改造后照片 */
 	private String picture;
+	/**资产类型*/
+	private Integer difference;
 
 	public void setId(Integer id) 
 	{
@@ -138,6 +140,11 @@ public class TestRepair extends BaseEntity
 		return picture;
 	}
 
+	public Integer getDifference() {
+		return difference;
+	}
 
-
+	public void setDifference(Integer difference) {
+		this.difference = difference;
+	}
 }

@@ -16,6 +16,7 @@
         <result property="budget"    column="budget"    />
         <result property="prePicture"    column="pre_picture"    />
         <result property="picture"    column="picture"    />
+        <result property="difference"    column="difference"    />
     </resultMap>
 
     <sql id="selectRepairProjectsVo">
@@ -58,6 +59,7 @@
             <if test="budget != null and budget != '' ">budget,</if>
             <if test="prePicture != null and prePicture != '' ">pre_picture,</if>
             <if test="picture != null and picture != '' ">picture,</if>
+            <if test="difference != null and difference != '' ">difference,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null and id != ''">#{id},</if>
@@ -71,6 +73,7 @@
             <if test="budget != null and budget != ''">#{budget},</if>
             <if test="prePicture != null and prePicture != ''">#{prePicture},</if>
             <if test="picture != null and picture != ''">#{picture},</if>
+            <if test="difference != null and difference != '' ">difference,</if>
         </trim>
     </insert>
 
@@ -87,6 +90,7 @@
             <if test="budget != null  and budget != ''  ">budget = #{budget},</if>
             <if test="prePicture != null  and prePicture != ''  ">pre_picture = #{prePicture},</if>
             <if test="picture != null  and picture != ''  ">picture = #{picture},</if>
+            <if test="difference != null  and difference != ''  ">difference = #{difference},</if>
         </trim>
         where id = #{id}
     </update>
@@ -103,13 +107,8 @@
     </delete>
 
     <insert id="insert" parameterType="RepairProjects">
-        insert into sys_repair_projects(id,asset_name,repair_name,repair_number,repair_plan,start_time,finsh_time,construction_unit,budget,picture,pre_picture)
-        values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{startTime},#{finshTime},#{constructionUnit},#{budget},#{picture},#{prePicture})
-    </insert>
-
-    <insert id="addRepair" parameterType="RepairProjects">
-        insert into sys_repair_projects(id,asset_name,repair_name,repair_number,repair_plan,start_time,finsh_time,construction_unit,budget,picture,pre_picture)
-        values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{startTime},#{finshTime},#{constructionUnit},#{budget},#{picture},#{prePicture})
+        insert into sys_repair_projects(id,asset_name,repair_name,repair_number,repair_plan,start_time,finsh_time,construction_unit,budget,pre_picture,picture,difference)
+        values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{startTime},#{finshTime},#{constructionUnit},#{budget},#{prePicture},#{picture},#{difference})
     </insert>
 
     <select id="selectRepairProjectsAll" resultMap="RepairProjectsResult">
@@ -121,7 +120,10 @@
     </select>
 
     <select id="getAssetName" parameterType="String" resultType="java.lang.String">
-        select asset_name from sys_repair_projects where id = #{id}
+        select distinct r.asset_name from sys_repair_projects r
+        LEFT JOIN sys_asset_management a ON r.difference =a.asset_difference
+        where a.asset_difference = 1;
     </select>
+
 
 </mapper>

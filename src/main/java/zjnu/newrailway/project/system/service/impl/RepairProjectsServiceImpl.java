@@ -100,6 +100,7 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
        repairProjects.setPrePicture(testRepair.getPrePicture());
        repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
        repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
+       repairProjects.setDifference(1);
 		return repairProjectsMapper.insert(repairProjects);
 	}
 
@@ -123,7 +124,7 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 	}
 
 	/**
-	 * 添加相应资产信息的修缮信息
+	 * 资产名称写死
 	 * @param testRepair
 	 * @return
 	 */
@@ -140,7 +141,9 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 		repairProjects.setPrePicture(testRepair.getPrePicture());
 		repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
 		repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
-		return repairProjectsMapper.addRepair(repairProjects);
+		repairProjects.setDifference(1);
+		return repairProjectsMapper.insert(repairProjects);
 	}
+
 
 }

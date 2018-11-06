@@ -9,7 +9,6 @@
             <div class="select-list">
                 <ul>
                     <li>
-
                         <select id="assetName" name="assetName">
                             <option th:each="repair : ${assetList}" th:text="${repair['assetName']}" th:value="${repair['assetName']}" th:field="*{repair.assetName}"></option>
                         </select>

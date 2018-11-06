@@ -159,7 +159,7 @@ public class LandController extends BaseController
 	 * @return
 	 */
 	@GetMapping("/repair/{id}")
-	public  String repair(@PathVariable("id") Integer id,ModelMap map){
+	public String repair(@PathVariable("id") Integer id,ModelMap map){
 		map.put("repair",repairProjectsService.selectRepairProjectsById(id));
         map.put("assetList",repairProjectsService.selectRepairProjectsAll());
 		return "system/land/repairList";
