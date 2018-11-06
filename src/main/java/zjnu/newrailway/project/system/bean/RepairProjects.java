@@ -7,16 +7,18 @@ import java.util.Date;
 
 /**
  * 修缮项目表 sys_repair_projects
- * 
+ *
  * @author cmf
- * @date 2018-11-01
+ * @date 2018-11-06
  */
 public class RepairProjects extends BaseEntity
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**  */
 	private Integer id;
+	/**  */
+	private String assetName;
 	/** 资产编号 */
 	private Integer repairNumber;
 	/** 改造修缮名称 */
@@ -36,109 +38,119 @@ public class RepairProjects extends BaseEntity
 	/** 改造后照片 */
 	private String picture;
 
-	public void setId(Integer id) 
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
 
-	public Integer getId() 
+	public Integer getId()
 	{
 		return id;
 	}
-	public void setRepairNumber(Integer repairNumber) 
+	public void setAssetName(String assetName)
+	{
+		this.assetName = assetName;
+	}
+
+	public String getAssetName()
+	{
+		return assetName;
+	}
+	public void setRepairNumber(Integer repairNumber)
 	{
 		this.repairNumber = repairNumber;
 	}
 
-	public Integer getRepairNumber() 
+	public Integer getRepairNumber()
 	{
 		return repairNumber;
 	}
-	public void setRepairName(String repairName) 
+	public void setRepairName(String repairName)
 	{
 		this.repairName = repairName;
 	}
 
-	public String getRepairName() 
+	public String getRepairName()
 	{
 		return repairName;
 	}
-	public void setRepairPlan(String repairPlan) 
+	public void setRepairPlan(String repairPlan)
 	{
 		this.repairPlan = repairPlan;
 	}
 
-	public String getRepairPlan() 
+	public String getRepairPlan()
 	{
 		return repairPlan;
 	}
-	public void setStartTime(Date startTime) 
+	public void setStartTime(Date startTime)
 	{
 		this.startTime = startTime;
 	}
 
-	public Date getStartTime() 
+	public Date getStartTime()
 	{
 		return startTime;
 	}
-	public void setFinshTime(Date finshTime) 
+	public void setFinshTime(Date finshTime)
 	{
 		this.finshTime = finshTime;
 	}
 
-	public Date getFinshTime() 
+	public Date getFinshTime()
 	{
 		return finshTime;
 	}
-	public void setConstructionUnit(String constructionUnit) 
+	public void setConstructionUnit(String constructionUnit)
 	{
 		this.constructionUnit = constructionUnit;
 	}
 
-	public String getConstructionUnit() 
+	public String getConstructionUnit()
 	{
 		return constructionUnit;
 	}
-	public void setBudget(String budget) 
+	public void setBudget(String budget)
 	{
 		this.budget = budget;
 	}
 
-	public String getBudget() 
+	public String getBudget()
 	{
 		return budget;
 	}
-	public void setPrePicture(String prePicture) 
+	public void setPrePicture(String prePicture)
 	{
 		this.prePicture = prePicture;
 	}
 
-	public String getPrePicture() 
+	public String getPrePicture()
 	{
 		return prePicture;
 	}
-	public void setPicture(String picture) 
+	public void setPicture(String picture)
 	{
 		this.picture = picture;
 	}
 
-	public String getPicture() 
+	public String getPicture()
 	{
 		return picture;
 	}
 
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("repairNumber", getRepairNumber())
-            .append("repairName", getRepairName())
-            .append("repairPlan", getRepairPlan())
-            .append("startTime", getStartTime())
-            .append("finshTime", getFinshTime())
-            .append("constructionUnit", getConstructionUnit())
-            .append("budget", getBudget())
-            .append("prePicture", getPrePicture())
-            .append("picture", getPicture())
-            .toString();
-    }
+	public String toString() {
+		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+				.append("id", getId())
+				.append("assetName", getAssetName())
+				.append("repairNumber", getRepairNumber())
+				.append("repairName", getRepairName())
+				.append("repairPlan", getRepairPlan())
+				.append("startTime", getStartTime())
+				.append("finshTime", getFinshTime())
+				.append("constructionUnit", getConstructionUnit())
+				.append("budget", getBudget())
+				.append("prePicture", getPrePicture())
+				.append("picture", getPicture())
+				.toString();
+	}
 }

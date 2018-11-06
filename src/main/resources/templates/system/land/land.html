@@ -102,6 +102,13 @@
                 $.modal.open("查看" + $.table._option.modalName, url);
 
         }
+
+        function repair(id) {
+			url = prefix + "/repair/" + id;
+            createMenuItem(url, "修缮信息");
+      }
+
+
     </script>
 </body>
 </html>

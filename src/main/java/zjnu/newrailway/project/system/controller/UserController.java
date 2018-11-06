@@ -94,6 +94,7 @@ public class UserController extends BaseController
 	public String edit(@PathVariable("userId") Integer userId, ModelMap mmap)
 	{
 		User user = userService.selectUserById(userId);
+
 		mmap.put("user", user);
 		mmap.put("roles",roleService.selectRolesByUserId(userId));
 		return prefix + "/edit";

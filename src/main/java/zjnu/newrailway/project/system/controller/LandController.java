@@ -18,6 +18,7 @@ import zjnu.newrailway.project.system.service.ILandService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
 import zjnu.newrailway.framework.web.BaseController;
+import zjnu.newrailway.project.system.service.IRepairProjectsService;
 
 /**
  * 资产管理 信息操作处理
@@ -33,6 +34,9 @@ public class LandController extends BaseController
 	
 	@Autowired
 	private ILandService landService;
+
+	@Autowired
+	private IRepairProjectsService repairProjectsService;
 	
 	@RequiresPermissions("system:land:view")
 	@GetMapping()
@@ -110,6 +114,7 @@ public class LandController extends BaseController
 	{		
 		return toAjax(landService.deleteLandByIds(ids));
 	}
+
 	/**
 	 * 查看资产管理
 	 */
@@ -147,8 +152,18 @@ public class LandController extends BaseController
 		return flag;
 	}
 
-
-
+	/**
+	 * 查看修缮信息
+	 * @param id
+	 * @param map
+	 * @return
+	 */
+	@GetMapping("/repair/{id}")
+	public  String repair(@PathVariable("id") Integer id,ModelMap map){
+		map.put("repair",repairProjectsService.selectRepairProjectsById(id));
+        map.put("assetList",repairProjectsService.selectRepairProjectsAll());
+		return "system/land/repairList";
+	}
 
 
 }

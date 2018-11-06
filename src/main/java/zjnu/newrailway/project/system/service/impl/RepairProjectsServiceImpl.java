@@ -3,6 +3,8 @@ package zjnu.newrailway.project.system.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import zjnu.newrailway.common.utils.DateUtil;
+import zjnu.newrailway.project.system.bean.model.TestRepair;
 import zjnu.newrailway.project.system.mapper.RepairProjectsMapper;
 import zjnu.newrailway.project.system.bean.RepairProjects;
 import zjnu.newrailway.project.system.service.IRepairProjectsService;
@@ -79,5 +81,41 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 	{
 		return repairProjectsMapper.deleteRepairProjectsByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 测试添加修缮信息
+	 * @param testRepair
+	 * @return
+	 */
+	@Override
+	public int addTest(TestRepair  testRepair) {
+       RepairProjects repairProjects = new RepairProjects();
+       repairProjects.setAssetName(testRepair.getAssetName());
+       repairProjects.setRepairNumber(testRepair.getRepairNumber());
+       repairProjects.setRepairName(testRepair.getRepairName());
+       repairProjects.setRepairPlan(testRepair.getRepairPlan());
+       repairProjects.setBudget(testRepair.getBudget());
+       repairProjects.setConstructionUnit(testRepair.getConstructionUnit());
+       repairProjects.setPicture(testRepair.getPicture());
+       repairProjects.setPrePicture(testRepair.getPrePicture());
+       repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
+       repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
+		return repairProjectsMapper.insert(repairProjects);
+	}
+
+	@Override
+	public List<RepairProjects> selectRepairProjectsAll() {
+		return repairProjectsMapper.selectRepairProjectsAll();
+	}
+
+	/**
+	 * 根据资产名称查询修缮信息
+	 * @param assetName
+	 * @return
+	 */
+	@Override
+	public  List<RepairProjects> selectRepairProjectsByAssetName(String assetName){
+		return repairProjectsMapper.selectRepairProjectsByAssetName(assetName);
+	}
+
 }

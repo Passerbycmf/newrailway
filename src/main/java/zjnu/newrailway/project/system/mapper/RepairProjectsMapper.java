@@ -58,5 +58,20 @@ public interface RepairProjectsMapper
      * @return 结果
      */
 	public int deleteRepairProjectsByIds(String[] ids);
-	
+
+	/**
+	 * 测试增加修缮信息
+	 * @param repairProjects
+	 * @return
+	 */
+    int insert(RepairProjects repairProjects);
+
+	List<RepairProjects> selectRepairProjectsAll();
+
+	/**
+	 * 根据资产名称查询修缮信息
+	 * @param assetName
+	 * @return
+	 */
+    List<RepairProjects> selectRepairProjectsByAssetName(String assetName);
 }

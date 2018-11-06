@@ -1,6 +1,8 @@
 package zjnu.newrailway.project.system.service;
 
 import zjnu.newrailway.project.system.bean.RepairProjects;
+import zjnu.newrailway.project.system.bean.model.TestRepair;
+
 import java.util.List;
 
 /**
@@ -50,5 +52,20 @@ public interface IRepairProjectsService
      * @return 结果
      */
 	public int deleteRepairProjectsByIds(String ids);
-	
+
+	/**
+	 * 测试添加修缮信息
+	 * @param testRepair
+	 * @return
+	 */
+    int addTest(TestRepair testRepair);
+
+    List<RepairProjects> selectRepairProjectsAll();
+
+	/**
+	 * 根据资产名称查询修缮信息
+	 * @param assetName
+	 * @return
+	 */
+	List<RepairProjects> selectRepairProjectsByAssetName(String assetName);
 }

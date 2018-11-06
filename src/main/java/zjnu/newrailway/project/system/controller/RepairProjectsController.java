@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.RepairProjects;
+import zjnu.newrailway.project.system.bean.model.TestRepair;
 import zjnu.newrailway.project.system.service.IRepairProjectsService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
@@ -70,9 +71,23 @@ public class RepairProjectsController extends BaseController
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(RepairProjects repairProjects)
-	{		
+	{
+
 		return toAjax(repairProjectsService.insertRepairProjects(repairProjects));
 	}
+
+	/**
+	 * 测试添加修缮信息
+	 * @param testRepair
+	 * @return
+	 */
+	@RequestMapping("/testAdd")
+	@ResponseBody
+	public AjaxResult testAdd(TestRepair testRepair) {
+		return toAjax(repairProjectsService.addTest(testRepair));
+
+	}
+
 
 	/**
 	 * 修改修缮项目

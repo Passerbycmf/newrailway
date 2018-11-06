@@ -51,6 +51,7 @@ public class LandServiceImpl implements ILandService {
 	 */
 	@Override
 	public int insertLand(Asset land) {
+
 		return landMapper.insertLand(land);
 	}
 
