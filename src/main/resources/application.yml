@@ -59,9 +59,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/newrailway?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
-    username: root
-    password: 1234
+    url: jdbc:mysql://47.100.194.53/newrailway?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: dbadmin
+    password: db@admin.
     # 用户名
     initialSize: 1
     minIdle: 3
