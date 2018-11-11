@@ -37,8 +37,10 @@ public class RepairProjects extends BaseEntity
 	private String prePicture;
 	/** 改造后照片 */
 	private String picture;
-	/**  */
+	/** 资产类别 */
 	private Integer difference;
+	/** 类别名称 */
+	private String lable;
 
 	public void setId(Integer id)
 	{
@@ -149,6 +151,14 @@ public class RepairProjects extends BaseEntity
 		return difference;
 	}
 
+	public String getLable() {
+		return lable;
+	}
+
+	public void setLable(String lable) {
+		this.lable = lable;
+	}
+
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 				.append("id", getId())
@@ -163,6 +173,7 @@ public class RepairProjects extends BaseEntity
 				.append("prePicture", getPrePicture())
 				.append("picture", getPicture())
 				.append("difference", getDifference())
+				.append("lable", getLable())
 				.toString();
 	}
 }

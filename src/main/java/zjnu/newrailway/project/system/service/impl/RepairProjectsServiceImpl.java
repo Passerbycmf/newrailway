@@ -100,7 +100,7 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
        repairProjects.setPrePicture(testRepair.getPrePicture());
        repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
        repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
-       repairProjects.setDifference(1);
+       repairProjects.setDifference(testRepair.getDifference());
 		return repairProjectsMapper.insert(repairProjects);
 	}
 
@@ -144,6 +144,8 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 		repairProjects.setDifference(1);
 		return repairProjectsMapper.insert(repairProjects);
 	}
+
+
 
 
 }

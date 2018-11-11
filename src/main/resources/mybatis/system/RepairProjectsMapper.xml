@@ -20,7 +20,7 @@
     </resultMap>
 
     <sql id="selectRepairProjectsVo">
-        select id, asset_name, repair_number, repair_name, repair_plan, start_time, finsh_time, construction_unit, budget, pre_picture, picture from sys_repair_projects
+        select id, asset_name, repair_number, repair_name, repair_plan, start_time, finsh_time, construction_unit, budget, pre_picture, picture,difference from sys_repair_projects
     </sql>
 
     <select id="selectRepairProjectsList" parameterType="RepairProjects" resultMap="RepairProjectsResult">
@@ -37,6 +37,7 @@
             <if test="budget != null and budget != ''"> and budget = #{budget}</if>
             <if test="prePicture != null and prePicture != ''"> and pre_picture = #{prePicture}</if>
             <if test="picture != null and picture != ''"> and picture = #{picture}</if>
+            <if test="difference != null and difference != ''"> and difference = #{difference}</if>
         </where>
     </select>
 
@@ -111,12 +112,13 @@
         values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{start_time},#{finshTime},#{constructionUnit},#{budget},#{prePicture},#{picture},#{difference})
     </insert>
 
-    <select id="selectRepairProjectsAll" resultMap="RepairProjectsResult">
+    <select id="selectRepairProjectsAll"  resultMap="RepairProjectsResult">
         <include refid="selectRepairProjectsVo"/>
     </select>
 
     <select id="selectRepairProjectsByAssetName" parameterType="RepairProjects" resultMap="RepairProjectsResult">
-        select * from sys_repair_projects where asset_name = #{assetName}
+        <include refid="selectRepairProjectsVo"/>
+         where asset_name = #{assetName}
     </select>
 
     <select id="getAssetName" parameterType="String" resultType="java.lang.String">

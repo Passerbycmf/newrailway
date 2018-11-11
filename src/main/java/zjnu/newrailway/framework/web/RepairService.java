@@ -23,13 +23,15 @@ public class RepairService
     /**
      * 根据资产名称查询数据信息
      *
-     * @param assetName 字典类型
+     * @param assetName 资产名称
      * @return 参数键值
      */
     public List<RepairProjects> getAssetName(String assetName)
     {
         return repairService.selectRepairProjectsByAssetName(assetName);
     }
+
+
 
 
 }

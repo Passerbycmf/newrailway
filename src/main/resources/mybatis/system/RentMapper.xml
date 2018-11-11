@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectRentVo"/>
        <where>
         <if test="rentName != null and rentName != ''">
-            AND rent_name like concat('%', #{rentname}, '%')
+            AND rent_name like concat('%', #{rentName}, '%')
         </if>
        </where>
     </select>

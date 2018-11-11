@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
+import zjnu.newrailway.framework.web.RepairService;
 import zjnu.newrailway.project.system.bean.Asset;
 import zjnu.newrailway.project.system.service.IHouseService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
 import zjnu.newrailway.framework.web.BaseController;
+import zjnu.newrailway.project.system.service.IRepairProjectsService;
 
 /**
  * 资产管理 信息操作处理
@@ -33,6 +35,9 @@ public class HouseController extends BaseController
 	
 	@Autowired
 	private IHouseService houseService;
+
+	@Autowired
+	private IRepairProjectsService repairProjectsService;
 	
 	@RequiresPermissions("system:house:view")
 	@GetMapping()
@@ -149,5 +154,17 @@ public class HouseController extends BaseController
 		return flag;
 	}
 
+	/**
+	 * 查看修缮信息
+	 * @param id
+	 * @param map
+	 * @return
+	 */
+	@GetMapping("/repair/{id}")
+	public String repair(@PathVariable("id") Integer id,ModelMap map){
+		map.put("repair",repairProjectsService.selectRepairProjectsById(id));
+		map.put("assetList",repairProjectsService.selectRepairProjectsAll());
+		return "system/land/repairList";
+	}
 
 }

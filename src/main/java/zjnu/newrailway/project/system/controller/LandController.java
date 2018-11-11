@@ -178,7 +178,7 @@ public class LandController extends BaseController
 	@GetMapping("/develop/{id}")
 	public String develop(@PathVariable("id")Integer id,ModelMap map){
 		map.put("develop",developProjectsService.selectDevelopProjectsById(id));
-		map.put("assetList",developProjectsService.selectDevelopProjectsAll());
+		map.put("developList",developProjectsService.selectDevelopProjectsAll());
 		return "system/land/developList";
 	}
 

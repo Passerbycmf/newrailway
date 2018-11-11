@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
-<head th:include="include :: header"></head>
+<head th:include="include :: header">
+</head>
 <body class="gray-bg">
     <div class="container-div">
 		<div class="col-sm-12 select-info">
@@ -29,7 +30,6 @@
 				</div>
 			</form>
 		</div>
-			
 		<div class="col-sm-12 select-info table-striped">
 			<table id="bootstrap-table" data-mobile-responsive="true"></table>
 		</div>
@@ -102,7 +102,7 @@
 
         function add() {
             url = prefix+"/add",
-                $.modal.open("添加" + $.table._option.modalName, url);
+			$.modal.open("添加" + $.table._option.modalName, url);
         }
 
 	</script>

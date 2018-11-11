@@ -46,6 +46,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectDevelopProjectsAll" resultMap="DevelopProjectsResult">
         <include refid="selectDevelopProjectsVo"/>
+        <if test="developName != null and developName != ''">
+            AND develop_name like concat('%', #{developName}, '%')
+        </if>
     </select>
 
     <select id="selectDevelopProjectsByAssetName" parameterType="DevelopProjects" resultMap="DevelopProjectsResult">

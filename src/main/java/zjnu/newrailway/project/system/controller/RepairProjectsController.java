@@ -64,7 +64,7 @@ public class RepairProjectsController extends BaseController
 	@GetMapping("/add")
 	public String add()
 	{
-	    return prefix + "/add";
+		return prefix + "/add";
 	}
 	
 	/**
@@ -159,6 +159,15 @@ public class RepairProjectsController extends BaseController
 		RepairProjects repairProjects = repairProjectsService.selectRepairProjectsById(id);
 		mmap.put("repairProjects", repairProjects);
 		return prefix + "/detail";
+	}
+
+	/**
+	 * 新增修缮项目改造前图片
+	 */
+	@GetMapping("/addToPicture")
+	public String addToPicture()
+	{
+		return prefix + "/addToPicture";
 	}
 
 }

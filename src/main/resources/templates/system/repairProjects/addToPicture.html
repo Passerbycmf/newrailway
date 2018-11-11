@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head >
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <link href="/ajax/libs/photoManage/bootstrap-fileinput/css/fileinput.min.css" th:href="@{/ajax/libs/photoManage/bootstrap-fileinput/css/fileinput.min.css}" rel="stylesheet"/>
+    <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="/ajax/libs/photoManage/bootstrap-fileinput/css/fileinput.css" th:href="@{/ajax/libs/photoManage/bootstrap-fileinput/css/fileinput.css}" rel="stylesheet"/>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/ajax/libs/photoManage/bootstrap-fileinput/js/fileinput.js}"></script>
+    <script th:src="@{/ajax/libs/photoManage/bootstrap-fileinput/js/fileinput_locale_zh.js}"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <form id="form" action="" method="post" enctype="multipart/form-data">
+        <div class="row form-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading" align="center">
+                    <label style="text-align: center;font-size: 18px;">改造前图片上传</label>
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-12">
+                        <input id="input-id" name="file" multiple type="file" data-show-caption="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(function () {
+        initFileInput("input-id");
+    });
+    function initFileInput(ctrlName) {
+        var control = $('#' + ctrlName);
+        control.fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: "upload/UpLoadImage", //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png','doc','docx','pdf','ppt','pptx','txt'],//接收的文件后缀
+            uploadExtraData:{"id": 1, "fileName":'123.mp3'},
+            uploadAsync: true, //默认异步上传
+            showUpload: true, //是否显示上传按钮
+            showRemove : true, //显示移除按钮
+            showPreview : true, //是否显示预览
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            maxFileCount: 5, //允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount:true,
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+
+        }).on('filepreupload', function(event, data, previewId, index) {     //上传中
+            console.log('文件正在上传');
+        }).on("fileuploaded", function (event, data, previewId, index) {    //一个文件上传成功
+            var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+            console.log(response);//打印出返回的json
+            console.log(response.status);//打印出路径
+        }).on('fileerror', function(event, data, msg) {  //一个文件上传失败
+            console.log('文件上传失败！'+data.status);
+        })
+    }
+
+</script>
+</body>
+</html>

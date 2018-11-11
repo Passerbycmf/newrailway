@@ -9,8 +9,8 @@
             <div class="select-list">
                 <ul>
                     <li>
-                    <select id="assetName" name="assetName">
-                        <option th:each="develop : ${assetList}" th:text="${develop['assetName']}" th:value="${develop['assetName']}" th:field="*{develop.assetName}"></option>
+                    <select id="assetName" name="developName">
+                        <option th:each="develop : ${developList}" th:text="${develop['assetName']}" th:value="${develop['assetName']}" th:field="*{develop.assetName}"></option>
                     </select>
                     </li>
                     <li class="time">

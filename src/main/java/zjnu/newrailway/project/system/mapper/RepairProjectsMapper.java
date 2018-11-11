@@ -14,10 +14,10 @@ public interface RepairProjectsMapper
 	/**
      * 查询修缮项目信息
      * 
-     * @param id 修缮项目ID
+     * @param difference 修缮项目ID
      * @return 修缮项目信息
      */
-	public RepairProjects selectRepairProjectsById(Integer id);
+	public RepairProjects selectRepairProjectsById(Integer difference);
 	
 	/**
      * 查询修缮项目列表
@@ -84,6 +84,7 @@ public interface RepairProjectsMapper
 	 * @return
 	 */
 	String getAssetName();
+
 
 
 }
