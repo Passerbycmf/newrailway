@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Rent;
@@ -119,5 +120,21 @@ public class RentController extends BaseController
 		mmap.put("rent", rent);
 		return prefix + "/detail";
 	}
+
+	/**
+	 * 资产名称唯一性校验
+	 * @param rent
+	 * @return
+	 */
+	@PostMapping("/checkAssetNameUnique")
+	@ResponseBody
+	public String checkAssetNameUnique(Rent rent){
+		String uniqueFlag = "0";
+		if(StringUtils.isNotNull(rent)){
+			uniqueFlag = rentService.checkAssetNameUnique(rent);
+		}
+		return uniqueFlag;
+	}
+
 	
 }

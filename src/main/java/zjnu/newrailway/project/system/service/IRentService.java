@@ -50,5 +50,11 @@ public interface IRentService
      * @return 结果
      */
 	public int deleteRentByIds(String ids);
-	
+
+	/**
+	 * 资产名称唯一性校验
+	 * @param rent
+	 * @return
+	 */
+    String checkAssetNameUnique(Rent rent);
 }

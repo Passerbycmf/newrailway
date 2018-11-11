@@ -21,23 +21,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
     <select id="selectRentList" parameterType="Rent" resultMap="RentResult">
         <include refid="selectRentVo"/>
-        <where>  
-            <if test="id != null and id != ''"> and id = #{id}</if>
-             <if test="assetName != null and assetName != ''"> and asset_name = #{assetName}</if>
-             <if test="address != null and address != ''"> and address = #{address}</if>
-             <if test="rentName != null and rentName != ''"> and rent_name = #{rentName}</if>
-             <if test="area != null and area != ''"> and area = #{area}</if>
-             <if test="number != null and number != ''"> and number = #{number}</if>
-             <if test="telephone != null and telephone != ''"> and telephone = #{telephone}</if>
-             <if test="remark != null and remark != ''"> and remark = #{remark}</if>
-         </where>
+       <where>
+        <if test="rentName != null and rentName != ''">
+            AND rent_name like concat('%', #{rentname}, '%')
+        </if>
+       </where>
     </select>
     
     <select id="selectRentById" parameterType="Integer" resultMap="RentResult">
         <include refid="selectRentVo"/>
         where id = #{id}
     </select>
-        
+    <select id="checkAssetNameUnique" resultType="zjnu.newrailway.project.system.bean.Rent">
+        <include refid="selectRentVo"/>
+        where asset_name=#{assetName}
+    </select>
+
     <insert id="insertRent" parameterType="Rent">
         insert into sys_rent
 		<trim prefix="(" suffix=")" suffixOverrides=",">

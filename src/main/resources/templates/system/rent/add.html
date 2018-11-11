@@ -59,15 +59,84 @@
     <script type="text/javascript">
 		var prefix = ctx + "system/rent"
 		$("#form-rent-add").validate({
-			rules:{
-				xxxx:{
-					required:true,
-				},
-			},
+            rules:{
+                assetName:{
+                    required:true,
+                    remote: {
+                        url: prefix + "/checkAssetNameUnique",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "assetName" : function() {
+                                return $("input[name='assetName']").val();
+                            }
+                        },
+                        dataFilter: function(data, type) {
+                            if (data == "0") return true;
+                            else return false;
+                        }
+                    }
+                },
+                telephone:{
+                    required:true,
+                    remote: {
+                        url: prefix + "/checkAssetNameUnique",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "telephone" : function() {
+                                return $("input[name='telephone']").val();
+                            }
+                        },
+                        dataFilter: function() {
+                            var telephone= $("#telephone").val();
+                            if(/^1[34578]\d{9}$/.test(telephone)){ return true; }
+                            else return false;
+                        }
+                    }
+                },
+                number:{
+                    required:true,
+                    remote: {
+                        url: prefix + "/checkAssetNameUnique",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "number" : function() {
+                                return $("input[name='number']").val();
+                            }
+                        },
+                        dataFilter: function() {
+                            var number= $("#number").val();
+                            if(/^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/.test(number)){ return true; }
+                            else return false;
+                        }
+                    }
+                },
+            },
+            messages: {
+                "assetName": {
+                    remote: "资产已经存在"
+                },
+                "telephone": {
+                    remote: "手机格式不正确"
+                },
+                "number": {
+                    remote: "身份证格式不正确"
+                }
+            },
+
+
 			submitHandler: function(form) {
 				$.operate.save(prefix + "/add", $('#form-rent-add').serialize());
 			}
 		});
+        // $("#telephone").blur(function()
+		// { var telephone= $("#telephone").val();
+		// if(/^1[34578]\d{9}$/.test(telephone)){ return true; }
+		// else{ alert("请输入正确的手机号");
+		// $("#sub").prop("disabled",true); } });
+
 	</script>
 </body>
 </html>

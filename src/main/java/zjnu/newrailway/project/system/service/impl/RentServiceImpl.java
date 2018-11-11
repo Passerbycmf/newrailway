@@ -3,6 +3,8 @@ package zjnu.newrailway.project.system.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import zjnu.newrailway.common.constant.UserConstants;
+import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.project.system.mapper.RentMapper;
 import zjnu.newrailway.project.system.bean.Rent;
 import zjnu.newrailway.project.system.service.IRentService;
@@ -79,5 +81,20 @@ public class RentServiceImpl implements IRentService
 	{
 		return rentMapper.deleteRentByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 资产名称唯一性校验
+	 * @param rent
+	 * @return
+	 */
+    @Override
+    public String checkAssetNameUnique(Rent rent) {
+		Rent info = rentMapper.checkAssetNameUnique(rent.getAssetName());
+		if(StringUtils.isNotNull(info)){
+			return UserConstants.ASSETNAME_NOT_UNIQUE;
+		}
+		return UserConstants.ASSETNAME_UNIQUE;
+	}
+
+
 }

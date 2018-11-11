@@ -58,5 +58,11 @@ public interface RentMapper
      * @return 结果
      */
 	public int deleteRentByIds(String[] ids);
-	
+
+	/**
+	 * 资产名称唯一性校验
+	 * @param assetName
+	 * @return
+	 */
+   public Rent checkAssetNameUnique(String assetName);
 }
