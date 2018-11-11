@@ -74,11 +74,16 @@ public interface IRepairProjectsService
 	List<RepairProjects> selectRepairProjectsByAssetName(String assetName);
 
 	/**
-	 * 资产名称写死
+	 * 土地资产名称写死
 	 * @param testRepair
 	 * @return
 	 */
 	int addRepair(TestRepair testRepair);
 
-
+	/**
+	 * 房屋资产名称写死
+	 * @param testRepair
+	 * @return
+	 */
+	int addRepairHouse(TestRepair testRepair);
 }

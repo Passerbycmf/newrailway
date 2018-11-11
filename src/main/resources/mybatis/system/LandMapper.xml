@@ -32,6 +32,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectLandList" parameterType="Asset" resultMap="LandResult">
         <include refid="selectLandVo"/>
       where asset_difference = 1
+        <if test="assetName != null and assetName != ''">
+            AND asset_name like concat('%', #{assetName}, '%')
+        </if>
     </select>
 
 

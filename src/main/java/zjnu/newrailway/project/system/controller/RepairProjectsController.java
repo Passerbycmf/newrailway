@@ -92,7 +92,7 @@ public class RepairProjectsController extends BaseController
 	}
 
 	/**
-	 * 新增相应资产名称的修缮项目
+	 * 土地新增相应资产名称的修缮项目
 	 */
 	@GetMapping("/toAdd")
 	public String toAdd()
@@ -101,7 +101,16 @@ public class RepairProjectsController extends BaseController
 	}
 
 	/**
-	 * 资产名称写死
+	 * 房屋新增相应资产名称的修缮项目
+	 */
+	@GetMapping("/toHouseAdd")
+	public String toHouseAdd()
+	{
+		return prefix + "/repairHouseAdd";
+	}
+
+	/**
+	 * 土地资产名称写死
 	 * @param testRepair
 	 * @return
 	 */
@@ -111,6 +120,16 @@ public class RepairProjectsController extends BaseController
 		return toAjax(repairProjectsService.addRepair(testRepair));
 	}
 
+	/**
+	 * 房屋资产名称写死
+	 * @param testRepair
+	 * @return
+	 */
+	@RequestMapping("/addRepairHouse")
+	@ResponseBody
+	public AjaxResult addRepairHouse(TestRepair testRepair){
+		return toAjax(repairProjectsService.addRepairHouse(testRepair));
+	}
 
 	/**
 	 * 修改修缮项目

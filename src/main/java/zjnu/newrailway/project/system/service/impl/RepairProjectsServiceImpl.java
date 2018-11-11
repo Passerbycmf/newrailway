@@ -145,7 +145,22 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 		return repairProjectsMapper.insert(repairProjects);
 	}
 
-
+	@Override
+	public int addRepairHouse(TestRepair testRepair) {
+		RepairProjects repairProjects = new RepairProjects();
+		repairProjects.setAssetName(repairProjectsMapper.getHouseAssetName());
+		repairProjects.setRepairNumber(testRepair.getRepairNumber());
+		repairProjects.setRepairName(testRepair.getRepairName());
+		repairProjects.setRepairPlan(testRepair.getRepairPlan());
+		repairProjects.setBudget(testRepair.getBudget());
+		repairProjects.setConstructionUnit(testRepair.getConstructionUnit());
+		repairProjects.setPicture(testRepair.getPicture());
+		repairProjects.setPrePicture(testRepair.getPrePicture());
+		repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
+		repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
+		repairProjects.setDifference(0);
+		return repairProjectsMapper.insert(repairProjects);
+	}
 
 
 }

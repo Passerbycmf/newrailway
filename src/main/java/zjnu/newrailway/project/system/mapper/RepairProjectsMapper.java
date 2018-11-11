@@ -80,11 +80,14 @@ public interface RepairProjectsMapper
     List<RepairProjects> selectRepairProjectsByAssetName(String assetName);
 
 	/**
-	 * 获得资产名称
+	 * 土地获得资产名称
 	 * @return
 	 */
 	String getAssetName();
 
-
-
+	/**
+	 * 房屋获得资产名称
+	 * @return
+	 */
+	String getHouseAssetName();
 }

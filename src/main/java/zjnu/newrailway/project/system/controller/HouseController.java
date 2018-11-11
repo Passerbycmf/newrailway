@@ -164,7 +164,7 @@ public class HouseController extends BaseController
 	public String repair(@PathVariable("id") Integer id,ModelMap map){
 		map.put("repair",repairProjectsService.selectRepairProjectsById(id));
 		map.put("assetList",repairProjectsService.selectRepairProjectsAll());
-		return "system/land/repairList";
+		return "system/house/repairList";
 	}
 
 }

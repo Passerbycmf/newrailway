@@ -25,17 +25,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectDevelopProjectsList" parameterType="DevelopProjects" resultMap="DevelopProjectsResult">
         <include refid="selectDevelopProjectsVo"/>
         <where>
-            <if test="id != null and id != ''"> and id = #{id}</if>
-            <if test="assetName != null and assetName != ''"> and asset_name = #{assetName}</if>
-             <if test="developName != null and developName != ''"> and develop_name = #{developName}</if>
-             <if test="stratTime != null and stratTime != ''"> and strat_time = #{stratTime}</if>
-             <if test="endTime != null and endTime != ''"> and end_time = #{endTime}</if>
-             <if test="designUnit != null and designUnit != ''"> and design_unit = #{designUnit}</if>
-             <if test="constructionUnit != null and constructionUnit != ''"> and construction_unit = #{constructionUnit}</if>
-             <if test="supervisionUnit != null and supervisionUnit != ''"> and supervision_unit = #{supervisionUnit}</if>
-             <if test="meeting != null and meeting != ''"> and meeting = #{meeting}</if>
-             <if test="approvalDocuments != null and approvalDocuments != ''"> and approval_documents = #{approvalDocuments}</if>
-            <if test="difference != null and difference != ''"> and difference = #{difference}</if>
+            <if test="assetName != null and assetName != ''">
+                AND asset_name like concat('%', #{assetName}, '%')
+            </if>
         </where>
     </select>
     
@@ -46,9 +38,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectDevelopProjectsAll" resultMap="DevelopProjectsResult">
         <include refid="selectDevelopProjectsVo"/>
-        <if test="developName != null and developName != ''">
-            AND develop_name like concat('%', #{developName}, '%')
-        </if>
     </select>
 
     <select id="selectDevelopProjectsByAssetName" parameterType="DevelopProjects" resultMap="DevelopProjectsResult">
