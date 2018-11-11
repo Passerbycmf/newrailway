@@ -58,5 +58,28 @@ public interface DevelopProjectsMapper
      * @return 结果
      */
 	public int deleteDevelopProjectsByIds(String[] ids);
-	
+
+
+	/**
+	 * 查询全部开发信息
+	 * @return
+	 */
+	public 	List<DevelopProjects> selectDevelopProjectsAll();
+
+	/**
+	 * 获得开发项目的资产名称
+	 * @param assetName
+	 * @return
+	 */
+	List<DevelopProjects> selectDevelopProjectsByAssetName(String assetName);
+
+
+	/**
+	 * 资产名称写死
+	 * @return
+	 */
+	String getAssetName();
+
+
+	int insert(DevelopProjects developProjects);
 }

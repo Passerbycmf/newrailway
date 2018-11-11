@@ -4,29 +4,23 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-    <form class="form-horizontal m" id="form-repairProjects-add">
+    <form class="form-horizontal m" id="form-developProjects-add">
         <div class="form-group">
             <label class="col-sm-3 control-label">资产编号：</label>
             <div class="col-sm-8">
-                <input id="repairNumber" name="repairNumber" class="form-control" type="text">
+                <input id="developNumber" name="developNumber" class="form-control" type="text">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">改造修缮名称：</label>
+            <label class="col-sm-3 control-label">开发项目名称：</label>
             <div class="col-sm-8">
-                <input id="repairName" name="repairName" class="form-control" type="text">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">改造修缮方案：</label>
-            <div class="col-sm-8">
-                <input id="repairPlan" name="repairPlan" class="form-control" type="text">
+                <input id="developName" name="developName" class="form-control" type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">开始时间：</label>
             <div class="col-sm-8 time">
-                <input type="text" class="time form-control" id="startTime" name="startTime" placeholder="请选择开始时间" >
+                <input type="text" class="time form-control" id="stratTime" name="stratTime" placeholder="请选择开始时间" >
             </div>
         </div>
         <div class="form-group">
@@ -36,27 +30,33 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-3 control-label">设计单位：</label>
+            <div class="col-sm-8">
+                <input id="designUnit" name="designUnit" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-3 control-label">施工单位：</label>
             <div class="col-sm-8">
                 <input id="constructionUnit" name="constructionUnit" class="form-control" type="text">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">预决算：</label>
+            <label class="col-sm-3 control-label">监理单位：</label>
             <div class="col-sm-8">
-                <input id="budget" name="budget" class="form-control" type="text">
+                <input id="supervisionUnit" name="supervisionUnit" class="form-control" type="text">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">改造前照片：</label>
+            <label class="col-sm-3 control-label">会议纪要：</label>
             <div class="col-sm-8">
-                <input id="prePicture" name="prePicture" class="form-control" type="text">
+                <input id="meeting" name="meeting" class="form-control" type="text">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">改造后照片：</label>
+            <label class="col-sm-3 control-label">批复文件：</label>
             <div class="col-sm-8">
-                <input id="picture" name="picture" class="form-control" type="text">
+                <input id="approvalDocuments" name="approvalDocuments" class="form-control" type="text">
             </div>
         </div>
         <div class="form-group">
@@ -69,15 +69,15 @@
 </div>
 <div th:include="include::footer"></div>
 <script type="text/javascript">
-    var prefix = ctx + "system/repairProjects";
-    $("#form-repairProjects-add").validate({
+    var prefix = ctx + "system/developProjects";
+    $("#form-developProjects-add").validate({
         rules:{
             xxxx:{
                 required:true,
             },
         },
         submitHandler: function(form) {
-            $.operate.save(prefix + "/addRepair", $('#form-repairProjects-add').serialize());
+            $.operate.save(prefix + "/addDevelop", $('#form-developProjects-add').serialize());
         }
     });
 </script>

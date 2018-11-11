@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="DevelopProjects" id="DevelopProjectsResult">
         <result property="id"    column="id"    />
+        <result property="assetName"    column="asset_name"    />
         <result property="developName"    column="develop_name"    />
         <result property="stratTime"    column="strat_time"    />
         <result property="endTime"    column="end_time"    />
@@ -14,16 +15,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="supervisionUnit"    column="supervision_unit"    />
         <result property="meeting"    column="meeting"    />
         <result property="approvalDocuments"    column="approval_documents"    />
+        <result property="difference"    column="difference"    />
     </resultMap>
 	
 	<sql id="selectDevelopProjectsVo">
-        select id, develop_name, strat_time, end_time, design_unit, construction_unit, supervision_unit, meeting, approval_documents from sys_develop_projects
+        select id,asset_name, develop_name, strat_time, end_time, design_unit, construction_unit, supervision_unit, meeting, approval_documents,difference from sys_develop_projects
     </sql>
 	
     <select id="selectDevelopProjectsList" parameterType="DevelopProjects" resultMap="DevelopProjectsResult">
         <include refid="selectDevelopProjectsVo"/>
-        <where>  
+        <where>
             <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="assetName != null and assetName != ''"> and asset_name = #{assetName}</if>
              <if test="developName != null and developName != ''"> and develop_name = #{developName}</if>
              <if test="stratTime != null and stratTime != ''"> and strat_time = #{stratTime}</if>
              <if test="endTime != null and endTime != ''"> and end_time = #{endTime}</if>
@@ -32,18 +35,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="supervisionUnit != null and supervisionUnit != ''"> and supervision_unit = #{supervisionUnit}</if>
              <if test="meeting != null and meeting != ''"> and meeting = #{meeting}</if>
              <if test="approvalDocuments != null and approvalDocuments != ''"> and approval_documents = #{approvalDocuments}</if>
-         </where>
+            <if test="difference != null and difference != ''"> and difference = #{difference}</if>
+        </where>
     </select>
     
     <select id="selectDevelopProjectsById" parameterType="Integer" resultMap="DevelopProjectsResult">
         <include refid="selectDevelopProjectsVo"/>
         where id = #{id}
     </select>
-        
+
+    <select id="selectDevelopProjectsAll" resultMap="DevelopProjectsResult">
+        <include refid="selectDevelopProjectsVo"/>
+    </select>
+
+    <select id="selectDevelopProjectsByAssetName" parameterType="DevelopProjects" resultMap="DevelopProjectsResult">
+        select * from sys_develop_projects where asset_name = #{assetName}
+    </select>
+    <select id="getAssetName" resultType="java.lang.String">
+        select distinct r.asset_name from sys_develop_projects r
+        LEFT JOIN sys_asset_management a ON r.id =a.id
+        where a.asset_difference = 1;
+    </select>
+
     <insert id="insertDevelopProjects" parameterType="DevelopProjects">
         insert into sys_develop_projects
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != '' ">id,</if>
+            <if test="assetName != null and assetName != '' ">asset_name,</if>
 			<if test="developName != null and developName != '' ">develop_name,</if>
 			<if test="stratTime != null and stratTime != '' ">strat_time,</if>
 			<if test="endTime != null and endTime != '' ">end_time,</if>
@@ -52,9 +70,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="supervisionUnit != null and supervisionUnit != '' ">supervision_unit,</if>
 			<if test="meeting != null and meeting != '' ">meeting,</if>
 			<if test="approvalDocuments != null and approvalDocuments != '' ">approval_documents,</if>
+            <if test="difference != null and difference != '' ">difference,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != ''">#{id},</if>
+            <if test="assetName != null and assetName != ''">#{assetName},</if>
 			<if test="developName != null and developName != ''">#{developName},</if>
 			<if test="stratTime != null and stratTime != ''">#{stratTime},</if>
 			<if test="endTime != null and endTime != ''">#{endTime},</if>
@@ -63,12 +83,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="supervisionUnit != null and supervisionUnit != ''">#{supervisionUnit},</if>
 			<if test="meeting != null and meeting != ''">#{meeting},</if>
 			<if test="approvalDocuments != null and approvalDocuments != ''">#{approvalDocuments},</if>
+            <if test="difference != null and difference != ''">#{difference},</if>
          </trim>
     </insert>
-	 
+    <insert id="insert" parameterType="DevelopProjects">
+        insert into sys_develop_projects(id,asset_name,develop_name, strat_time, end_time, design_unit, construction_unit, supervision_unit, meeting, approval_documents,difference )
+        values (#{id},#{assetName},#{developName},#{stratTime},#{endTime},#{designUnit},#{constructionUnit},#{supervisionUnit},#{meeting},#{approvalDocuments},#{difference})
+    </insert>
+
+
     <update id="updateDevelopProjects" parameterType="DevelopProjects">
         update sys_develop_projects
         <trim prefix="SET" suffixOverrides=",">
+            <if test="assetName != null  and assetName != ''  ">asset_name = #{assetName},</if>
             <if test="developName != null  and developName != ''  ">develop_name = #{developName},</if>
             <if test="stratTime != null  ">strat_time = #{stratTime},</if>
             <if test="endTime != null  ">end_time = #{endTime},</if>
@@ -77,6 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="supervisionUnit != null  and supervisionUnit != ''  ">supervision_unit = #{supervisionUnit},</if>
             <if test="meeting != null  and meeting != ''  ">meeting = #{meeting},</if>
             <if test="approvalDocuments != null  and approvalDocuments != ''  ">approval_documents = #{approvalDocuments},</if>
+            <if test="difference != null  and difference != ''  ">difference = #{difference},</if>
         </trim>
         where id = #{id}
     </update>

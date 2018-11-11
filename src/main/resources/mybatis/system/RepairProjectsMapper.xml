@@ -108,7 +108,7 @@
 
     <insert id="insert" parameterType="RepairProjects">
         insert into sys_repair_projects(id,asset_name,repair_name,repair_number,repair_plan,start_time,finsh_time,construction_unit,budget,pre_picture,picture,difference)
-        values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{startTime},#{finshTime},#{constructionUnit},#{budget},#{prePicture},#{picture},#{difference})
+        values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{start_time},#{finshTime},#{constructionUnit},#{budget},#{prePicture},#{picture},#{difference})
     </insert>
 
     <select id="selectRepairProjectsAll" resultMap="RepairProjectsResult">
@@ -121,7 +121,7 @@
 
     <select id="getAssetName" parameterType="String" resultType="java.lang.String">
         select distinct r.asset_name from sys_repair_projects r
-        LEFT JOIN sys_asset_management a ON r.difference =a.asset_difference
+        LEFT JOIN sys_asset_management a ON r.id =a.id
         where a.asset_difference = 1;
     </select>
 

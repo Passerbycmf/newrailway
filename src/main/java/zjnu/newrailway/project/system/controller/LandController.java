@@ -14,6 +14,7 @@ import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Asset;
+import zjnu.newrailway.project.system.service.IDevelopProjectsService;
 import zjnu.newrailway.project.system.service.ILandService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
@@ -37,6 +38,9 @@ public class LandController extends BaseController
 
 	@Autowired
 	private IRepairProjectsService repairProjectsService;
+
+    @Autowired
+	private IDevelopProjectsService developProjectsService;
 	
 	@RequiresPermissions("system:land:view")
 	@GetMapping()
@@ -165,5 +169,17 @@ public class LandController extends BaseController
 		return "system/land/repairList";
 	}
 
+	/**
+	 * 查看开发项目信息
+	 * @param id
+	 * @param map
+	 * @return
+	 */
+	@GetMapping("/develop/{id}")
+	public String develop(@PathVariable("id")Integer id,ModelMap map){
+		map.put("develop",developProjectsService.selectDevelopProjectsById(id));
+		map.put("assetList",developProjectsService.selectDevelopProjectsAll());
+		return "system/land/developList";
+	}
 
 }

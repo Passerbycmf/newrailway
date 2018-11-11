@@ -70,7 +70,7 @@
                         actions.push('<a class="btn btn-primary btn-xs ' + '" href="#" onclick="check(\'' + row.id + '\')"><i class="fa fa-check">查看</i></a>');
 		            	actions.push('<a class="btn btn-info btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-warning btn-xs ' + '" href="#" onclick="repair(\'' + row.id + '\')"><i class="fa fa-repair">修缮</i></a>');
-                        actions.push('<a class="btn btn-success btn-xs ' + '" href="#" onclick="check(\'' + row.id + '\')"><i class="fa fa-developing">开发</i></a>');
+                        actions.push('<a class="btn btn-success btn-xs ' + '" href="#" onclick="develop(\'' + row.id + '\')"><i class="fa fa-develop">开发</i></a>');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
 
 						return actions.join('  ');
@@ -106,6 +106,11 @@
         function repair(id) {
 			url = prefix + "/repair/" + id;
             createMenuItem(url, "修缮信息");
+      }
+
+      	function develop(id) {
+		  url = prefix + "/develop/" + id;
+		  createMenuItem(url,"开发信息");
       }
 
 

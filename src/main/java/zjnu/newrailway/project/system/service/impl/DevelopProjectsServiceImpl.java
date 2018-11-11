@@ -3,6 +3,8 @@ package zjnu.newrailway.project.system.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import zjnu.newrailway.common.utils.DateUtil;
+import zjnu.newrailway.project.system.bean.model.TestDevelop;
 import zjnu.newrailway.project.system.mapper.DevelopProjectsMapper;
 import zjnu.newrailway.project.system.bean.DevelopProjects;
 import zjnu.newrailway.project.system.service.IDevelopProjectsService;
@@ -79,5 +81,46 @@ public class DevelopProjectsServiceImpl implements IDevelopProjectsService
 	{
 		return developProjectsMapper.deleteDevelopProjectsByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 查询所有开发项目信息
+	 * @return
+	 */
+	@Override
+	public List<DevelopProjects> selectDevelopProjectsAll(){
+		return developProjectsMapper.selectDevelopProjectsAll();
+	}
+
+	/**
+	 * 获得开发项目资产名称
+	 * @param assetName
+	 * @return
+	 */
+	@Override
+	public List<DevelopProjects> selectDevelopProjectsByAssetName(String assetName) {
+		return developProjectsMapper.selectDevelopProjectsByAssetName(assetName);
+	}
+
+	/**
+	 * 资产类型、名称写死，时间从string转换
+	 * @param testDevelop
+	 * @return
+	 */
+
+	@Override
+	public int addDevelop(TestDevelop testDevelop) {
+		DevelopProjects developProjects = new DevelopProjects();
+		developProjects.setAssetName(developProjectsMapper.getAssetName());
+		developProjects.setDevelopName(testDevelop.getDevelopName());
+		developProjects.setStratTime(DateUtil.str2Date2(testDevelop.getStratTime()));
+		developProjects.setEndTime(DateUtil.str2Date2(testDevelop.getEndTime()));
+		developProjects.setDesignUnit(testDevelop.getDesignUnit());
+		developProjects.setConstructionUnit(testDevelop.getConstructionUnit());
+		developProjects.setSupervisionUnit(testDevelop.getSupervisionUnit());
+		developProjects.setMeeting(testDevelop.getMeeting());
+		developProjects.setApprovalDocuments(testDevelop.getApprovalDocuments());
+		developProjects.setDifference(1);
+
+		return developProjectsMapper.insert(developProjects);
+	}
 }

@@ -1,6 +1,8 @@
 package zjnu.newrailway.project.system.service;
 
 import zjnu.newrailway.project.system.bean.DevelopProjects;
+import zjnu.newrailway.project.system.bean.model.TestDevelop;
+
 import java.util.List;
 
 /**
@@ -50,5 +52,19 @@ public interface IDevelopProjectsService
      * @return 结果
      */
 	public int deleteDevelopProjectsByIds(String ids);
-	
+
+	/**
+	 * 查询所有开发项目信息
+	 * @return
+	 */
+    public List<DevelopProjects> selectDevelopProjectsAll();
+
+	/**
+	 * 获得开发项目资产名称
+	 * @param assetName
+	 * @return
+	 */
+	List<DevelopProjects> selectDevelopProjectsByAssetName(String assetName);
+
+	int addDevelop(TestDevelop testDevelop);
 }

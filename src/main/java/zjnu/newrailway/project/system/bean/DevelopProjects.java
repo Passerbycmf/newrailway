@@ -17,6 +17,8 @@ public class DevelopProjects extends BaseEntity
 	
 	/** id */
 	private Integer id;
+	/**资产名称*/
+	private String assetName;
 	/** 开发名称 */
 	private String developName;
 	/** 开始时间 */
@@ -33,6 +35,8 @@ public class DevelopProjects extends BaseEntity
 	private String meeting;
 	/** 批复文件 */
 	private String approvalDocuments;
+	/**资产类别*/
+    private Integer difference;
 
 	public void setId(Integer id) 
 	{
@@ -116,9 +120,26 @@ public class DevelopProjects extends BaseEntity
 		return approvalDocuments;
 	}
 
-    public String toString() {
+	public String getAssetName() {
+		return assetName;
+	}
+
+	public void setAssetName(String assetName) {
+		this.assetName = assetName;
+	}
+
+	public Integer getDifference() {
+		return difference;
+	}
+
+	public void setDifference(Integer difference) {
+		this.difference = difference;
+	}
+
+	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
+			.append("assetName", getAssetName())
             .append("developName", getDevelopName())
             .append("stratTime", getStratTime())
             .append("endTime", getEndTime())
@@ -127,6 +148,7 @@ public class DevelopProjects extends BaseEntity
             .append("supervisionUnit", getSupervisionUnit())
             .append("meeting", getMeeting())
             .append("approvalDocuments", getApprovalDocuments())
+			.append("difference", getDifference())
             .toString();
     }
 }

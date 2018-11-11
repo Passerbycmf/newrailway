@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.DevelopProjects;
+import zjnu.newrailway.project.system.bean.model.TestDevelop;
 import zjnu.newrailway.project.system.service.IDevelopProjectsService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
@@ -112,14 +113,57 @@ public class DevelopProjectsController extends BaseController
 	/**
 	 * 查看详情
 	 * @param id
-	 * @param mmap
+	 * @param map
 	 * @return
 	 */
 	@GetMapping("/detail/{id}")
-	public String detail(@PathVariable("id") Integer id, ModelMap mmap)
+	public String detail(@PathVariable("id") Integer id, ModelMap map)
 	{
 		DevelopProjects developProjects = developProjectsService.selectDevelopProjectsById(id);
-		mmap.put("developProjects", developProjects);
+		map.put("developProjects", developProjects);
 		return prefix + "/detail";
+	}
+
+	/**
+	 * 新增相应资产名称的开发项目
+	 * @return
+	 */
+	@GetMapping("/toAdd")
+	public String toAdd(){
+		return prefix + "/developAdd";
+	}
+
+    /**
+     *  资产名称写死
+     * @param testDevelop
+     * @return
+     */
+	@RequestMapping("/addDevelop")
+	@ResponseBody
+	public AjaxResult addDevelop(TestDevelop testDevelop){
+		return toAjax(developProjectsService.addDevelop(testDevelop));
+	}
+
+	/**
+	 * 查看相应资产名称的施工进度
+	 * @param id
+	 * @param map
+	 * @return
+	 */
+	@GetMapping("/progress/{id}")
+
+	public String progress(@PathVariable("id")Integer id,ModelMap map){
+		DevelopProjects developProjects = developProjectsService.selectDevelopProjectsById(id);
+		map.put("developProjects",developProjects);
+		return prefix + "/progressList";
+	}
+
+	/**
+	 * 新增某个资产的一个开发项目的施工进度
+	 * @return
+	 */
+	@GetMapping("/toAddProgress")
+	public String toAddProgress(){
+		return  prefix + "/addProgress";
 	}
 }

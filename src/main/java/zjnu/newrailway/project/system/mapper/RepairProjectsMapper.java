@@ -85,9 +85,5 @@ public interface RepairProjectsMapper
 	 */
 	String getAssetName();
 
-	/**
-	 * 获得资产类型
-	 * @return
-	 */
-	Integer getDifference();
+
 }
