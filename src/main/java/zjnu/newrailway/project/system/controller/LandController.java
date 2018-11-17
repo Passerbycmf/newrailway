@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Asset;
+import zjnu.newrailway.project.system.bean.RepairProjects;
 import zjnu.newrailway.project.system.service.IDevelopProjectsService;
 import zjnu.newrailway.project.system.service.ILandService;
 import zjnu.newrailway.framework.web.TableDataInfo;
@@ -164,7 +166,11 @@ public class LandController extends BaseController
 	 */
 	@GetMapping("/repair/{id}")
 	public String repair(@PathVariable("id") Integer id,ModelMap map){
-		map.put("repair",repairProjectsService.selectRepairProjectsById(id));
+		if (repairProjectsService.selectRepairProjectsById(id)==null){
+			map.put("repair",new RepairProjects());
+		}else {
+			map.put("repair",repairProjectsService.selectRepairProjectsById(id));
+		}
         map.put("assetList",repairProjectsService.selectRepairProjectsAll());
 		return "system/land/repairList";
 	}
