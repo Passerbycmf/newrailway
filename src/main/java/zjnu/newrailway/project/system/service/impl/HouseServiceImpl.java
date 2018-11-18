@@ -109,5 +109,10 @@ public class HouseServiceImpl implements IHouseService {
 
 	}
 
+	@Override
+	public int insertHousetest(Asset house) {
+		return houseMapper.insertHouseTest(house);
+	}
+
 }
 

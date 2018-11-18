@@ -75,4 +75,5 @@ public interface HouseMapper
 	public Asset checkAssetNumber(Integer assetNumber);
 
 
+	int insertHouseTest(Asset house);
 }

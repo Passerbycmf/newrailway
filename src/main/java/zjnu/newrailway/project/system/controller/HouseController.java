@@ -96,7 +96,7 @@ public class HouseController extends BaseController
 	@ResponseBody
 	public AjaxResult addSave(Asset house)
 	{		
-		return toAjax(houseService.insertHouse(house));
+		return toAjax(houseService.insertHousetest(house));
 	}
 
 	/**

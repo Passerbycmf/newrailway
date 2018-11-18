@@ -66,4 +66,5 @@ public interface IHouseService
     public String checkAssetNumber(Asset house);
 
 
+	int insertHousetest(Asset house);
 }

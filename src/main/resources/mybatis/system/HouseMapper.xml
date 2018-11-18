@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zjnu.newrailway.project.system.mapper.HouseMapper">
-    
-    <resultMap type="Asset" id="AssetResult">
+
+    <resultMap type="Asset" id="HouseResult">
         <result property="id"    column="id"    />
         <result property="assetName"    column="asset_name"    />
         <result property="assetNumber"    column="asset_number"    />
@@ -24,83 +24,83 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="safeCertificate"    column="safe_certificate"    />
         <result property="assetDifference"    column="asset_difference"    />
     </resultMap>
-	
-	<sql id="selectHouseVo">
+
+    <sql id="selectHouseVo">
         select id, asset_name, asset_number, asset_translation, asset_area, asset_location, police_station, fire_brigade, asset_type, squatter_house, legacy, asset_deliver, satelite_fix, ownership_certificate, aerial_map, live_pic, safe_certificate, asset_difference from sys_asset_management
     </sql>
-	
-    <select id="selectHouseList" parameterType="Asset" resultMap="AssetResult">
+
+    <select id="selectHouseList" parameterType="Asset" resultMap="HouseResult">
         <include refid="selectHouseVo"/>
         where asset_difference = 0
         <if test="assetName != null and assetName != ''">
             AND asset_name like concat('%', #{assetName}, '%')
         </if>
     </select>
-    
-    <select id="selectHouseById" parameterType="Integer" resultMap="AssetResult">
+
+
+    <select id="selectHouseById" parameterType="Integer" resultMap="HouseResult">
         <include refid="selectHouseVo"/>
         where id = #{id}
     </select>
 
-    <select id="checkAssetName" parameterType="String" resultMap="AssetResult">
+    <select id="checkAssetName" parameterType="String" resultMap="HouseResult">
         SELECT * FROM sys_asset_management
         WHERE asset_name = #{assetName}
     </select>
 
-    <select id="checkAssetNumber" parameterType="Integer" resultMap="AssetResult">
-        SELECT * FROM sys_asset_management
-        WHERE asset_number = #{assetNumber}
-    </select>
-
-    <select id="checkNumber" parameterType="Integer" resultMap="AssetResult">
+    <select id="checkAssetNumber" parameterType="Integer" resultMap="HouseResult">
         SELECT * FROM sys_asset_management
         WHERE asset_number = #{assetNumber}
     </select>
 
     <insert id="insertHouse" parameterType="Asset">
         insert into sys_asset_management
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != '' ">id,</if>
-			<if test="assetName != null and assetName != '' ">asset_name,</if>
-			<if test="assetNumber != null and assetNumber != '' ">asset_number,</if>
-			<if test="assetTranslation != null and assetTranslation != '' ">asset_translation,</if>
-			<if test="assetArea != null and assetArea != '' ">asset_area,</if>
-			<if test="assetLocation != null and assetLocation != '' ">asset_location,</if>
-			<if test="policeStation != null and policeStation != '' ">police_station,</if>
-			<if test="fireBrigade != null and fireBrigade != '' ">fire_brigade,</if>
-			<if test="assetType != null and assetType != '' ">asset_type,</if>
-			<if test="squatterHouse != null and squatterHouse != '' ">squatter_house,</if>
-			<if test="legacy != null and legacy != '' ">legacy,</if>
-			<if test="assetDeliver != null and assetDeliver != '' ">asset_deliver,</if>
-			<if test="sateliteFix != null and sateliteFix != '' ">satelite_fix,</if>
-			<if test="ownershipCertificate != null and ownershipCertificate != '' ">ownership_certificate,</if>
-			<if test="aerialMap != null and aerialMap != '' ">aerial_map,</if>
-			<if test="livePic != null and livePic != '' ">live_pic,</if>
-			<if test="safeCertificate != null and safeCertificate != '' ">safe_certificate,</if>
-			<if test="assetDifference != null and assetDifference != '' ">asset_difference,</if>
-         </trim>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != '' ">id,</if>
+            <if test="assetName != null and assetName != '' ">asset_name,</if>
+            <if test="assetNumber != null and assetNumber != '' ">asset_number,</if>
+            <if test="assetTranslation != null and assetTranslation != '' ">asset_translation,</if>
+            <if test="assetArea != null and assetArea != '' ">asset_area,</if>
+            <if test="assetLocation != null and assetLocation != '' ">asset_location,</if>
+            <if test="policeStation != null and policeStation != '' ">police_station,</if>
+            <if test="fireBrigade != null and fireBrigade != '' ">fire_brigade,</if>
+            <if test="assetType != null and assetType != '' ">asset_type,</if>
+            <if test="squatterHouse != null and squatterHouse != '' ">squatter_house,</if>
+            <if test="legacy != null and legacy != '' ">legacy,</if>
+            <if test="assetDeliver != null and assetDeliver != '' ">asset_deliver,</if>
+            <if test="sateliteFix != null and sateliteFix != '' ">satelite_fix,</if>
+            <if test="ownershipCertificate != null and ownershipCertificate != '' ">ownership_certificate,</if>
+            <if test="aerialMap != null and aerialMap != '' ">aerial_map,</if>
+            <if test="livePic != null and livePic != '' ">live_pic,</if>
+            <if test="safeCertificate != null and safeCertificate != '' ">safe_certificate,</if>
+            <if test="assetDifference != null and assetDifference != '' ">asset_difference,</if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != ''">#{id},</if>
-			<if test="assetName != null and assetName != ''">#{assetName},</if>
-			<if test="assetNumber != null and assetNumber != ''">#{assetNumber},</if>
-			<if test="assetTranslation != null and assetTranslation != ''">#{assetTranslation},</if>
-			<if test="assetArea != null and assetArea != ''">#{assetArea},</if>
-			<if test="assetLocation != null and assetLocation != ''">#{assetLocation},</if>
-			<if test="policeStation != null and policeStation != ''">#{policeStation},</if>
-			<if test="fireBrigade != null and fireBrigade != ''">#{fireBrigade},</if>
-			<if test="assetType != null and assetType != ''">#{assetType},</if>
-			<if test="squatterHouse != null and squatterHouse != ''">#{squatterHouse},</if>
-			<if test="legacy != null and legacy != ''">#{legacy},</if>
-			<if test="assetDeliver != null and assetDeliver != ''">#{assetDeliver},</if>
-			<if test="sateliteFix != null and sateliteFix != ''">#{sateliteFix},</if>
-			<if test="ownershipCertificate != null and ownershipCertificate != ''">#{ownershipCertificate},</if>
-			<if test="aerialMap != null and aerialMap != ''">#{aerialMap},</if>
-			<if test="livePic != null and livePic != ''">#{livePic},</if>
-			<if test="safeCertificate != null and safeCertificate != ''">#{safeCertificate},</if>
-			<if test="assetDifference != null and assetDifference != ''">#{assetDifference},</if>
-         </trim>
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="assetName != null and assetName != ''">#{assetName},</if>
+            <if test="assetNumber != null and assetNumber != ''">#{assetNumber},</if>
+            <if test="assetTranslation != null and assetTranslation != ''">#{assetTranslation},</if>
+            <if test="assetArea != null and assetArea != ''">#{assetArea},</if>
+            <if test="assetLocation != null and assetLocation != ''">#{assetLocation},</if>
+            <if test="policeStation != null and policeStation != ''">#{policeStation},</if>
+            <if test="fireBrigade != null and fireBrigade != ''">#{fireBrigade},</if>
+            <if test="assetType != null and assetType != ''">#{assetType},</if>
+            <if test="squatterHouse != null and squatterHouse != ''">#{squatterHouse},</if>
+            <if test="legacy != null and legacy != ''">#{legacy},</if>
+            <if test="assetDeliver != null and assetDeliver != ''">#{assetDeliver},</if>
+            <if test="sateliteFix != null and sateliteFix != ''">#{sateliteFix},</if>
+            <if test="ownershipCertificate != null and ownershipCertificate != ''">#{ownershipCertificate},</if>
+            <if test="aerialMap != null and aerialMap != ''">#{aerialMap},</if>
+            <if test="livePic != null and livePic != ''">#{livePic},</if>
+            <if test="safeCertificate != null and safeCertificate != ''">#{safeCertificate},</if>
+            <if test="assetDifference != null and assetDifference != ''">#{assetDifference},</if>
+        </trim>
     </insert>
-	 
+    <insert id="insertHouseTest" parameterType="Asset">
+        insert into sys_asset_management(id, asset_name, asset_number, asset_translation, asset_area, asset_location, police_station, fire_brigade, asset_type, squatter_house, legacy, asset_deliver, satelite_fix, ownership_certificate, aerial_map, live_pic, safe_certificate, asset_difference )
+        values (#{id},#{assetName},#{assetNumber},#{assetTranslation},#{assetArea},#{assetLocation},#{policeStation},#{fireBrigade},#{assetType},#{squatterHouse},#{legacy},#{assetDeliver},#{sateliteFix},#{ownershipCertificate},#{aerialMap},#{livePic},#{safeCertificate},#{assetDifference})
+    </insert>
+
     <update id="updateHouse" parameterType="Asset">
         update sys_asset_management
         <trim prefix="SET" suffixOverrides=",">
@@ -123,18 +123,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="assetDifference != null  ">asset_difference = #{assetDifference},</if>
         </trim>
         where id = #{id}
-
     </update>
 
-	<delete id="deleteHouseById" parameterType="Integer">
+    <delete id="deleteHouseById" parameterType="Integer">
         delete from sys_asset_management where id = #{id}
     </delete>
-	
+
     <delete id="deleteHouseByIds" parameterType="String">
-        delete from sys_asset_management where id in 
+        delete from sys_asset_management where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
 </mapper>
