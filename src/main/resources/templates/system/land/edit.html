@@ -124,29 +124,9 @@
 		var prefix = ctx + "system/land"
 		$("#form-land-edit").validate({
             rules:{
-                assetName:{
+                xxxx:{
                     required:true,
-                    remote: {
-                        url: prefix + "/checkAssetName",
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            "assetName" : function() {
-                                return $("input[name='assetName']").val();
-                            }
-                        },
-                        dataFilter: function(data, type) {
-                            if (data == "0") return true;
-                            else return false;
-                        }
-                    }
                 },
-
-            }	,
-            messages: {
-                "assetName": {
-                    remote: "该资产名称已经存在，请重新输入"
-                }
             },
 			submitHandler: function(form) {
 				$.operate.save(prefix + "/edit", $('#form-land-edit').serialize());

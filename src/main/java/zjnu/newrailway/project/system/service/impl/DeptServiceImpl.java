@@ -110,6 +110,17 @@ public class DeptServiceImpl implements IDeptService
 	}
 
 	/**
+	 * 查询部门是否存在员工
+	 * @param deptId
+	 * @return
+	 */
+	@Override
+	public boolean checkDeptExistStaff(Integer deptId) {
+		int result = deptMapper.checkDeptExistStaff(deptId);
+		return result > 0 ? true : false;
+	}
+
+	/**
 	 * 校验部门名称是否唯一
 	 * @param dept
 	 * @return

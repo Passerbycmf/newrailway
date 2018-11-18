@@ -15,13 +15,14 @@
 						<li class="time">
 							<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
 							<span>-</span>
-							<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[finshTime]"/>
+							<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
 						</li>
 						<li>
 							<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							<a class="btn btn-success btn-rounded btn-sm" onclick="$.table.exportExcel()" shiro:hasPermission="system:repairProjects:export"><i class="fa fa-download"></i>&nbsp;导出</a>
 						</li>
 						<li>
-							<a class="btn btn-outline btn-success btn-rounded" onclick="add()"  >
+							<a class="btn btn-outline btn-success btn-rounded"  onclick="add()"  >
 								<i class="fa fa-plus"></i> 添加
 							</a>
 						</li>
@@ -46,6 +47,7 @@
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
                 modalName: "修缮项目",
                 columns: [{
 		            checkbox: true

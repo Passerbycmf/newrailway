@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="id"    column="id"    />
         <result property="assetName"    column="asset_name"    />
         <result property="developName"    column="develop_name"    />
-        <result property="stratTime"    column="strat_time"    />
+        <result property="beginTime"    column="begin_time"    />
         <result property="endTime"    column="end_time"    />
         <result property="designUnit"    column="design_unit"    />
         <result property="constructionUnit"    column="construction_unit"    />
@@ -21,14 +21,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectDevelopProjectsVo">
-        select id,asset_name, develop_name, strat_time, end_time, design_unit, construction_unit, supervision_unit, meeting, approval_documents,difference,create_time from sys_develop_projects
+        select id,asset_name, develop_name, begin_time, end_time, design_unit, construction_unit, supervision_unit, meeting, approval_documents,difference,create_time from sys_develop_projects
     </sql>
 	
     <select id="selectDevelopProjectsList" parameterType="DevelopProjects" resultMap="DevelopProjectsResult">
         <include refid="selectDevelopProjectsVo"/>
         <where>
-            <if test="assetName != null and assetName != ''">
-                AND asset_name like concat('%', #{assetName}, '%')
+            <if test="developName != null and developName != ''">
+                AND develop_name like concat('%', #{developName}, '%')
             </if>
             <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
                 AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="id != null and id != '' ">id,</if>
             <if test="assetName != null and assetName != '' ">asset_name,</if>
 			<if test="developName != null and developName != '' ">develop_name,</if>
-			<if test="stratTime != null and stratTime != '' ">strat_time,</if>
+			<if test="beginTime != null and beginTime != '' ">begin_time,</if>
 			<if test="endTime != null and endTime != '' ">end_time,</if>
 			<if test="designUnit != null and designUnit != '' ">design_unit,</if>
 			<if test="constructionUnit != null and constructionUnit != '' ">construction_unit,</if>
@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="id != null and id != ''">#{id},</if>
             <if test="assetName != null and assetName != ''">#{assetName},</if>
 			<if test="developName != null and developName != ''">#{developName},</if>
-			<if test="stratTime != null and stratTime != ''">#{stratTime},</if>
+			<if test="beginTime != null and beginTime != ''">#{beginTime},</if>
 			<if test="endTime != null and endTime != ''">#{endTime},</if>
 			<if test="designUnit != null and designUnit != ''">#{designUnit},</if>
 			<if test="constructionUnit != null and constructionUnit != ''">#{constructionUnit},</if>
@@ -89,8 +89,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
     <insert id="insert" parameterType="DevelopProjects">
-        insert into sys_develop_projects(id,asset_name,develop_name, strat_time, end_time, design_unit, construction_unit, supervision_unit, meeting, approval_documents,difference )
-        values (#{id},#{assetName},#{developName},#{stratTime},#{endTime},#{designUnit},#{constructionUnit},#{supervisionUnit},#{meeting},#{approvalDocuments},#{difference})
+        insert into sys_develop_projects(id,asset_name,develop_name, begin_time, end_time, design_unit, construction_unit, supervision_unit, meeting, approval_documents,difference )
+        values (#{id},#{assetName},#{developName},#{beginTime},#{endTime},#{designUnit},#{constructionUnit},#{supervisionUnit},#{meeting},#{approvalDocuments},#{difference})
     </insert>
 
 
@@ -99,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="assetName != null  and assetName != ''  ">asset_name = #{assetName},</if>
             <if test="developName != null  and developName != ''  ">develop_name = #{developName},</if>
-            <if test="stratTime != null  ">strat_time = #{stratTime},</if>
+            <if test="beginTime != null  ">begin_time = #{beginTime},</if>
             <if test="endTime != null  ">end_time = #{endTime},</if>
             <if test="designUnit != null  and designUnit != ''  ">design_unit = #{designUnit},</if>
             <if test="constructionUnit != null  and constructionUnit != ''  ">construction_unit = #{constructionUnit},</if>

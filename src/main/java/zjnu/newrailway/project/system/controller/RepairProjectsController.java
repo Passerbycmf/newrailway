@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.RepairProjects;
@@ -35,8 +36,7 @@ public class RepairProjectsController extends BaseController
 	@Autowired
 	private IRepairProjectsService repairProjectsService;
 
-	@Autowired
-	private RepairProjectsMapper repairProjectsMapper;
+
 	
 	@RequiresPermissions("system:repairProjects:view")
 	@GetMapping()
@@ -56,6 +56,24 @@ public class RepairProjectsController extends BaseController
 		startPage();
         List<RepairProjects> list = repairProjectsService.selectRepairProjectsList(repairProjects);
 		return getDataTable(list);
+	}
+
+	@Log(title = "修缮项目管理", action = BusinessType.EXPORT)
+	@RequiresPermissions("system:repairProjects:export")
+	@PostMapping("/export")
+	@ResponseBody
+	public AjaxResult export(RepairProjects repairProjects) throws Exception
+	{
+		try
+		{
+			List<RepairProjects> list = repairProjectsService.selectRepairProjectsList(repairProjects);
+			ExcelUtil<RepairProjects> util = new ExcelUtil<>(RepairProjects.class);
+			return util.exportExcel(list, "repairProjects");
+		}
+		catch (Exception e)
+		{
+			return error("导出Excel失败，请联系网站管理员！");
+		}
 	}
 	
 	/**

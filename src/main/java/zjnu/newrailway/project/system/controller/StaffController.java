@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Staff;
@@ -55,6 +56,24 @@ public class StaffController extends BaseController
 		startPage();
         List<Staff> list = staffService.selectStaffList(staff);
 		return getDataTable(list);
+	}
+
+	@Log(title = "员工管理", action = BusinessType.EXPORT)
+	@RequiresPermissions("system:staff:export")
+	@PostMapping("/export")
+	@ResponseBody
+	public AjaxResult export(Staff staff) throws Exception
+	{
+		try
+		{
+			List<Staff> list = staffService.selectStaffList(staff);
+			ExcelUtil<Staff> util = new ExcelUtil<>(Staff.class);
+			return util.exportExcel(list, "staff");
+		}
+		catch (Exception e)
+		{
+			return error("导出Excel失败，请联系网站管理员！");
+		}
 	}
 	
 	/**
@@ -114,6 +133,18 @@ public class StaffController extends BaseController
 	public AjaxResult remove(String ids)
 	{		
 		return toAjax(staffService.deleteStaffByIds(ids));
+	}
+
+	/**
+	 * 查看员工详情
+	 */
+	@GetMapping("/detail/{staffId}")
+	public String detail(@PathVariable("staffId") Integer staffId, ModelMap mmap)
+	{
+		Staff staff = staffService.selectStaffById(staffId);
+		mmap.put("staff", staff);
+		mmap.put("posts", postService.selectPostsByStaffId(staffId));
+		return prefix + "/detail";
 	}
 	
 }

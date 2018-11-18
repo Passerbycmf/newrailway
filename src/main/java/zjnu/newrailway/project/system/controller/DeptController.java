@@ -71,7 +71,6 @@ public class DeptController extends BaseController
 	@GetMapping("/detail/{deptId}")
 	public String detail(@PathVariable("deptId") Integer dictId, ModelMap mmap)
 	{
-
 		return prefix + "/success";
 	}
 
@@ -138,6 +137,9 @@ public class DeptController extends BaseController
 		if(deptService.checkDeptExistUser(deptId)){
 			return error(1,"部门存在用户，不允许删除！");
 		}
+		if (deptService.checkDeptExistStaff(deptId)){
+			return error(1,"部门存在员工，不允许删除！");
+		}
 		return toAjax(deptService.deleteDeptById(deptId));
 	}
 
@@ -190,15 +192,19 @@ public class DeptController extends BaseController
 		return uniqueFlag;
 	}
 
-
-
+	/**
+	 * 查看部门详情
+	 * @param deptId
+	 * @param mmap
+	 * @return
+	 */
 	@GetMapping("/find/{deptId}")
 	public String find(@PathVariable("deptId") Integer deptId, ModelMap mmap)
 	{
 		//数据回显
 		Dept dept = deptService.selectDeptById(deptId);
 		mmap.put("dept", dept);
-		return prefix + "/edit";
+		return prefix + "/find";
 	}
 
 }

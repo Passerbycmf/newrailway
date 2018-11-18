@@ -2,6 +2,7 @@ package zjnu.newrailway.project.system.bean;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import zjnu.newrailway.framework.aspectj.lang.annotation.Excel;
 import zjnu.newrailway.framework.web.BaseEntity;
 
 /**
@@ -14,21 +15,29 @@ public class Rent extends BaseEntity
 {
 	private static final long serialVersionUID = 1L;
 	
-	/**  */
+	/** 承租项点ID*/
+	@Excel(name = "承租项点ID")
 	private Integer id;
 	/** 资产名称 */
+	@Excel(name = "资产名称")
 	private String assetName;
 	/** 坐落地址 */
+	@Excel(name = "坐落地址")
 	private String address;
 	/** 承租方单位或个人名称 */
+	@Excel(name = "承租方单位或个人名称")
 	private String rentName;
 	/** 面积（平方米） */
+	@Excel(name = "面积（平方米）")
 	private String area;
 	/** 承租方营业执照或个人身份证 */
+	@Excel(name = "承租方营业执照或个人身份证")
 	private String number;
 	/** 电话号码 */
+	@Excel(name = "电话号码")
 	private String telephone;
 	/** 用途 */
+	@Excel(name = "用途")
 	private String remark;
 
 	public void setId(Integer id) 

@@ -78,6 +78,14 @@ public interface IPostService
 	 int countUserPostById(Integer postId);
 
 	/**
+	 * 通过岗位ID查询岗位使用数量
+	 *
+	 * @param postId 岗位ID
+	 * @return 结果
+	 */
+	int countStaffPostById(Integer postId);
+
+	/**
 	 * 校验岗位名称是否唯一
 	 *
 	 * @param post 岗位信息

@@ -12,7 +12,7 @@ public class TestDevelop extends BaseEntity {
     /** 开发名称 */
     private String developName;
     /** 开始时间 */
-    private String stratTime;
+    private String beginTime;
     /** 结束时间 */
     private String endTime;
     /** 设计单位 */
@@ -84,12 +84,12 @@ public class TestDevelop extends BaseEntity {
         this.endTime = endTime;
     }
 
-    public String getStratTime() {
-        return stratTime;
+    public String getBeginTime() {
+        return beginTime;
     }
 
-    public void setStratTime(String stratTime) {
-        this.stratTime = stratTime;
+    public void setBeginTime(String beginTime) {
+        this.beginTime = beginTime;
     }
 
     public String getAssetName() {

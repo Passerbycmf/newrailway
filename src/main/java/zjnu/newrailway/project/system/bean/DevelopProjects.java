@@ -2,6 +2,7 @@ package zjnu.newrailway.project.system.bean;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import zjnu.newrailway.framework.aspectj.lang.annotation.Excel;
 import zjnu.newrailway.framework.web.BaseEntity;
 import java.util.Date;
 
@@ -15,27 +16,38 @@ public class DevelopProjects extends BaseEntity
 {
 	private static final long serialVersionUID = 1L;
 	
-	/** id */
+	/** 开发项目id */
+	@Excel(name = "开放项目ID")
 	private Integer id;
 	/**资产名称*/
+	@Excel(name = "资产名称")
 	private String assetName;
 	/** 开发名称 */
+	@Excel(name = "开发名称")
 	private String developName;
 	/** 开始时间 */
-	private Date stratTime;
+	@Excel(name = "开始时间")
+	private Date beginTime;
 	/** 结束时间 */
+	@Excel(name = "结束时间")
 	private Date endTime;
 	/** 设计单位 */
+	@Excel(name = "设计单位")
 	private String designUnit;
 	/** 施工单位 */
+	@Excel(name = "施工单位")
 	private String constructionUnit;
 	/** 监理单位 */
+	@Excel(name = "监理单位")
 	private String supervisionUnit;
 	/** 会议纪要 */
+	@Excel(name = "会议纪要")
 	private String meeting;
 	/** 批复文件 */
+	@Excel(name = "批复文件")
 	private String approvalDocuments;
 	/**资产类别*/
+	@Excel(name = "资产类别")
     private Integer difference;
 
 	public void setId(Integer id) 
@@ -56,16 +68,16 @@ public class DevelopProjects extends BaseEntity
 	{
 		return developName;
 	}
-	public void setStratTime(Date stratTime) 
-	{
-		this.stratTime = stratTime;
+
+	public Date getBeginTime() {
+		return beginTime;
 	}
 
-	public Date getStratTime() 
-	{
-		return stratTime;
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
 	}
-	public void setEndTime(Date endTime) 
+
+	public void setEndTime(Date endTime)
 	{
 		this.endTime = endTime;
 	}
@@ -141,7 +153,7 @@ public class DevelopProjects extends BaseEntity
             .append("id", getId())
 			.append("assetName", getAssetName())
             .append("developName", getDevelopName())
-            .append("stratTime", getStratTime())
+            .append("beginTime", getBeginTime())
             .append("endTime", getEndTime())
             .append("designUnit", getDesignUnit())
             .append("constructionUnit", getConstructionUnit())

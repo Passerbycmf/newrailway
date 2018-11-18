@@ -2,6 +2,7 @@ package zjnu.newrailway.project.system.bean;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import zjnu.newrailway.framework.aspectj.lang.annotation.Excel;
 import zjnu.newrailway.framework.web.BaseEntity;
 
 import java.util.Arrays;
@@ -18,14 +19,19 @@ public class Staff extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	/** 员工staffId */
+	@Excel(name = "员工序号")
 	private Integer staffId;
 	/** 员工编号 */
+	@Excel(name = "员工编号")
 	private Integer staffNumber;
 	/** 员工姓名 */
+	@Excel(name ="员工姓名")
 	private String staffName;
 	/** 员工性别 */
+	@Excel(name = "员工性别")
 	private String staffSex;
 	/** 联系电话 */
+	@Excel(name = "员工电话")
 	private String staffPhone;
 	/** 创建时间 */
 	private Date createTime;
@@ -33,11 +39,13 @@ public class Staff extends BaseEntity
 	private Date updateTime;
 	/** 部门编号 */
 	private Integer deptId;
-	/** 用户状态（0正常 1停用） */
+	/** 员工状态（0正常 1停用） */
+	@Excel(name = "员工状态")
 	private String status;
 	/** 删除标志（0代表存在 2代表删除） */
 	private String delFlag;
 	/** 备注 */
+	@Excel(name = "备注")
 	private String remark;
 	/** 岗位组 */
 	private Integer[] postIds;

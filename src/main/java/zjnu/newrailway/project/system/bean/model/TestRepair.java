@@ -27,9 +27,9 @@ public class TestRepair extends BaseEntity
 	/** 改造修缮方案 */
 	private String repairPlan;
 	/** 开始时间 */
-	private String  startTime;
+	private String  beginTime;
 	/** 结束时间 */
-	private String  finshTime;
+	private String  endTime;
 	/** 施工单位 */
 	private String constructionUnit;
 	/** 预决算 */
@@ -85,23 +85,23 @@ public class TestRepair extends BaseEntity
 	{
 		return repairPlan;
 	}
-	public void setStartTime(String  startTime)
+	public void setBeginTime(String  beginTime)
 	{
-		this.startTime = startTime;
+		this.beginTime = beginTime;
 	}
 
-	public String  getStartTime()
+	public String  getBeginTime()
 	{
-		return startTime;
+		return beginTime;
 	}
-	public void setFinshTime(String  finshTime)
+	public void setEndTime(String  finshTime)
 	{
-		this.finshTime = finshTime;
+		this.endTime = endTime;
 	}
 
-	public String  getFinshTime()
+	public String  getEndTime()
 	{
-		return finshTime;
+		return endTime;
 	}
 	public void setConstructionUnit(String constructionUnit) 
 	{

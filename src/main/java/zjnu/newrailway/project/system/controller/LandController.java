@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
@@ -63,6 +64,24 @@ public class LandController extends BaseController
         List<Asset> list = landService.selectLandList(land);
         map.put("assetName",assetName);
 		return getDataTable(list);
+	}
+
+	@Log(title = "土地资产管理", action = BusinessType.EXPORT)
+	@RequiresPermissions("system:staff:export")
+	@PostMapping("/export")
+	@ResponseBody
+	public AjaxResult export(Asset land) throws Exception
+	{
+		try
+		{
+			List<Asset> list = landService.selectLandList(land);
+			ExcelUtil<Asset> util = new ExcelUtil<>(Asset.class);
+			return util.exportExcel(list, "land");
+		}
+		catch (Exception e)
+		{
+			return error("导出Excel失败，请联系网站管理员！");
+		}
 	}
 	
 	/**

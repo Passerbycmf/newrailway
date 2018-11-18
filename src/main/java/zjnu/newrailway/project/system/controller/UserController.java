@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
@@ -64,6 +65,24 @@ public class UserController extends BaseController
 		startPage();
 		List<User> list = userService.selectUserList(user);
 		return getDataTable(list);
+	}
+
+	@Log(title = "用户管理", action = BusinessType.EXPORT)
+	@RequiresPermissions("system:user:export")
+	@PostMapping("/export")
+	@ResponseBody
+	public AjaxResult export(User user) throws Exception
+	{
+		try
+		{
+			List<User> list = userService.selectUserList(user);
+			ExcelUtil<User> util = new ExcelUtil<User>(User.class);
+			return util.exportExcel(list, "user");
+		}
+		catch (Exception e)
+		{
+			return error("导出Excel失败，请联系网站管理员！");
+		}
 	}
 
 	/**
@@ -211,5 +230,7 @@ public class UserController extends BaseController
 		}
 		return uniqueFlag;
 	}
+
+
 
 }

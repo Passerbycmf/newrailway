@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.DevelopProjects;
@@ -52,6 +53,24 @@ public class DevelopProjectsController extends BaseController
 		startPage();
         List<DevelopProjects> list = developProjectsService.selectDevelopProjectsList(developProjects);
 		return getDataTable(list);
+	}
+
+	@Log(title = "开发项目管理", action = BusinessType.EXPORT)
+	@RequiresPermissions("system:developProjects:export")
+	@PostMapping("/export")
+	@ResponseBody
+	public AjaxResult export(DevelopProjects developProjects) throws Exception
+	{
+		try
+		{
+			List<DevelopProjects> list = developProjectsService.selectDevelopProjectsList(developProjects);
+			ExcelUtil<DevelopProjects> util = new ExcelUtil<>(DevelopProjects.class);
+			return util.exportExcel(list, "developProjects");
+		}
+		catch (Exception e)
+		{
+			return error("导出Excel失败，请联系网站管理员！");
+		}
 	}
 	
 	/**

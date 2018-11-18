@@ -2,6 +2,7 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
+<link href="/ajax/libs/iCheck/custom.css" th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-staff-edit" th:object="${staff}">
@@ -74,6 +75,8 @@
 		</form>
     </div>
     <div th:include="include::footer"></div>
+    <script th:src="@{/ajax/libs/iCheck/icheck.min.js}"></script>
+    <script th:src="@{/ajax/libs/select/select2.js}"></script>
     <script type="text/javascript">
 		$("#form-staff-edit").validate({
 			rules:{

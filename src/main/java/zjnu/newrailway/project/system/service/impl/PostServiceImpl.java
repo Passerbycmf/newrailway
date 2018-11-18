@@ -7,6 +7,7 @@ import zjnu.newrailway.common.utils.Convert;
 import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.project.system.bean.Post;
 import zjnu.newrailway.project.system.mapper.PostMapper;
+import zjnu.newrailway.project.system.mapper.StaffPostMapper;
 import zjnu.newrailway.project.system.mapper.UserPostMapper;
 import zjnu.newrailway.project.system.service.IPostService;
 
@@ -28,6 +29,8 @@ public class PostServiceImpl implements IPostService
 	@Autowired
 	private UserPostMapper userPostMapper;
 
+	@Autowired
+	private StaffPostMapper staffPostMapper;
 	/**
      * 查询岗位信息
      * 
@@ -126,13 +129,26 @@ public class PostServiceImpl implements IPostService
 		for (Integer postId : postIds)
 		{
 			Post post = selectPostById(postId);
-			if (countUserPostById(postId) > 0)
+			if (countUserPostById(postId) > 0 && countStaffPostById(postId) > 0)
 			{
 				throw new Exception(String.format("%1$s已分配,不能删除", post.getPostName()));
 			}
 		}
 		return postMapper.deletePostByIds(Convert.toStrArray(ids));
 	}
+
+	/**
+	 * 通过岗位ID查询岗位使用数量
+	 *
+	 * @param postId 岗位ID
+	 * @return 结果
+	 */
+	@Override
+	public int countStaffPostById(Integer postId)
+	{
+		return staffPostMapper.countStaffPostById(postId);
+	}
+
 
 	/**
 	 * 通过岗位ID查询岗位使用数量
@@ -191,16 +207,15 @@ public class PostServiceImpl implements IPostService
 		List<Post> posts = postMapper.selectPostAll();
 		for (Post post : posts)
 		{
-			for (Post userRole : staffPosts)
+			for (Post staffPost : staffPosts)
 			{
-				if (post.getPostId().longValue() == userRole.getPostId().longValue())
+				if (post.getPostId().longValue() == staffPost.getPostId().longValue())
 				{
 					post.setFlag(true);
 					break;
 				}
 			}
 		}
-
 		return posts;
 	}
 

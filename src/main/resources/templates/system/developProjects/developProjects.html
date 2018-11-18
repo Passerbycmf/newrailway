@@ -18,6 +18,7 @@
 						</li>
 						<li>
 							<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							<a class="btn btn-success btn-rounded btn-sm" onclick="$.table.exportExcel()" shiro:hasPermission="system:developProjects:export"><i class="fa fa-download"></i>&nbsp;导出</a>
 						</li>
 					</ul>
 				</div>
@@ -40,6 +41,9 @@
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                search: false,
+                showExport: false,
                 modalName: "开发项目",
                 columns: [{
 		            checkbox: true

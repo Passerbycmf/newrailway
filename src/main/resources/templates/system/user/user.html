@@ -86,7 +86,6 @@
     var resetPwdFlag = [[${@permission.hasPermi('system:user:resetPwd')}]];
     var datas = [[${@dict.getType('sys_normal_disable')}]];
     var prefix = ctx + "system/user";
-    var prefixcopy = ctx + "system/find"
 
     $(document).ready(function(){
         $('body').layout({ west__size: 185 });
@@ -156,7 +155,6 @@
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.userId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.userId + '\')"><i class="fa fa-remove"></i>删除</a> ');
                         actions.push('<a class="btn btn-info btn-xs ' + resetPwdFlag + '" href="#" onclick="resetPwd(\'' + row.userId + '\')"><i class="fa fa-key"></i>重置</a>');
-                        actions.push('<a class="btn btn-info btn-xs ' + resetPwdFlag + '" href="#" onclick="find(\'' + row.userId + '\')"><i class="fa fa-key"></i>查看</a>');
                         return actions.join('  ');
                     }
                 }]
@@ -211,11 +209,7 @@
         createMenuItem(url, "部门管理");
     }
 
-    function find(userId) {
-        var url = prefixcopy + '/find' + userId;
-        $.modal.openFull("查看" + $.table._option.modalName, url);
 
-    }
 
     /*用户管理-重置密码*/
     function resetPwd(userId) {

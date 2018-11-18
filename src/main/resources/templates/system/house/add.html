@@ -102,12 +102,9 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">资产类别：</label>
+				<label class="col-sm-3 control-label">资产类型：</label>
 				<div class="col-sm-8">
-					<select class="form-control" id="difference" name="difference">
-						<option value="0" th:selected="${difference=='0'}">房屋</option>
-						<option value="1" th:selected="${difference=='1'}">土地</option>
-					</select>
+					<input id="assetDifference" name="assetDifference" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">
@@ -122,11 +119,11 @@
     <script type="text/javascript">
 		var prefix = ctx + "system/house"
 		$("#form-house-add").validate({
-			rules:{
+            rules:{
                 assetName:{
                     required:true,
                     remote: {
-                        url: prefix + "/checkAssetNameUnique",
+                        url: prefix + "/checkAssetName",
                         type: "post",
                         dataType: "json",
                         data: {
@@ -140,14 +137,32 @@
                         }
                     }
                 },
-
+                assetNumber:{
+                    required:true,
+                    remote: {
+                        url: prefix + "/checkAssetNumberUnique",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "assetNumber" : function() {
+                                return $("input[name='assetNumber']").val();
+                            }
+                        },
+                        dataFilter: function(data, type) {
+                            if (data == "0") return true;
+                            else return false;
+                        }
+                    }
+                },
             }	,
             messages: {
                 "assetName": {
                     remote: "该资产名称已经存在，请重新输入"
+                },
+                "assetNumber": {
+                    remote: "该资产编号已经存在，请重新输入"
                 }
             },
-
 			submitHandler: function(form) {
 				$.operate.save(prefix + "/add", $('#form-house-add').serialize());
 			}

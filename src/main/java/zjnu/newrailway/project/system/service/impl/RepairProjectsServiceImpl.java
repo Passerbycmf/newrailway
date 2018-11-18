@@ -77,8 +77,8 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 		repairProjects.setConstructionUnit(testRepair.getConstructionUnit());
 		repairProjects.setPicture(testRepair.getPicture());
 		repairProjects.setPrePicture(testRepair.getPrePicture());
-		repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
-		repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
+		repairProjects.setBeginTime(DateUtil.str2Date2(testRepair.getBeginTime()));
+		repairProjects.setEndTime(DateUtil.str2Date2(testRepair.getEndTime()));
 		repairProjects.setDifference(testRepair.getDifference());
 	    return repairProjectsMapper.updateRepairProjects(repairProjects);
 	}
@@ -111,8 +111,8 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
        repairProjects.setConstructionUnit(testRepair.getConstructionUnit());
        repairProjects.setPicture(testRepair.getPicture());
        repairProjects.setPrePicture(testRepair.getPrePicture());
-       repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
-       repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
+       repairProjects.setBeginTime(DateUtil.str2Date2(testRepair.getBeginTime()));
+       repairProjects.setEndTime(DateUtil.str2Date2(testRepair.getEndTime()));
        repairProjects.setDifference(testRepair.getDifference());
 
 		return repairProjectsMapper.insert(repairProjects);
@@ -153,8 +153,8 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 		repairProjects.setConstructionUnit(testRepair.getConstructionUnit());
 		repairProjects.setPicture(testRepair.getPicture());
 		repairProjects.setPrePicture(testRepair.getPrePicture());
-		repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
-		repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
+		repairProjects.setBeginTime(DateUtil.str2Date2(testRepair.getBeginTime()));
+		repairProjects.setEndTime(DateUtil.str2Date2(testRepair.getEndTime()));
 		repairProjects.setDifference(1);
 		return repairProjectsMapper.insert(repairProjects);
 	}
@@ -170,8 +170,8 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 		repairProjects.setConstructionUnit(testRepair.getConstructionUnit());
 		repairProjects.setPicture(testRepair.getPicture());
 		repairProjects.setPrePicture(testRepair.getPrePicture());
-		repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
-		repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
+		repairProjects.setBeginTime(DateUtil.str2Date2(testRepair.getBeginTime()));
+		repairProjects.setEndTime(DateUtil.str2Date2(testRepair.getEndTime()));
 		repairProjects.setDifference(0);
 		return repairProjectsMapper.insert(repairProjects);
 	}

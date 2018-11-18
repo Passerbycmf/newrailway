@@ -10,8 +10,8 @@
         <result property="repairNumber"    column="repair_number"    />
         <result property="repairName"    column="repair_name"    />
         <result property="repairPlan"    column="repair_plan"    />
-        <result property="startTime"    column="start_time"    />
-        <result property="finshTime"    column="finsh_time"    />
+        <result property="beginTime"    column="begin_time"    />
+        <result property="endTime"    column="end_time"    />
         <result property="constructionUnit"    column="construction_unit"    />
         <result property="budget"    column="budget"    />
         <result property="prePicture"    column="pre_picture"    />
@@ -22,14 +22,14 @@
     </resultMap>
 
     <sql id="selectRepairProjectsVo">
-        select id, asset_name, repair_number, repair_name, repair_plan, start_time, finsh_time, construction_unit, budget, pre_picture, picture,difference,create_time from sys_repair_projects
+        select id, asset_name, repair_number, repair_name, repair_plan, begin_time, end_time, construction_unit, budget, pre_picture, picture,difference,create_time from sys_repair_projects
     </sql>
 
     <select id="selectRepairProjectsList" parameterType="RepairProjects" resultMap="RepairProjectsResult">
         <include refid="selectRepairProjectsVo"/>
         <where>
-            <if test="assetName != null and assetName != ''">
-                AND asset_name like concat('%', #{assetName}, '%')
+            <if test="repairName != null and repairName != ''">
+                AND repair_name like concat('%', #{repairName}, '%')
             </if>
             <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
                 AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
@@ -53,8 +53,8 @@
             <if test="repairNumber != null and repairNumber != '' ">repair_number,</if>
             <if test="repairName != null and repairName != '' ">repair_name,</if>
             <if test="repairPlan != null and repairPlan != '' ">repair_plan,</if>
-            <if test="startTime != null and startTime != '' ">start_time,</if>
-            <if test="finshTime != null and finshTime != '' ">finsh_time,</if>
+            <if test="beginTime != null and beginTime != '' ">begin_time,</if>
+            <if test="endTime != null and endTime != '' ">end_time,</if>
             <if test="constructionUnit != null and constructionUnit != '' ">construction_unit,</if>
             <if test="budget != null and budget != '' ">budget,</if>
             <if test="prePicture != null and prePicture != '' ">pre_picture,</if>
@@ -68,8 +68,8 @@
             <if test="repairNumber != null and repairNumber != ''">#{repairNumber},</if>
             <if test="repairName != null and repairName != ''">#{repairName},</if>
             <if test="repairPlan != null and repairPlan != ''">#{repairPlan},</if>
-            <if test="startTime != null and startTime != ''">#{startTime},</if>
-            <if test="finshTime != null and finshTime != ''">#{finshTime},</if>
+            <if test="beginTime != null and beginTime != ''">#{beginTime},</if>
+            <if test="endTime != null and endTime != ''">#{endTime},</if>
             <if test="constructionUnit != null and constructionUnit != ''">#{constructionUnit},</if>
             <if test="budget != null and budget != ''">#{budget},</if>
             <if test="prePicture != null and prePicture != ''">#{prePicture},</if>
@@ -86,8 +86,8 @@
             <if test="repairNumber != null  ">repair_number = #{repairNumber},</if>
             <if test="repairName != null  and repairName != ''  ">repair_name = #{repairName},</if>
             <if test="repairPlan != null  and repairPlan != ''  ">repair_plan = #{repairPlan},</if>
-            <if test="startTime != null  ">start_time = #{startTime},</if>
-            <if test="finshTime != null  ">finsh_time = #{finshTime},</if>
+            <if test="beginTime != null  ">begin_time = #{beginTime},</if>
+            <if test="endTime != null  ">end_time = #{endTime},</if>
             <if test="constructionUnit != null  and constructionUnit != ''  ">construction_unit = #{constructionUnit},</if>
             <if test="budget != null  and budget != ''  ">budget = #{budget},</if>
             <if test="prePicture != null  and prePicture != ''  ">pre_picture = #{prePicture},</if>
@@ -110,8 +110,8 @@
     </delete>
 
     <insert id="insert" parameterType="RepairProjects">
-        insert into sys_repair_projects(id,asset_name,repair_name,repair_number,repair_plan,start_time,finsh_time,construction_unit,budget,pre_picture,picture,difference)
-        values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{startTime},#{finshTime},#{constructionUnit},#{budget},#{prePicture},#{picture},#{difference})
+        insert into sys_repair_projects(id,asset_name,repair_name,repair_number,repair_plan,begin_time,end_time,construction_unit,budget,pre_picture,picture,difference)
+        values (#{id},#{assetName},#{repairName},#{repairNumber},#{repairPlan},#{beginTime},#{endTime},#{constructionUnit},#{budget},#{prePicture},#{picture},#{difference})
     </insert>
 
     <select id="selectRepairProjectsAll"  resultMap="RepairProjectsResult">
@@ -125,14 +125,14 @@
     </select>
 
     <select id="getAssetName" parameterType="String" resultType="java.lang.String">
-        select distinct r.asset_name from sys_repair_projects r
-        LEFT JOIN sys_asset_management a ON r.id =a.id
+      select distinct r.asset_name from sys_repair_projects r
+        LEFT JOIN sys_asset_management a ON r.id =a.id and r.difference = a.asset_difference
         where a.asset_difference = 1;
     </select>
 
     <select id="getHouseAssetName" resultType="java.lang.String" parameterType="String">
         select distinct r.asset_name from sys_repair_projects r
-        LEFT JOIN sys_asset_management a ON r.id =a.id
+        LEFT JOIN sys_asset_management a ON r.id =a.id and r.difference = a.asset_difference
         where a.asset_difference = 0;
     </select>
 

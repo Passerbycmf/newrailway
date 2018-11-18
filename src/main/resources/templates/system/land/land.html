@@ -12,23 +12,27 @@
 					<input type="text" placeholder="请输入资产名称" name="assetName"/>
 				</li>
 				<li>
+				<li>
 					<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+					<a class="btn btn-success btn-rounded btn-sm" onclick="$.table.exportExcel()" shiro:hasPermission="system:land:export"><i class="fa fa-download"></i>&nbsp;导出</a>
 				</li>
-				<li>
-					<a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" shiro:hasPermission="system:land:add" >
-						<i class="fa fa-plus"></i> 添加土地
-					</a>
 				</li>
-				<li>
-					<a class="btn btn-outline btn-danger btn-rounded" onclick="$.operate.batRemove()" shiro:hasPermission="system:land:remove">
-						<i class="fa fa-trash-o"></i> 删除
-					</a>
-				</li>
+
 			</ul>
 				</div>
 			</form>
 		</div>
-			
+
+		<div class="btn-group hidden-xs" id="toolbar" role="group">
+
+			<a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" shiro:hasPermission="system:land:add">
+				<i class="fa fa-plus"></i> 新增
+			</a>
+			<a class="btn btn-outline btn-danger btn-rounded" onclick="$.operate.batRemove()" shiro:hasPermission="system:land:remove">
+				<i class="fa fa-trash-o"></i> 删除
+			</a>
+		</div>
+
 		<div class="col-sm-12 select-info table-striped">
 			<table id="bootstrap-table" data-mobile-responsive="true"></table>
 		</div>
@@ -46,6 +50,7 @@
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
                 modalName: "资产管理",
                 columns: [{
 		            checkbox: true

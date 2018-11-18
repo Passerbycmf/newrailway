@@ -2,6 +2,7 @@ package zjnu.newrailway.project.system.bean;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import zjnu.newrailway.framework.aspectj.lang.annotation.Excel;
 import zjnu.newrailway.framework.web.BaseEntity;
 
 import java.util.Date;
@@ -17,16 +18,22 @@ public class Post extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	/** 岗位ID */
+	@Excel(name = "岗位ID")
 	private Integer postId;
 	/** 岗位编码 */
+	@Excel(name = "岗位编码")
 	private String postCode;
 	/** 岗位名称 */
+	@Excel(name = "岗位名称")
 	private String postName;
 	/** 显示顺序 */
+	@Excel(name = "岗位显示顺序")
 	private Integer postSort;
 	/** 状态（0正常 1停用） */
+	@Excel(name = "岗位状态")
 	private String status;
 	/** 创建者 */
+	@Excel(name = "创建者")
 	private String createBy;
 	/** 创建时间 */
 	private Date createTime;
@@ -35,6 +42,7 @@ public class Post extends BaseEntity
 	/** 更新时间 */
 	private Date updateTime;
 	/** 备注 */
+	@Excel(name = "备注")
 	private String remark;
 	/** 用户是否存在此岗位标识 默认不存在 */
 	private boolean flag = false;

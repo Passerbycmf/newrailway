@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
@@ -50,6 +51,24 @@ public class PostController extends BaseController
 		startPage();
         List<Post> list = postService.selectPostList(post);
 		return getDataTable(list);
+	}
+
+	@Log(title = "岗位管理", action = BusinessType.EXPORT)
+	@RequiresPermissions("system:post:export")
+	@PostMapping("/export")
+	@ResponseBody
+	public AjaxResult export(Post post) throws Exception
+	{
+		try
+		{
+			List<Post> list = postService.selectPostList(post);
+			ExcelUtil<Post> util = new ExcelUtil<Post>(Post.class);
+			return util.exportExcel(list, "post");
+		}
+		catch (Exception e)
+		{
+			return error("导出Excel失败，请联系网站管理员！");
+		}
 	}
 	
 	/**

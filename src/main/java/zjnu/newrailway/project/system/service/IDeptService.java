@@ -72,6 +72,13 @@ public interface IDeptService
 	boolean checkDeptExistUser(Integer deptId);
 
 	/**
+	 * 查询部门是否存在员工
+	 * @param deptId
+	 * @return
+	 */
+	boolean checkDeptExistStaff(Integer deptId);
+
+	/**
 	 * 校验部门名称是否唯一
 	 * @param dept
 	 * @return

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link href="/ajax/libs/iCheck/custom.css" th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-user-edit" th:object="${user}">
+        <input name="userId"  type="hidden"  th:field="*{userId}" />
+        <input name="deptId"  type="hidden"  th:field="*{deptId}" id="treeId"/>
+        <div class="form-group">
+            <label class="col-sm-3 control-label ">登录名称：</label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" readonly="true" th:field="*{loginName}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">部门名称：</label>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" name="deptName"  readonly="true" id="treeName" th:field="*{dept.deptName}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">用户名称：</label>
+            <div class="col-sm-8">
+                <input class="form-control" readonly="true" type="text" name="userName" id="userName" th:field="*{userName}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">邮箱：</label>
+            <div class="col-sm-8">
+                <input class="form-control" readonly="true" type="text" name="email" id="email" th:field="*{email}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">手机：</label>
+            <div class="col-sm-8">
+                <input class="form-control" readonly="true" type="text" name="phonenumber" id="phonenumber" th:field="*{phonenumber}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">性别：</label>
+            <div class="col-sm-8">
+                <select id="sex" class="form-control m-b" readonly="true" th:with="type=${@dict.getType('sys_user_sex')}">
+                    <option th:each="dict : ${type}" th:text="${dict['dictLabel']}" th:value="${dict['dictValue']}" th:field="*{sex}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">状态：</label>
+            <div class="col-sm-8">
+                <div class="onoffswitch">
+                    <input type="checkbox" readonly="true" th:checked="${user.status == '0' ? true : false}" class="onoffswitch-checkbox" id="status" name="status">
+                    <label class="onoffswitch-label" for="status">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">员工岗位：</label>
+            <div class="col-sm-8">
+                <select id="post" name="post" class="form-control select2-hidden-accessible" multiple="">
+                    <option th:each="post:${posts}" readonly="true" th:value="${post.postId}" th:text="${post.postName}" th:selected="${post.flag}" th:disabled="${post.status == '1'}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">角色：</label>
+            <div class="col-sm-8">
+                <label th:each="role:${roles}" class="checkbox-inline i-checks">
+                    <input name="role" readonly="true" type="checkbox" th:value="${role.roleId}" th:text="${role.roleName}" th:checked="${role.flag}" th:disabled="${role.status == '1'}">
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-control-static col-sm-offset-9">
+                <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+
+</body>
+</html>

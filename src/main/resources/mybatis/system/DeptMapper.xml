@@ -63,6 +63,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from sys_dept t
 		where dept_id = #{deptId}
 	</select>
+    <select id="checkDeptExistStaff" parameterType="Integer" resultType="int">
+        select count(*) from sys_staff where dept_id = #{deptId} and del_flag = '0'
+    </select>
 
     <insert id="insertDept" parameterType="Dept">
         insert into sys_dept(

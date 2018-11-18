@@ -91,5 +91,11 @@ public interface DeptMapper
 	 */
 	Dept checkDeptNameUnique(String deptName);
 
-
+	/**
+	 * 查询部门是否存在用户
+	 * @param deptId
+	 * @return
+	 */
+	//mybatis中if test里判断传参时，如果传参是像int的基本类型，因为它没有getter方法所以会报错，添加@Param注释
+	int checkDeptExistStaff(@Param("deptId") Integer deptId);
 }
