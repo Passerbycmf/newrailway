@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zjnu.newrailway.project.system.mapper.StaffMapper">
+    
+    <resultMap type="Staff" id="StaffResult">
+        <result property="staffId"    column="staff_id"    />
+        <result property="staffNumber"    column="staff_number"    />
+        <result property="staffName"    column="staff_name"    />
+        <result property="staffSex"    column="staff_sex"    />
+        <result property="staffPhone"    column="staff_phone"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="remark"    column="remark"    />
+        <association property="dept"    column="dept_id" javaType="Dept" resultMap="deptResult"/>
+    </resultMap>
+
+    <resultMap id="deptResult" type="Dept">
+        <id     property="deptId"   column="dept_id"     />
+        <result property="parentId" column="parent_id"   />
+        <result property="deptName" column="dept_name"   />
+        <result property="orderNum" column="order_num"   />
+        <result property="status"   column="dept_status" />
+    </resultMap>
+
+	<sql id="selectStaffVo">
+        select s.staff_id, s.staff_number, s.staff_name, s.staff_sex, s.staff_phone, s.create_time, s.update_time, s.dept_id, s.status, s.del_flag, s.remark,d.dept_id, d.parent_id, d.dept_name, d.order_num, d.status as dept_status
+    from sys_staff s
+    left join sys_dept d on s.dept_id = d.dept_id
+    </sql>
+	
+    <select id="selectStaffList" parameterType="Staff" resultMap="StaffResult">
+        select s.staff_id, s.staff_number, s.staff_name, s.staff_sex, s.staff_phone, s.create_time, s.dept_id, s.status, s.del_flag, s.remark,d.dept_name from sys_staff s
+        left join sys_dept d on s.dept_id = d.dept_id
+        where s.del_flag = '0'
+        <if test="staffName != null and staffName != ''">
+            AND s.staff_name like concat('%', #{staffName}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND s.status = #{status}
+        </if>
+        <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
+            AND date_format(s.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+        </if>
+        <if test="params != null and params.endTime != ''"><!-- 结束时间检索 -->
+            AND date_format(s.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+        </if>
+        <if test="deptId != null and parentId != null and parentId != 0">
+            AND s.dept_id IN (SELECT t.dept_id FROM sys_dept t WHERE t.dept_id = #{deptId} OR t.parent_id = #{deptId})
+        </if>
+    </select>
+    
+    <select id="selectStaffById" parameterType="Integer" resultMap="StaffResult">
+        <include refid="selectStaffVo"/>
+        where s.staff_id = #{staffId}
+    </select>
+        
+    <insert id="insertStaff" parameterType="Staff">
+        insert into sys_staff
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="staffId != null and staffId != '' ">staff_id,</if>
+			<if test="staffNumber != null and staffNumber != '' ">staff_number,</if>
+			<if test="staffName != null and staffName != '' ">staff_name,</if>
+			<if test="staffSex != null and staffSex != '' ">staff_sex,</if>
+			<if test="staffPhone != null and staffPhone != '' ">staff_phone,</if>
+			<if test="createTime != null and createTime != '' ">create_time,</if>
+			<if test="updateTime != null and updateTime != '' ">update_time,</if>
+			<if test="deptId != null and deptId != '' ">dept_id,</if>
+			<if test="status != null and status != '' ">status,</if>
+			<if test="remark != null and remark != '' ">remark,</if>
+            create_time
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="staffId != null and staffId != ''">#{staffId},</if>
+			<if test="staffNumber != null and staffNumber != ''">#{staffNumber},</if>
+			<if test="staffName != null and staffName != ''">#{staffName},</if>
+			<if test="staffSex != null and staffSex != ''">#{staffSex},</if>
+			<if test="staffPhone != null and staffPhone != ''">#{staffPhone},</if>
+			<if test="createTime != null and createTime != ''">#{createTime},</if>
+			<if test="updateTime != null and updateTime != ''">#{updateTime},</if>
+			<if test="deptId != null and deptId != ''">#{deptId},</if>
+			<if test="status != null and status != ''">#{status},</if>
+			<if test="remark != null and remark != ''">#{remark},</if>
+            sysdate()
+         </trim>
+    </insert>
+	 
+    <update id="updateStaff" parameterType="Staff">
+        update sys_staff
+        <set>
+            <if test="staffNumber != null  ">staff_number = #{staffNumber},</if>
+            <if test="staffName != null  and staffName != ''  ">staff_name = #{staffName},</if>
+            <if test="staffSex != null  and staffSex != ''  ">staff_sex = #{staffSex},</if>
+            <if test="staffPhone != null  and staffPhone != ''  ">staff_phone = #{staffPhone},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+            <if test="deptId != null  ">dept_id = #{deptId},</if>
+            <if test="status != null  and status != ''  ">status = #{status},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            update_time = sysdate()
+        </set>
+        where staff_id = #{staffId}
+    </update>
+
+	<delete id="deleteStaffById" parameterType="Integer">
+        delete from sys_staff where staff_id = #{staffId}
+    </delete>
+	
+    <delete id="deleteStaffByIds" parameterType="String">
+        update sys_staff set del_flag = '2' where staff_id in
+        <foreach collection="array" item="staffId" open="(" separator="," close=")">
+            #{staffId}
+        </foreach>
+    </delete>
+    
+</mapper>

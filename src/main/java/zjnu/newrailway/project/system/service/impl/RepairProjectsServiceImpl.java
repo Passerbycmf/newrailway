@@ -61,12 +61,25 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
 	/**
      * 修改修缮项目
      * 
-     * @param repairProjects 修缮项目信息
+     * @param testRepair 修缮项目信息
      * @return 结果
      */
 	@Override
-	public int updateRepairProjects(RepairProjects repairProjects)
+	public int updateRepairProjects(TestRepair testRepair)
 	{
+		RepairProjects repairProjects = new RepairProjects();
+		repairProjects.setId(testRepair.getId());
+		repairProjects.setAssetName(testRepair.getAssetName());
+		repairProjects.setRepairNumber(testRepair.getRepairNumber());
+		repairProjects.setRepairName(testRepair.getRepairName());
+		repairProjects.setRepairPlan(testRepair.getRepairPlan());
+		repairProjects.setBudget(testRepair.getBudget());
+		repairProjects.setConstructionUnit(testRepair.getConstructionUnit());
+		repairProjects.setPicture(testRepair.getPicture());
+		repairProjects.setPrePicture(testRepair.getPrePicture());
+		repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
+		repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
+		repairProjects.setDifference(testRepair.getDifference());
 	    return repairProjectsMapper.updateRepairProjects(repairProjects);
 	}
 
@@ -101,6 +114,7 @@ public class RepairProjectsServiceImpl implements IRepairProjectsService
        repairProjects.setStartTime(DateUtil.str2Date2(testRepair.getStartTime()));
        repairProjects.setFinshTime(DateUtil.str2Date2(testRepair.getFinshTime()));
        repairProjects.setDifference(testRepair.getDifference());
+
 		return repairProjectsMapper.insert(repairProjects);
 	}
 

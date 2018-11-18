@@ -129,6 +129,14 @@ public interface IUserService
 	 */
 	int updateUserInfo(User user);
 
+	/**
+	 * 根据用户ID查询用户所属岗位组
+	 *
+	 * @param userId 用户ID
+	 * @return 结果
+	 */
+	String selectUserPostGroup(Integer userId);
+
 
 
 

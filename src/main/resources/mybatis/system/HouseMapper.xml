@@ -123,6 +123,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="assetDifference != null  ">asset_difference = #{assetDifference},</if>
         </trim>
         where id = #{id}
+
     </update>
 
 	<delete id="deleteHouseById" parameterType="Integer">

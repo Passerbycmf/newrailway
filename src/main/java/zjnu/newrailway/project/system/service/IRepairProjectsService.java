@@ -40,10 +40,10 @@ public interface IRepairProjectsService
 	/**
      * 修改修缮项目
      * 
-     * @param repairProjects 修缮项目信息
+     * @param testRepair 修缮项目信息
      * @return 结果
      */
-	public int updateRepairProjects(RepairProjects repairProjects);
+	public int updateRepairProjects(TestRepair testRepair);
 		
 	/**
      * 删除修缮项目信息

@@ -54,8 +54,9 @@
         }).on("fileuploaded", function (event, data, previewId, index) {    //一个文件上传成功
             var form = data.form, files = data.files, extra = data.extra,
                 response = data.response, reader = data.reader;
+            console.log(11111)
             console.log(response);//打印出返回的json
-            console.log(response.status);//打印出路径
+            console.log(11111);//打印出路径
         }).on('fileerror', function(event, data, msg) {  //一个文件上传失败
             console.log('文件上传失败！'+data.status);
         })

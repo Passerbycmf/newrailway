@@ -93,9 +93,9 @@ public class DevelopProjectsController extends BaseController
 	@Log(title = "开发项目", action = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
-	public AjaxResult editSave(DevelopProjects developProjects)
+	public AjaxResult editSave(TestDevelop testDevelop)
 	{		
-		return toAjax(developProjectsService.updateDevelopProjects(developProjects));
+		return toAjax(developProjectsService.updateDevelopProjects(testDevelop));
 	}
 	
 	/**

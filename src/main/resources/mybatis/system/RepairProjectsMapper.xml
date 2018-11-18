@@ -17,10 +17,12 @@
         <result property="prePicture"    column="pre_picture"    />
         <result property="picture"    column="picture"    />
         <result property="difference"    column="difference"    />
+        <result property="createTime"   column="create_time"  />
+        <result property="updateTime"   column="update_time"  />
     </resultMap>
 
     <sql id="selectRepairProjectsVo">
-        select id, asset_name, repair_number, repair_name, repair_plan, start_time, finsh_time, construction_unit, budget, pre_picture, picture,difference from sys_repair_projects
+        select id, asset_name, repair_number, repair_name, repair_plan, start_time, finsh_time, construction_unit, budget, pre_picture, picture,difference,create_time from sys_repair_projects
     </sql>
 
     <select id="selectRepairProjectsList" parameterType="RepairProjects" resultMap="RepairProjectsResult">
@@ -29,8 +31,12 @@
             <if test="assetName != null and assetName != ''">
                 AND asset_name like concat('%', #{assetName}, '%')
             </if>
-
-
+            <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
         </where>
     </select>
 
@@ -54,6 +60,7 @@
             <if test="prePicture != null and prePicture != '' ">pre_picture,</if>
             <if test="picture != null and picture != '' ">picture,</if>
             <if test="difference != null and difference != '' ">difference,</if>
+            create_time
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null and id != ''">#{id},</if>
@@ -68,12 +75,13 @@
             <if test="prePicture != null and prePicture != ''">#{prePicture},</if>
             <if test="picture != null and picture != ''">#{picture},</if>
             <if test="difference != null and difference != '' ">difference,</if>
+            sysdate()
         </trim>
     </insert>
 
     <update id="updateRepairProjects" parameterType="RepairProjects">
         update sys_repair_projects
-        <trim prefix="SET" suffixOverrides=",">
+        <set>
             <if test="assetName != null  and assetName != ''  ">asset_name = #{assetName},</if>
             <if test="repairNumber != null  ">repair_number = #{repairNumber},</if>
             <if test="repairName != null  and repairName != ''  ">repair_name = #{repairName},</if>
@@ -85,7 +93,8 @@
             <if test="prePicture != null  and prePicture != ''  ">pre_picture = #{prePicture},</if>
             <if test="picture != null  and picture != ''  ">picture = #{picture},</if>
             <if test="difference != null  and difference != ''  ">difference = #{difference},</if>
-        </trim>
+            update_time = sysdate()
+        </set>
         where id = #{id}
     </update>
 

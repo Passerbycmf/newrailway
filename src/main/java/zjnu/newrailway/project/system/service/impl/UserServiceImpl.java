@@ -8,12 +8,8 @@ import zjnu.newrailway.common.constant.UserConstants;
 import zjnu.newrailway.common.utils.ShiroUtils;
 import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.shiro.service.PasswordService;
-import zjnu.newrailway.project.system.bean.Role;
-import zjnu.newrailway.project.system.bean.UserRole;
-import zjnu.newrailway.project.system.mapper.RoleMapper;
-import zjnu.newrailway.project.system.mapper.UserMapper;
-import zjnu.newrailway.project.system.bean.User;
-import zjnu.newrailway.project.system.mapper.UserRoleMapper;
+import zjnu.newrailway.project.system.bean.*;
+import zjnu.newrailway.project.system.mapper.*;
 import zjnu.newrailway.project.system.service.IUserService;
 import zjnu.newrailway.common.utils.Convert;
 
@@ -35,6 +31,11 @@ public class UserServiceImpl implements IUserService
 	@Autowired
 	private RoleMapper roleMapper;
 
+	@Autowired
+	private PostMapper postMapper;
+
+	@Autowired
+	private UserPostMapper userPostMapper;
 
 	@Autowired
 	private PasswordService passwordService;
@@ -78,10 +79,34 @@ public class UserServiceImpl implements IUserService
 		user.setCreateBy(ShiroUtils.getLoginName());
 		// 新增用户信息
 		int rows = userMapper.insertUser(user);
+		// 新增用户岗位关联
+		insertUserPost(user);
 		// 新增用户与角色管理
 		insertUserRole(user);
 		return rows;
 
+	}
+
+	/**
+	 * 新增用户岗位信息
+	 *
+	 * @param user 用户对象
+	 */
+	public void insertUserPost(User user)
+	{
+		// 新增用户与岗位管理
+		List<UserPost> list = new ArrayList<UserPost>();
+		for (Integer postId : user.getPostIds())
+		{
+			UserPost up = new UserPost();
+			up.setUserId(user.getUserId());
+			up.setPostId(postId);
+			list.add(up);
+		}
+		if (list.size() > 0)
+		{
+			userPostMapper.batchUserPost(list);
+		}
 	}
 
 	/**
@@ -122,6 +147,10 @@ public class UserServiceImpl implements IUserService
 		userRoleMapper.deleteUserRoleByUserId(userId);
 		// 新增用户与角色管理
 		insertUserRole(user);
+		// 删除用户与岗位关联
+		userPostMapper.deleteUserPostByUserId(userId);
+		// 新增用户与岗位管理
+		insertUserPost(user);
 		return userMapper.updateUser(user);
 	}
 
@@ -138,7 +167,8 @@ public class UserServiceImpl implements IUserService
 	{
 		// 删除用户与角色关联
 		userRoleMapper.deleteUserRoleByUserId(userId);
-
+		// 删除用户与岗位表
+		userPostMapper.deleteUserPostByUserId(userId);
 		return userMapper.deleteUserById(userId);
 	}
 
@@ -297,9 +327,26 @@ public class UserServiceImpl implements IUserService
 		return userMapper.updateUser(user);
 	}
 
-
-
-
-
+	/**
+	 * 查询用户所属岗位组
+	 *
+	 * @param userId 用户ID
+	 * @return 结果
+	 */
+	@Override
+	public String selectUserPostGroup(Integer userId)
+	{
+		List<Post> list = postMapper.selectPostsByUserId(userId);
+		StringBuffer idsStr = new StringBuffer();
+		for (Post post : list)
+		{
+			idsStr.append(post.getPostName()).append(",");
+		}
+		if (StringUtils.isNotEmpty(idsStr.toString()))
+		{
+			return idsStr.substring(0, idsStr.length() - 1);
+		}
+		return idsStr.toString();
+	}
 
 }

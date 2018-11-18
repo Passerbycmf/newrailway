@@ -56,8 +56,6 @@ public class HouseController extends BaseController
 	{
 		startPage();
         List<Asset> list = houseService.selectHouseList(house);
-
-        map.put("assetName",assetName);
 		return getDataTable(list);
 	}
 	
@@ -126,16 +124,15 @@ public class HouseController extends BaseController
 		mmap.put("house", house);
 		return prefix + "/check";
 	}
-
 	/**
 	 *校检资产名称
 	 */
-	@PostMapping("/checkAssetNameUnique")
+	@PostMapping("/checkAssetName")
 	@ResponseBody
-	public String checkAssetName(Asset house){
+	public String checkAssetName(Asset land){
 		String flag = "0";
-		if(StringUtils.isNotNull(house)){
-			flag = houseService.checkAssetName(house);
+		if(StringUtils.isNotNull(land)){
+			flag = houseService.checkAssetName(land);
 		}
 		return flag;
 	}

@@ -15,6 +15,7 @@ import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.User;
+import zjnu.newrailway.project.system.service.IPostService;
 import zjnu.newrailway.project.system.service.IRoleService;
 import zjnu.newrailway.project.system.service.IUserService;
 import zjnu.newrailway.framework.web.TableDataInfo;
@@ -38,6 +39,10 @@ public class UserController extends BaseController
 
 	@Autowired
 	private IRoleService roleService;
+
+	@Autowired
+	private IPostService postService;
+
 
 
 	@RequiresPermissions("system:user:view")
@@ -68,6 +73,7 @@ public class UserController extends BaseController
 	public String add(ModelMap map)
 	{
 		map.put("roles",roleService.selectRoleAll());
+		map.put("posts", postService.selectPostAll());
 		return prefix + "/add";
 	}
 
@@ -94,9 +100,9 @@ public class UserController extends BaseController
 	public String edit(@PathVariable("userId") Integer userId, ModelMap mmap)
 	{
 		User user = userService.selectUserById(userId);
-
 		mmap.put("user", user);
 		mmap.put("roles",roleService.selectRolesByUserId(userId));
+		mmap.put("posts", postService.selectPostsByUserId(userId));
 		return prefix + "/edit";
 	}
 

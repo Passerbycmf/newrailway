@@ -76,6 +76,9 @@ public class User extends BaseEntity
 	@Excel(name = "最后登陆时间")
 	private Date loginDate;
 
+	/** 部门对象 */
+	private Dept dept;
+
 	/** 角色组 */
 	private Integer[] roleIds;
 
@@ -261,6 +264,16 @@ public class User extends BaseEntity
 		this.loginDate = loginDate;
 	}
 
+	public Dept getDept()
+	{
+		return dept;
+	}
+
+	public void setDept(Dept dept)
+	{
+		this.dept = dept;
+	}
+
 	public Integer[] getRoleIds()
 	{
 		return roleIds;
@@ -287,7 +300,7 @@ public class User extends BaseEntity
 		return "User [userId=" + userId + ", deptId=" + deptId + ", parentId=" + parentId + ", loginName=" + loginName
 				+", userType=" + userType + ", userName=" + userName + ", email=" + email + ", phonenumber=" + phonenumber + ", sex=" + sex
 				+ ", avatar=" + avatar + ", password=" + password + ", salt=" + salt + ", status=" + status
-				+ ", delFlag=" + delFlag + ", loginIp=" + loginIp + ", loginDate=" + loginDate
+				+ ", delFlag=" + delFlag + ", loginIp=" + loginIp + ", loginDate=" + loginDate + ", dept=" + dept
 				+ ", roleIds=" + Arrays.toString(roleIds) + ", postIds=" + Arrays.toString(postIds) + "]";
 	}
 

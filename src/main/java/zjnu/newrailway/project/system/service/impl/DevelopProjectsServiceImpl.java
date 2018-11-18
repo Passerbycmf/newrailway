@@ -61,12 +61,24 @@ public class DevelopProjectsServiceImpl implements IDevelopProjectsService
 	/**
      * 修改开发项目
      * 
-     * @param developProjects 开发项目信息
+     * @param testDevelop 开发项目信息
      * @return 结果
      */
 	@Override
-	public int updateDevelopProjects(DevelopProjects developProjects)
+	public int updateDevelopProjects(TestDevelop testDevelop)
 	{
+		DevelopProjects developProjects = new DevelopProjects();
+		developProjects.setId(testDevelop.getId());
+		developProjects.setAssetName(testDevelop.getAssetName());
+		developProjects.setDevelopName(testDevelop.getDevelopName());
+		developProjects.setStratTime(DateUtil.str2Date(testDevelop.getStratTime()));
+		developProjects.setEndTime(DateUtil.str2Date(testDevelop.getEndTime()));
+		developProjects.setDesignUnit(testDevelop.getDesignUnit());
+		developProjects.setConstructionUnit(testDevelop.getConstructionUnit());
+		developProjects.setSupervisionUnit(testDevelop.getSupervisionUnit());
+		developProjects.setMeeting(testDevelop.getMeeting());
+		developProjects.setApprovalDocuments(testDevelop.getApprovalDocuments());
+		developProjects.setDifference(1);
 	    return developProjectsMapper.updateDevelopProjects(developProjects);
 	}
 

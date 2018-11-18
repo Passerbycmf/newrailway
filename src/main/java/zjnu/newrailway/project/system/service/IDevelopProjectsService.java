@@ -40,10 +40,10 @@ public interface IDevelopProjectsService
 	/**
      * 修改开发项目
      * 
-     * @param developProjects 开发项目信息
+     * @param testDevelop 开发项目信息
      * @return 结果
      */
-	public int updateDevelopProjects(DevelopProjects developProjects);
+	public int updateDevelopProjects(TestDevelop testDevelop);
 		
 	/**
      * 删除开发项目信息

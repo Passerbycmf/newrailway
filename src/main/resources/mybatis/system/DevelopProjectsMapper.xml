@@ -16,10 +16,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="meeting"    column="meeting"    />
         <result property="approvalDocuments"    column="approval_documents"    />
         <result property="difference"    column="difference"    />
+        <result property="createTime"   column="create_time"  />
+        <result property="updateTime"   column="update_time"  />
     </resultMap>
 	
 	<sql id="selectDevelopProjectsVo">
-        select id,asset_name, develop_name, strat_time, end_time, design_unit, construction_unit, supervision_unit, meeting, approval_documents,difference from sys_develop_projects
+        select id,asset_name, develop_name, strat_time, end_time, design_unit, construction_unit, supervision_unit, meeting, approval_documents,difference,create_time from sys_develop_projects
     </sql>
 	
     <select id="selectDevelopProjectsList" parameterType="DevelopProjects" resultMap="DevelopProjectsResult">
@@ -27,6 +29,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>
             <if test="assetName != null and assetName != ''">
                 AND asset_name like concat('%', #{assetName}, '%')
+            </if>
+            <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
             </if>
         </where>
     </select>
@@ -63,6 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="meeting != null and meeting != '' ">meeting,</if>
 			<if test="approvalDocuments != null and approvalDocuments != '' ">approval_documents,</if>
             <if test="difference != null and difference != '' ">difference,</if>
+            create_time
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != ''">#{id},</if>
@@ -76,6 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="meeting != null and meeting != ''">#{meeting},</if>
 			<if test="approvalDocuments != null and approvalDocuments != ''">#{approvalDocuments},</if>
             <if test="difference != null and difference != ''">#{difference},</if>
+            sysdate()
          </trim>
     </insert>
     <insert id="insert" parameterType="DevelopProjects">
@@ -97,6 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="meeting != null  and meeting != ''  ">meeting = #{meeting},</if>
             <if test="approvalDocuments != null  and approvalDocuments != ''  ">approval_documents = #{approvalDocuments},</if>
             <if test="difference != null  and difference != ''  ">difference = #{difference},</if>
+            update_time = sysdate()
         </trim>
         where id = #{id}
     </update>

@@ -149,9 +149,9 @@ public class RepairProjectsController extends BaseController
 	@Log(title = "修缮项目", action = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
-	public AjaxResult editSave(RepairProjects repairProjects)
+	public AjaxResult editSave(TestRepair testRepair)
 	{		
-		return toAjax(repairProjectsService.updateRepairProjects(repairProjects));
+		return toAjax(repairProjectsService.updateRepairProjects(testRepair));
 	}
 	
 	/**
