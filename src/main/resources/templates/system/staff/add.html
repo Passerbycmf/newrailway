@@ -92,6 +92,7 @@
 			}
 		});
         function add() {
+            var staffId = $("input[name='staffId']").val();
             var staffNumber = $("input[name='staffNumber']").val();
             var deptId = $("input[name='deptId']").val();
             var staffName = $("input[name='staffName']").val();
@@ -104,6 +105,7 @@
                 type : "POST",
                 url : ctx + "system/staff/add",
                 data : {
+                    "staffId": staffId,
                     "staffNumber": staffNumber,
                     "deptId": deptId,
                     "staffName": staffName,

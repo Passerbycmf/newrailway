@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zjnu.newrailway.project.system.mapper.ContractMapper">
+
+    <resultMap type="Contract" id="ContractResult">
+        <result property="id"    column="id"    />
+        <result property="contractNumber"    column="contract_number"    />
+        <result property="contractName"    column="contract_name"    />
+        <result property="rentName"    column="rent_name"    />
+        <result property="margin"    column="margin"    />
+        <result property="firstValue"    column="first_value"    />
+        <result property="payment"    column="payment"    />
+        <result property="department"    column="department"    />
+        <result property="agent"    column="agent"    />
+        <result property="secondValue"    column="second_value"    />
+        <result property="thirdValue"    column="third_value"    />
+        <result property="forthValue"    column="forth_value"    />
+        <result property="fifthValue"    column="fifth_value"    />
+        <result property="file"    column="file"    />
+        <result property="beginTime"    column="begin_time"    />
+        <result property="terminationRemark"    column="termination_remark"    />
+        <result property="paymentRemark"    column="payment_remark"    />
+        <result property="lawRemark"    column="law_remark"    />
+        <result property="remark"    column="remark"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectContractVo">
+        select id, contract_number, contract_name, rent_name, margin, first_value, payment, department, agent, second_value, third_value, forth_value, fifth_value, file, begin_time, termination_remark, payment_remark, law_remark, remark, create_time, update_time, status from sys_contract
+    </sql>
+
+    <select id="selectContractList" parameterType="Contract" resultMap="ContractResult">
+        <include refid="selectContractVo"/>
+        where status = 1
+        <if test="contractName != null and contractName != ''">
+            AND contract_name like concat('%', #{contractName}, '%')
+        </if>
+    </select>
+
+    <select id="selectContractById" parameterType="Integer" resultMap="ContractResult">
+        <include refid="selectContractVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectPContractList" parameterType="Contract" resultMap="ContractResult">
+        <include refid="selectContractVo"/>
+        where status = 0
+        <if test="contractName != null and contractName != ''">
+            AND contract_name like concat('%', #{contractName}, '%')
+        </if>
+    </select>
+
+    <insert id="insertContract" parameterType="Contract">
+        insert into sys_contract
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != '' ">id,</if>
+            <if test="contractNumber != null and contractNumber != '' ">contract_number,</if>
+            <if test="contractName != null and contractName != '' ">contract_name,</if>
+            <if test="rentName != null and rentName != '' ">rent_name,</if>
+            <if test="margin != null and margin != '' ">margin,</if>
+            <if test="firstValue != null and firstValue != '' ">first_value,</if>
+            <if test="payment != null and payment != '' ">payment,</if>
+            <if test="department != null and department != '' ">department,</if>
+            <if test="agent != null and agent != '' ">agent,</if>
+            <if test="secondValue != null and secondValue != '' ">second_value,</if>
+            <if test="thirdValue != null and thirdValue != '' ">third_value,</if>
+            <if test="forthValue != null and forthValue != '' ">forth_value,</if>
+            <if test="fifthValue != null and fifthValue != '' ">fifth_value,</if>
+            <if test="file != null and file != '' ">file,</if>
+            <if test="beginTime != null and beginTime != '' ">begin_time,</if>
+            <if test="terminationRemark != null and terminationRemark != '' ">termination_remark,</if>
+            <if test="paymentRemark != null and paymentRemark != '' ">payment_remark,</if>
+            <if test="lawRemark != null and lawRemark != '' ">law_remark,</if>
+            <if test="remark != null and remark != '' ">remark,</if>
+            <if test="createTime != null and createTime != '' ">create_time,</if>
+            <if test="updateTime != null and updateTime != '' ">update_time,</if>
+            <if test="status != null and status != '' ">status,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="contractNumber != null and contractNumber != ''">#{contractNumber},</if>
+            <if test="contractName != null and contractName != ''">#{contractName},</if>
+            <if test="rentName != null and rentName != ''">#{rentName},</if>
+            <if test="margin != null and margin != ''">#{margin},</if>
+            <if test="firstValue != null and firstValue != ''">#{firstValue},</if>
+            <if test="payment != null and payment != ''">#{payment},</if>
+            <if test="department != null and department != ''">#{department},</if>
+            <if test="agent != null and agent != ''">#{agent},</if>
+            <if test="secondValue != null and secondValue != ''">#{secondValue},</if>
+            <if test="thirdValue != null and thirdValue != ''">#{thirdValue},</if>
+            <if test="forthValue != null and forthValue != ''">#{forthValue},</if>
+            <if test="fifthValue != null and fifthValue != ''">#{fifthValue},</if>
+            <if test="file != null and file != ''">#{file},</if>
+            <if test="beginTime != null and beginTime != ''">#{beginTime},</if>
+            <if test="terminationRemark != null and terminationRemark != ''">#{terminationRemark},</if>
+            <if test="paymentRemark != null and paymentRemark != ''">#{paymentRemark},</if>
+            <if test="lawRemark != null and lawRemark != ''">#{lawRemark},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="createTime != null and createTime != ''">#{createTime},</if>
+            <if test="updateTime != null and updateTime != ''">#{updateTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+        </trim>
+    </insert>
+
+
+    <update id="updateContract" parameterType="Contract">
+        update sys_contract
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="contractNumber != null  ">contract_number = #{contractNumber},</if>
+            <if test="contractName != null  and contractName != ''  ">contract_name = #{contractName},</if>
+            <if test="rentName != null  and rentName != ''  ">rent_name = #{rentName},</if>
+            <if test="margin != null  and margin != ''  ">margin = #{margin},</if>
+            <if test="firstValue != null  and firstValue != ''  ">first_value = #{firstValue},</if>
+            <if test="payment != null  and payment != ''  ">payment = #{payment},</if>
+            <if test="department != null  and department != ''  ">department = #{department},</if>
+            <if test="agent != null  and agent != ''  ">agent = #{agent},</if>
+            <if test="secondValue != null  and secondValue != ''  ">second_value = #{secondValue},</if>
+            <if test="thirdValue != null  and thirdValue != ''  ">third_value = #{thirdValue},</if>
+            <if test="forthValue != null  and forthValue != ''  ">forth_value = #{forthValue},</if>
+            <if test="fifthValue != null  and fifthValue != ''  ">fifth_value = #{fifthValue},</if>
+            <if test="file != null  and file != ''  ">file = #{file},</if>
+            <if test="beginTime != null  ">begin_time = #{beginTime},</if>
+            <if test="terminationRemark != null  and terminationRemark != ''  ">termination_remark = #{terminationRemark},</if>
+            <if test="paymentRemark != null  and paymentRemark != ''  ">payment_remark = #{paymentRemark},</if>
+            <if test="lawRemark != null  and lawRemark != ''  ">law_remark = #{lawRemark},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+            <if test="status != null  and status != ''  ">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteContractById" parameterType="Integer">
+        delete from sys_contract where id = #{id}
+    </delete>
+
+    <delete id="deleteContractByIds" parameterType="String">
+        delete from sys_contract where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -71,8 +71,8 @@ public class DevelopProjectsServiceImpl implements IDevelopProjectsService
 		developProjects.setId(testDevelop.getId());
 		developProjects.setAssetName(testDevelop.getAssetName());
 		developProjects.setDevelopName(testDevelop.getDevelopName());
-		developProjects.setBeginTime(DateUtil.str2Date(testDevelop.getBeginTime()));
-		developProjects.setEndTime(DateUtil.str2Date(testDevelop.getEndTime()));
+		developProjects.setBeginTime(DateUtil.str2Date2(testDevelop.getBeginTime()));
+		developProjects.setEndTime(DateUtil.str2Date2(testDevelop.getEndTime()));
 		developProjects.setDesignUnit(testDevelop.getDesignUnit());
 		developProjects.setConstructionUnit(testDevelop.getConstructionUnit());
 		developProjects.setSupervisionUnit(testDevelop.getSupervisionUnit());

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-contract-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">合同编号：</label>
+				<div class="col-sm-8">
+					<input id="contractNumber" name="contractNumber" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">合同名称：</label>
+				<div class="col-sm-8">
+					<input id="contractName" name="contractName" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">承租项点名称：</label>
+				<div class="col-sm-8">
+					<input id="rentName" name="rentName" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">合同履行保证金（元）：</label>
+				<div class="col-sm-8">
+					<input id="margin" name="margin" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">第一年合同金额：</label>
+				<div class="col-sm-8">
+					<input id="firstValue" name="firstValue" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">租金支付方式：</label>
+				<div class="col-sm-8">
+					<input id="payment" name="payment" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">经办部门：</label>
+				<div class="col-sm-8">
+					<input id="department" name="department" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">经办人：</label>
+				<div class="col-sm-8">
+					<input id="agent" name="agent" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">第二年合同金额：</label>
+				<div class="col-sm-8">
+					<input id="secondValue" name="secondValue" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">第三年合同金额：</label>
+				<div class="col-sm-8">
+					<input id="thirdValue" name="thirdValue" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">第四年合同金额：</label>
+				<div class="col-sm-8">
+					<input id="forthValue" name="forthValue" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">第五年合同金额：</label>
+				<div class="col-sm-8">
+					<input id="fifthValue" name="fifthValue" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">合同扫描件：</label>
+				<div class="col-sm-8">
+					<input id="file" name="file" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">合同签订时间：</label>
+				<div class="col-sm-8">
+					<input class="time form-control" id="startTime" name="beginTime" placeholder="请选择开始时间" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">合同状态：</label>
+				<div class="col-sm-8">
+					<div class="onoffswitch">
+						<input type="checkbox" th:checked="true" class="onoffswitch-checkbox" id="status" name="status">
+						<label class="onoffswitch-label" for="status">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="form-control-static col-sm-offset-9">
+					<button type="submit" class="btn btn-primary">提交</button>
+					<button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/contract"
+		$("#form-contract-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			submitHandler: function(form) {
+				$.operate.save(prefix + "/add", $('#form-contract-add').serialize());
+			}
+		});
+	</script>
+</body>
+</html>
