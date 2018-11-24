@@ -29,6 +29,30 @@
         <result property="status"    column="status"    />
     </resultMap>
 
+    <resultMap type="TestContract" id="TestContractResult">
+        <result property="id"    column="id"    />
+        <result property="contractNumber"    column="contract_number"    />
+        <result property="contractName"    column="contract_name"    />
+        <result property="rentName"    column="rent_name"    />
+        <result property="margin"    column="margin"    />
+        <result property="firstValue"    column="first_value"    />
+        <result property="payment"    column="payment"    />
+        <result property="department"    column="department"    />
+        <result property="agent"    column="agent"    />
+        <result property="secondValue"    column="second_value"    />
+        <result property="thirdValue"    column="third_value"    />
+        <result property="forthValue"    column="forth_value"    />
+        <result property="fifthValue"    column="fifth_value"    />
+        <result property="file"    column="file"    />
+        <result property="beginTime"    column="begin_time"    />
+        <result property="terminationRemark"    column="termination_remark"    />
+        <result property="paymentRemark"    column="payment_remark"    />
+        <result property="lawRemark"    column="law_remark"    />
+        <result property="remark"    column="remark"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="status"    column="status"    />
+    </resultMap>
     <sql id="selectContractVo">
         select id, contract_number, contract_name, rent_name, margin, first_value, payment, department, agent, second_value, third_value, forth_value, fifth_value, file, begin_time, termination_remark, payment_remark, law_remark, remark, create_time, update_time, status from sys_contract
     </sql>
@@ -54,7 +78,10 @@
         </if>
     </select>
 
-    <insert id="insertContract" parameterType="Contract">
+
+
+
+    <insert id="insertContract" parameterType="TestContract">
         insert into sys_contract
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null and id != '' ">id,</if>
@@ -107,9 +134,10 @@
     </insert>
 
 
-    <update id="updateContract" parameterType="Contract">
+    <update id="updateContract" parameterType="contract">
         update sys_contract
         <trim prefix="SET" suffixOverrides=",">
+            <if test="id !=null ">id = #{id},</if>
             <if test="contractNumber != null  ">contract_number = #{contractNumber},</if>
             <if test="contractName != null  and contractName != ''  ">contract_name = #{contractName},</if>
             <if test="rentName != null  and rentName != ''  ">rent_name = #{rentName},</if>
@@ -124,13 +152,13 @@
             <if test="fifthValue != null  and fifthValue != ''  ">fifth_value = #{fifthValue},</if>
             <if test="file != null  and file != ''  ">file = #{file},</if>
             <if test="beginTime != null  ">begin_time = #{beginTime},</if>
+            <if test="status != null  and status != ''  ">status = #{status},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
             <if test="terminationRemark != null  and terminationRemark != ''  ">termination_remark = #{terminationRemark},</if>
             <if test="paymentRemark != null  and paymentRemark != ''  ">payment_remark = #{paymentRemark},</if>
             <if test="lawRemark != null  and lawRemark != ''  ">law_remark = #{lawRemark},</if>
             <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
-            <if test="createTime != null  ">create_time = #{createTime},</if>
-            <if test="updateTime != null  ">update_time = #{updateTime},</if>
-            <if test="status != null  and status != ''  ">status = #{status},</if>
         </trim>
         where id = #{id}
     </update>

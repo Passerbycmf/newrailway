@@ -1,9 +1,12 @@
 package zjnu.newrailway.project.system.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zjnu.newrailway.common.utils.DateUtil;
+import zjnu.newrailway.project.system.bean.model.TestContract;
 import zjnu.newrailway.project.system.mapper.ContractMapper;
 import zjnu.newrailway.project.system.bean.Contract;
 import zjnu.newrailway.project.system.service.IContractService;
@@ -52,22 +55,25 @@ public class ContractServiceImpl implements IContractService
      * @return 结果
      */
 	@Override
-	public int insertContract(Contract contract)
+	public int insertContract(TestContract testContract)
 	{
-
-	    return contractMapper.insertContract(contract);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		testContract.setBeginTime(df.format(new Date()));
+	    return contractMapper.insertContract(testContract);
 	}
-	
+
 	/**
-     * 修改租凭合同
-     * 
-     * @param contract 租凭合同信息
-     * @return 结果
-     */
+	 * 修改租凭合同
+	 *
+	 * @param testContract 租凭合同信息
+	 * @return 结果
+	 */
 	@Override
-	public int updateContract(Contract contract)
+	public int updateContract(TestContract testContract)
 	{
-	    return contractMapper.updateContract(contract);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		testContract.setBeginTime(df.format(new Date()));
+		return contractMapper.updateContract(testContract);
 	}
 
 	/**
@@ -93,5 +99,7 @@ public class ContractServiceImpl implements IContractService
 
 		return contractMapper.selectPContractList(contract);
 	}
+
+
 
 }

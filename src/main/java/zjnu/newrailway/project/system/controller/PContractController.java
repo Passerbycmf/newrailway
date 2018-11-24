@@ -12,6 +12,7 @@ import zjnu.newrailway.framework.web.AjaxResult;
 import zjnu.newrailway.framework.web.BaseController;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.project.system.bean.Contract;
+import zjnu.newrailway.project.system.bean.model.TestContract;
 import zjnu.newrailway.project.system.service.IContractService;
 
 import java.util.List;
@@ -90,7 +91,7 @@ public class PContractController extends BaseController
 		mmap.put("contract", contract);
 	    return prefix + "/edit";
 	}
-	
+
 	/**
 	 * 修改保存租凭合同
 	 */
@@ -98,9 +99,9 @@ public class PContractController extends BaseController
 	@Log(title = "租凭合同", action = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
-	public AjaxResult editSave(Contract contract)
-	{		
-		return toAjax(contractService.updateContract(contract));
+	public AjaxResult editSave(TestContract testContract)
+	{
+		return toAjax(contractService.updateContract(testContract));
 	}
 	
 	/**

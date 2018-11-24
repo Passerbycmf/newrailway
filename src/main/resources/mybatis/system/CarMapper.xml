@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zjnu.newrailway.project.system.mapper.CarMapper">
+    
+    <resultMap type="Car" id="CarResult">
+        <result property="id"    column="id"    />
+        <result property="crTime"    column="cr_time"    />
+        <result property="upTime"    column="up_time"    />
+        <result property="numberArrive"    column="number_arrive"    />
+        <result property="serviceCharge"    column="service_charge"    />
+    </resultMap>
+
+    <resultMap type="TimeCar" id="TimeCarResult">
+        <result property="id"    column="id"    />
+        <result property="crTime"    column="cr_time"    />
+        <result property="upTime"    column="up_time"    />
+        <result property="numberArrive"    column="number_arrive"    />
+        <result property="serviceCharge"    column="service_charge"    />
+    </resultMap>
+
+	<sql id="selectCarVo">
+        select id, cr_time, up_time, number_arrive, service_charge from sys_car
+    </sql>
+	
+    <select id="selectCarList" parameterType="Car" resultMap="TimeCarResult">
+        <include refid="selectCarVo"/>
+        <where>
+             <if test="crTime != null and crTime != ''">
+                 and cr_time = #{crTime}
+             </if>
+            <if test="params != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(cr_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(cr_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+         </where>
+    </select>
+    
+    <select id="selectCarById" parameterType="Integer" resultMap="CarResult">
+        <include refid="selectCarVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCar" parameterType="TimeCar">
+        insert into sys_car
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != '' ">id,</if>
+			<if test="crTime != null and crTime != '' ">cr_time,</if>
+			<if test="upTime != null and upTime != '' ">up_time,</if>
+			<if test="numberArrive != null and numberArrive != '' ">number_arrive,</if>
+			<if test="serviceCharge != null and serviceCharge != '' ">service_charge,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">#{id},</if>
+			<if test="crTime != null and crTime != ''">#{crTime},</if>
+			<if test="upTime != null and upTime != ''">#{upTime},</if>
+			<if test="numberArrive != null and numberArrive != ''">#{numberArrive},</if>
+			<if test="serviceCharge != null and serviceCharge != ''">#{serviceCharge},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateCar" parameterType="TimeCar">
+        update sys_car
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="crTime != null  ">cr_time = #{crTime},</if>
+            <if test="upTime != null  ">up_time = #{upTime},</if>
+            <if test="numberArrive != null  ">number_arrive = #{numberArrive},</if>
+            <if test="serviceCharge != null  ">service_charge = #{serviceCharge},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteCarById" parameterType="Integer">
+        delete from sys_car where id = #{id}
+    </delete>
+	
+    <delete id="deleteCarByIds" parameterType="String">
+        delete from sys_car where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

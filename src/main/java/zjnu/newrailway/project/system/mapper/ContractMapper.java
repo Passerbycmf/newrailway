@@ -1,6 +1,7 @@
 package zjnu.newrailway.project.system.mapper;
 
 import zjnu.newrailway.project.system.bean.Contract;
+import zjnu.newrailway.project.system.bean.model.TestContract;
 
 import java.util.List;
 
@@ -31,18 +32,18 @@ public interface ContractMapper
 	/**
      * 新增租凭合同
      * 
-     * @param contract 租凭合同信息
+     * @param testContract 租凭合同信息
      * @return 结果
      */
-	public int insertContract(Contract contract);
+	public int insertContract(TestContract testContract);
 	
 	/**
      * 修改租凭合同
      * 
-     * @param contract 租凭合同信息
+     * @param testContract 租凭合同信息
      * @return 结果
      */
-	public int updateContract(Contract contract);
+	public int updateContract(TestContract testContract);
 	
 	/**
      * 删除租凭合同
@@ -66,4 +67,6 @@ public interface ContractMapper
 	 * @return 租凭合同集合
 	 */
     List<Contract> selectPContractList(Contract contract);
+
+
 }

@@ -40,6 +40,7 @@
         var editFlag = [[${@permission.hasPermi('system:contract:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:contract:remove')}]];
         var datas = [[${@dict.getType('sys_contract_status')}]];
+        var data = [[${@dict.getType('sys_contract_payment')}]];
         var prefix = ctx + "system/contract"
         $(function() {
             var options = {
@@ -80,7 +81,11 @@
                 },
 				{
 					field : 'payment', 
-					title : '支付方式'
+					title : '支付方式',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(data, value);
+                    }
 				},
 				{
 					field : 'department', 

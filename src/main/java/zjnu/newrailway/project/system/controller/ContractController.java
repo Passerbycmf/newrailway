@@ -14,6 +14,7 @@ import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Contract;
+import zjnu.newrailway.project.system.bean.model.TestContract;
 import zjnu.newrailway.project.system.service.IContractService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
@@ -50,8 +51,8 @@ public class ContractController extends BaseController
 	public TableDataInfo list(Contract contract)
 	{
 		startPage();
-        List<Contract> list = contractService.selectContractList(contract);
-		return getDataTable(list);
+		List<Contract> list1 = contractService.selectContractList(contract);
+		return getDataTable(list1);
 	}
 
 	@Log(title = "承租合同管理", action = BusinessType.EXPORT)
@@ -99,9 +100,9 @@ public class ContractController extends BaseController
 	@Log(title = "租凭合同", action = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Contract contract)
+	public AjaxResult addSave(TestContract testContract)
 	{		
-		return toAjax(contractService.insertContract(contract));
+		return toAjax(contractService.insertContract(testContract));
 	}
 
 	/**
@@ -114,7 +115,7 @@ public class ContractController extends BaseController
 		mmap.put("contract", contract);
 	    return prefix + "/edit";
 	}
-	
+
 	/**
 	 * 修改保存租凭合同
 	 */
@@ -122,9 +123,9 @@ public class ContractController extends BaseController
 	@Log(title = "租凭合同", action = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
-	public AjaxResult editSave(Contract contract)
-	{		
-		return toAjax(contractService.updateContract(contract));
+	public AjaxResult editSave(TestContract testContract)
+	{
+		return toAjax(contractService.updateContract(testContract));
 	}
 	
 	/**
