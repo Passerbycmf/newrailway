@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zjnu.newrailway.project.system.mapper.AssessmentMapper">
+    
+    <resultMap type="Assessment" id="AssessmentResult">
+        <result property="id"    column="id"    />
+        <result property="businessSituation"    column="business_situation"    />
+        <result property="credit"    column="credit"    />
+        <result property="damage"    column="damage"    />
+    </resultMap>
+	
+	<sql id="selectAssessmentVo">
+        select id, business_situation, credit, damage from sys_assessment
+    </sql>
+	
+    <select id="selectAssessmentList" parameterType="Assessment" resultMap="AssessmentResult">
+        <include refid="selectAssessmentVo"/>
+        <where>  
+            <if test="id != null and id != ''"> and id = #{id}</if>
+             <if test="businessSituation != null and businessSituation != ''"> and business_situation = #{businessSituation}</if>
+             <if test="credit != null and credit != ''"> and credit = #{credit}</if>
+             <if test="damage != null and damage != ''"> and damage = #{damage}</if>
+         </where>
+    </select>
+    
+    <select id="selectAssessmentById" parameterType="Integer" resultMap="AssessmentResult">
+        <include refid="selectAssessmentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertAssessment" parameterType="Assessment" useGeneratedKeys="true" keyProperty="rentId">
+        insert into sys_assessment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != '' ">id,</if>
+			<if test="businessSituation != null and businessSituation != '' ">business_situation,</if>
+			<if test="credit != null and credit != '' ">credit,</if>
+			<if test="damage != null and damage != '' ">damage,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">#{id},</if>
+			<if test="businessSituation != null and businessSituation != ''">#{businessSituation},</if>
+			<if test="credit != null and credit != ''">#{credit},</if>
+			<if test="damage != null and damage != ''">#{damage},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateAssessment" parameterType="Assessment">
+        update sys_assessment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="businessSituation != null  ">business_situation = #{businessSituation},</if>
+            <if test="credit != null  ">credit = #{credit},</if>
+            <if test="damage != null  ">damage = #{damage},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteAssessmentById" parameterType="Integer">
+        delete from sys_assessment where id = #{id}
+    </delete>
+	
+    <delete id="deleteAssessmentByIds" parameterType="String">
+        delete from sys_assessment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

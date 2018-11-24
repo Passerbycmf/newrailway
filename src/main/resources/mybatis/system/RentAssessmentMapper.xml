@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zjnu.newrailway.project.system.mapper.RentAssessmentMapper">
+    
+    <resultMap type="RentAssessment" id="RentAssessmentResult">
+        <result property="rentId"    column="rent_id"    />
+        <result property="assessmentId"    column="assessment_id"    />
+    </resultMap>
+	
+	<sql id="selectRentAssessmentVo">
+        select rent_id, assessment_id from sys_rent_assessment
+    </sql>
+	
+    <select id="selectRentAssessmentList" parameterType="RentAssessment" resultMap="RentAssessmentResult">
+        <include refid="selectRentAssessmentVo"/>
+        <where>  
+            <if test="rentId != null and rentId != ''"> and rent_id = #{rentId}</if>
+             <if test="assessmentId != null and assessmentId != ''"> and assessment_id = #{assessmentId}</if>
+         </where>
+    </select>
+    
+    <select id="selectRentAssessmentById" parameterType="String" resultMap="RentAssessmentResult">
+        <include refid="selectRentAssessmentVo"/>
+        where rent_id = #{rentId}
+    </select>
+        
+    <insert id="insertRentAssessment" parameterType="RentAssessment">
+        insert into sys_rent_assessment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rentId != null and rentId != '' ">rent_id,</if>
+			<if test="assessmentId != null and assessmentId != '' ">assessment_id,</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateRentAssessment" parameterType="RentAssessment">
+        update sys_rent_assessment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="assessmentId != null  and assessmentId != ''  ">assessment_id = #{assessmentId},</if>
+        </trim>
+        where rent_id = #{rentId}
+    </update>
+
+	<delete id="deleteRentAssessmentById" parameterType="String">
+        delete from sys_rent_assessment where rent_id = #{rentId}
+    </delete>
+	
+    <delete id="deleteRentAssessmentByIds" parameterType="String">
+        delete from sys_rent_assessment where rent_id in 
+        <foreach item="rentId" collection="array" open="(" separator="," close=")">
+            #{rentId}
+        </foreach>
+    </delete>
+
+    <insert id="batchRentAssessment">
+        insert into sys_rent_assessment(rent_id, assessment_id) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.rentId},#{item.assessmentId})
+        </foreach>
+    </insert>
+
+
+</mapper>
