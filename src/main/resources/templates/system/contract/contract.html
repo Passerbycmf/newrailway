@@ -112,6 +112,7 @@
                         actions.push('<a class="btn btn-primary btn-xs ' + '" href="#" onclick="detail(\'' + row.id + '\')"><i class="fa fa-check">详情</i></a>');
 		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-warning btn-xs ' + '" href="#" onclick="remark(\'' + row.id + '\')"><i class="fa fa-repair">备注</i></a>');
+                        actions.push('<a class="btn btn-warning btn-xs ' + '" href="#" onclick="test(\'' + row.id + '\')"><i class="fa fa-repair">测试</i></a>');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('  ');
 		            }
@@ -124,6 +125,17 @@
             url = prefix+"/detail/"+id,
                 $.modal.open("详情" + $.table._option.modalName, url);
         }
+
+        function remark(id) {
+            url = prefix+"/remark/"+id,
+                $.modal.openFull("备注"+$.table._option.modalName, url);
+        }
+
+        function test(id) {
+                     url = prefix+"/test",
+                     $.modal.open("备注"+$.table._option.modalName, url);
+                 }
+
     </script>
 </body>
 </html>

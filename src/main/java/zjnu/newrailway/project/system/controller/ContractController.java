@@ -1,15 +1,19 @@
 package zjnu.newrailway.project.system.controller;
 
 import java.util.List;
+
+import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
@@ -41,6 +45,17 @@ public class ContractController extends BaseController
 	{
 	    return prefix + "/contract";
 	}
+
+	/**
+	 * 跳转到test页面
+	 * @return
+	 */
+	@RequiresPermissions("system:contract:view")
+	@GetMapping("/test")
+	public String test()
+	{
+		return prefix + "/test";
+	}
 	
 	/**
 	 * 查询租凭合同列表
@@ -54,6 +69,10 @@ public class ContractController extends BaseController
 		List<Contract> list1 = contractService.selectContractList(contract);
 		return getDataTable(list1);
 	}
+
+
+
+
 
 	@Log(title = "承租合同管理", action = BusinessType.EXPORT)
 	@RequiresPermissions("system:contract:export")
@@ -83,7 +102,20 @@ public class ContractController extends BaseController
 		mmap.put("contract", contract);
 		return prefix + "/detail";
 	}
-	
+
+	/**
+	 * 添加备注
+	 * @param id
+	 * @param mmap
+	 * @return
+	 */
+	@GetMapping("/remark/{id}")
+	public String remark(@PathVariable("id") Integer id, ModelMap mmap)
+	{
+		Contract contract = contractService.selectContractById(id);
+		mmap.put("contract", contract);
+		return prefix + "/remark";
+	}
 	/**
 	 * 新增租凭合同
 	 */
@@ -92,7 +124,21 @@ public class ContractController extends BaseController
 	{
 	    return prefix + "/add";
 	}
-	
+
+	@GetMapping("/richtext/{id}")
+	public String richtext (@PathVariable("id")Integer id, Model model){
+		model.addAttribute("message",id);
+		model.addAttribute("name", "thymeleaf");
+		return prefix+"/rich";
+	}
+
+
+	@GetMapping("/showRichtext/{id}")
+	@ResponseBody
+	public String showRichtext (@PathVariable("id")Integer id, Model model){
+
+		return "success";
+	}
 	/**
 	 * 新增保存租凭合同
 	 */
@@ -139,5 +185,12 @@ public class ContractController extends BaseController
 	{		
 		return toAjax(contractService.deleteContractByIds(ids));
 	}
-	
+
+	@GetMapping("/hello")
+	public String hello (Model model){
+		System.out.println("hello");
+
+		model.addAttribute("message","hello");
+		return prefix+"/hello";
+	}
 }
