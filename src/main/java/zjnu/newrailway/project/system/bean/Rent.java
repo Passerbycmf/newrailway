@@ -19,7 +19,7 @@ public class Rent extends BaseEntity
 	
 	/** 承租项点ID*/
 	@Excel(name = "承租项点ID")
-	private Integer id;
+	private Integer rentId;
 	/** 资产名称 */
 	@Excel(name = "资产名称")
 	private String assetName;
@@ -48,14 +48,14 @@ public class Rent extends BaseEntity
 	@Excel(name = "结束时间")
 	private Date updateTime;
 
-	public void setId(Integer id) 
+	public void setRentId(Integer rentId)
 	{
-		this.id = id;
+		this.rentId = rentId;
 	}
 
-	public Integer getId() 
+	public Integer getRentId()
 	{
-		return id;
+		return rentId;
 	}
 	public void setAssetName(String assetName) 
 	{
@@ -142,16 +142,19 @@ public class Rent extends BaseEntity
 		this.updateTime = updateTime;
 	}
 
+	@Override
 	public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("assetName", getAssetName())
-            .append("address", getAddress())
-            .append("rentName", getRentName())
-            .append("area", getArea())
-            .append("number", getNumber())
-            .append("telephone", getTelephone())
-            .append("remark", getRemark())
-            .toString();
-    }
+		return "Rent{" +
+				"rentId=" + rentId +
+				", assetName='" + assetName + '\'' +
+				", address='" + address + '\'' +
+				", rentName='" + rentName + '\'' +
+				", area='" + area + '\'' +
+				", number='" + number + '\'' +
+				", telephone='" + telephone + '\'' +
+				", remark='" + remark + '\'' +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				'}';
+	}
 }

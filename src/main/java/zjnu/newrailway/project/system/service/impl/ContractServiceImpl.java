@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import zjnu.newrailway.common.constant.UserConstants;
 import zjnu.newrailway.common.utils.DateUtil;
+import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.project.system.bean.model.TestContract;
 import zjnu.newrailway.project.system.mapper.ContractMapper;
 import zjnu.newrailway.project.system.bean.Contract;
@@ -100,6 +102,35 @@ public class ContractServiceImpl implements IContractService
 		return contractMapper.selectPContractList(contract);
 	}
 
+	/**
+	 * 校验合同名称是否唯一
+	 * @param contract 合同管理信息
+	 * @return
+	 */
+	@Override
+	public String checkContractName(Contract contract) {
+		Contract management = contractMapper.checkContractName(contract.getContractName());
+		if (StringUtils.isNotNull(management)) {
+			return UserConstants.TYPE_NOT_UNIQUE;
+		}
+		return UserConstants.TYPE_UNIQUE;
+	}
+
+	/**
+	 * 校检资产编号
+	 *
+	 * @param contract
+	 * @return 结果
+	 */
+	@Override
+	public String checkContractNumber(Contract contract) {
+		Contract management = contractMapper.checkContractNumber(contract.getContractNumber());
+		if (StringUtils.isNotNull(management)) {
+			return UserConstants.TYPE_NOT_UNIQUE;
+		}
+		return UserConstants.TYPE_UNIQUE;
+
+	}
 
 
 }

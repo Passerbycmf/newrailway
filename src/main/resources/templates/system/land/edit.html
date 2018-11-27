@@ -105,7 +105,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">资产类别：</label>
                 <div class="col-sm-8">
-                    <select class="form-control" id="difference" name="difference">
+                    <select class="form-control" id="difference" name="difference" th:field="*{difference}">
                         <option value="0" th:selected="${difference=='0'}">房屋</option>
                         <option value="1" th:selected="${difference=='1'}">土地</option>
                     </select>

@@ -5,20 +5,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="zjnu.newrailway.project.system.mapper.AssessmentMapper">
     
     <resultMap type="Assessment" id="AssessmentResult">
-        <result property="id"    column="id"    />
+        <result property="assessmentId"    column="assessment_id"    />
         <result property="businessSituation"    column="business_situation"    />
         <result property="credit"    column="credit"    />
         <result property="damage"    column="damage"    />
     </resultMap>
+
+    <resultMap type="Rent" id="RentResult">
+        <result property="rentId"    column="rent_id"    />
+        <result property="assetName"    column="asset_name"    />
+        <result property="address"    column="address"    />
+        <result property="rentName"    column="rent_name"    />
+        <result property="area"    column="area"    />
+        <result property="number"    column="number"    />
+        <result property="telephone"    column="telephone"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
 	
 	<sql id="selectAssessmentVo">
-        select id, business_situation, credit, damage from sys_assessment
+        select assessment_id, business_situation, credit, damage from sys_assessment
     </sql>
 	
     <select id="selectAssessmentList" parameterType="Assessment" resultMap="AssessmentResult">
-        <include refid="selectAssessmentVo"/>
+        select r.asset_name,r.rent_name,r.telephone,a.assessment_id,a.credit,a.business_situation,a.damage from sys_assessment a
+        left join sys_rent_assessment  ra on a.assessment_id = ra.rent_id
+        left join sys_rent r on r.rent_id = ra.assessment_id
         <where>  
-            <if test="id != null and id != ''"> and id = #{id}</if>
+            <if test="assessmentId != null and assessmentId != ''"> and assessment_id = #{assessmentId}</if>
              <if test="businessSituation != null and businessSituation != ''"> and business_situation = #{businessSituation}</if>
              <if test="credit != null and credit != ''"> and credit = #{credit}</if>
              <if test="damage != null and damage != ''"> and damage = #{damage}</if>
@@ -27,19 +40,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectAssessmentById" parameterType="Integer" resultMap="AssessmentResult">
         <include refid="selectAssessmentVo"/>
-        where id = #{id}
+        where assessment_id = #{assessmentId}
     </select>
         
     <insert id="insertAssessment" parameterType="Assessment" useGeneratedKeys="true" keyProperty="rentId">
         insert into sys_assessment
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != '' ">id,</if>
+			<if test="assessmentId != null and assessmentId != '' ">assessment_id,</if>
 			<if test="businessSituation != null and businessSituation != '' ">business_situation,</if>
 			<if test="credit != null and credit != '' ">credit,</if>
 			<if test="damage != null and damage != '' ">damage,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != ''">#{id},</if>
+			<if test="assessmentId != null and assessmentId != ''">#{assessmentId},</if>
 			<if test="businessSituation != null and businessSituation != ''">#{businessSituation},</if>
 			<if test="credit != null and credit != ''">#{credit},</if>
 			<if test="damage != null and damage != ''">#{damage},</if>
@@ -53,17 +66,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="credit != null  ">credit = #{credit},</if>
             <if test="damage != null  ">damage = #{damage},</if>
         </trim>
-        where id = #{id}
+        where assessment_id = #{assessmentId}
     </update>
 
 	<delete id="deleteAssessmentById" parameterType="Integer">
-        delete from sys_assessment where id = #{id}
+        delete from sys_assessment where assessment_id = #{assessmentId}
     </delete>
 	
     <delete id="deleteAssessmentByIds" parameterType="String">
-        delete from sys_assessment where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
+        delete from sys_assessment where assessment_id in
+        <foreach item="assessmentId" collection="array" open="(" separator="," close=")">
+            #{assessmentId}
         </foreach>
     </delete>
     

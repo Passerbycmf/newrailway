@@ -2,9 +2,18 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-assessment-add">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">承租项点名称：</label>
+				<div class="col-sm-8">
+					<select id="rent" name="rent" class="form-control select2-hidden-accessible" multiple="">
+						<option th:each="rent:${rents}" th:value="${rent.rentId}" th:text="${rent.rentName}"></option>
+					</select>
+				</div>
+			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">承租项点营业额评分：</label>
 				<div class="col-sm-8">
@@ -32,6 +41,8 @@
 		</form>
 	</div>
     <div th:include="include::footer"></div>
+	<script th:src="@{/ajax/libs/iCheck/icheck.min.js}"></script>
+	<script th:src="@{/ajax/libs/select/select2.js}"></script>
     <script type="text/javascript">
 		var prefix = ctx + "system/assessment"
 		$("#form-assessment-add").validate({
@@ -40,10 +51,37 @@
 					required:true,
 				},
 			},
-			submitHandler: function(form) {
-				$.operate.save(prefix + "/add", $('#form-assessment-add').serialize());
-			}
-		});
+            submitHandler: function(form) {
+                add();
+            }
+        });
+        function add() {
+            var rentId = $("input[name='rentId']").val();
+            var businessSituation = $("input[name='businessSituation']").val();
+            var credit = $("input[name='credit']").val();
+            var damage = $("input[name='damage']").val();
+            var rentIds = $.form.selectSelects("rent");
+            $.ajax({
+                cache : true,
+                type : "POST",
+                url : ctx + "system/assessment/add",
+                data : {
+                    "rentId": rentId,
+                    "businessSituation": businessSituation,
+                    "credit": credit,
+                    "damage": damage,
+                    "rentIds": rentIds
+                },
+                async : false,
+                error : function(request) {
+                    $.modal.alertError("系统错误");
+                },
+                success : function(data) {
+                    $.operate.saveSuccess(data);
+                }
+            });
+        }
+
 	</script>
 </body>
 </html>

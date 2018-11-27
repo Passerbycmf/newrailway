@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="zjnu.newrailway.project.system.mapper.RentMapper">
     
     <resultMap type="Rent" id="RentResult">
-        <result property="id"    column="id"    />
+        <result property="rentId"    column="rent_id"    />
         <result property="assetName"    column="asset_name"    />
         <result property="address"    column="address"    />
         <result property="rentName"    column="rent_name"    />
@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectRentVo">
-        select id, asset_name, address, rent_name, area, number, telephone, remark, create_time, update_time from sys_rent
+        select rent_id, asset_name, address, rent_name, area, number, telephone, remark, create_time, update_time from sys_rent
     </sql>
 	
     <select id="selectRentList" parameterType="Rent" resultMap="RentResult">
@@ -38,17 +38,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectRentById" parameterType="Integer" resultMap="RentResult">
         <include refid="selectRentVo"/>
-        where id = #{id}
+        where rent_id = #{rentId}
     </select>
+
     <select id="checkAssetNameUnique" resultType="zjnu.newrailway.project.system.bean.Rent">
         <include refid="selectRentVo"/>
         where asset_name=#{assetName}
     </select>
 
+    <select id="selectRentListTest" parameterType="Rent" resultMap="RentResult">
+         select r.asset_name,r.rent_name,r.telephone from  sys_assessment a
+        left join sys_rent_assessment  ra on a.assessment_id = ra.assessment_id
+        left join sys_rent r on r.rent_id = ra.rent_id
+        <where>
+            <if test="rentName != null and rentName != ''">
+                AND r.rent_name like concat('%', #{rentName}, '%')
+            </if>
+            <if test="params != null and params.createTime != ''"><!-- 开始时间检索 -->
+                AND date_format(r.create_time,'%y%m%d') &gt;= date_format(#{params.createTime},'%y%m%d')
+            </if>
+            <if test="params != null and params.updateTime != ''"><!-- 结束时间检索 -->
+                AND date_format(r.create_time,'%y%m%d') &lt;= date_format(#{params.updateTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectRentAll" resultMap="RentResult">
+        <include refid="selectRentVo"/>
+    </select>
+
+
     <insert id="insertRent" parameterType="Rent">
         insert into sys_rent
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != '' ">id,</if>
+			<if test="rentId != null and rentId != '' ">rent_id,</if>
 			<if test="assetName != null and assetName != '' ">asset_name,</if>
 			<if test="address != null and address != '' ">address,</if>
 			<if test="rentName != null and rentName != '' ">rent_name,</if>
@@ -60,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             create_time
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != ''">#{id},</if>
+			<if test="rentId != null and rentId != ''">#{rentId},</if>
 			<if test="assetName != null and assetName != ''">#{assetName},</if>
 			<if test="address != null and address != ''">#{address},</if>
 			<if test="rentName != null and rentName != ''">#{rentName},</if>
@@ -86,17 +109,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
             update_time = sysdate()
         </trim>
-        where id = #{id}
+        where rent_id = #{rentId}
     </update>
 
 	<delete id="deleteRentById" parameterType="Integer">
-        delete from sys_rent where id = #{id}
+        delete from sys_rent where rent_id = #{rentId}
     </delete>
 	
     <delete id="deleteRentByIds" parameterType="String">
-        delete from sys_rent where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
+        delete from sys_rent where rent_id in
+        <foreach item="rentId" collection="array" open="(" separator="," close=")">
+            #{rentId}
         </foreach>
     </delete>
     

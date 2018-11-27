@@ -54,8 +54,8 @@ public class AssessmentController extends BaseController
 	public TableDataInfo listTest(Rent rent)
 	{
 		startPage();
-		List<Rent> list = rentService.selectRentList(rent);
-		return getDataTable(list);
+		List<Rent> listTest = rentService.selectRentListTest(rent);
+		return getDataTable(listTest);
 	}
 	
 	/**
@@ -75,9 +75,10 @@ public class AssessmentController extends BaseController
 	 * 新增年度考核
 	 */
 	@GetMapping("/add")
-	public String add()
+	public String add(ModelMap map)
 	{
-	    return prefix + "/add";
+		map.put("rents", rentService.selectRentAll());
+		return prefix + "/add";
 	}
 	
 	/**

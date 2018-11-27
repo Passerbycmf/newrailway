@@ -29,14 +29,14 @@ public class AssessmentServiceImpl implements IAssessmentService
 	/**
      * 查询年度考核信息
      * 
-     * @param id 年度考核ID
+     * @param assessmentId 年度考核ID
      * @return 年度考核信息
      */
     @Override
-	public Assessment selectAssessmentById(Integer id)
+	public Assessment selectAssessmentById(Integer assessmentId)
 	{
 
-	    return assessmentMapper.selectAssessmentById(id);
+	    return assessmentMapper.selectAssessmentById(assessmentId);
 	}
 	
 	/**
@@ -61,12 +61,29 @@ public class AssessmentServiceImpl implements IAssessmentService
 	public int insertAssessment(Assessment assessment)
 	{
 		int rows = assessmentMapper.insertAssessment(assessment);
-		// 新增承租项点年度考核关联
+		// 新增用户岗位关联
 		insertRentAssessment(assessment);
 		return rows;
 
 	}
-	
+
+	private void insertRentAssessment(Assessment assessment) {
+		// 新增员工与岗位管理
+		List<RentAssessment> list = new ArrayList<RentAssessment>();
+		for (Integer rentId : assessment.getRentIds())
+		{
+			RentAssessment up = new RentAssessment();
+			up.setAssessmentId(assessment.getAssessmentId());
+			up.setRentId(rentId);
+			list.add(up);
+		}
+		if (list.size() > 0)
+		{
+			rentAssessmentMapper.batchRentAssessment(list);
+		}
+	}
+
+
 	/**
      * 修改年度考核
      * 
@@ -79,24 +96,7 @@ public class AssessmentServiceImpl implements IAssessmentService
 		return assessmentMapper.updateAssessment(assessment);
 	}
 
-	/**
-	 * 添加年度考核
-	 * @param assessment
-	 */
-	private void insertRentAssessment(Assessment assessment) {
-		List<RentAssessment> list = new ArrayList<RentAssessment>();
-		for (Integer rentId : assessment.getRentIds())
-		{
-			RentAssessment up = new RentAssessment();
-			up.setAssessmentId(assessment.getId());
-			up.setRentId(rentId);
-			list.add(up);
-		}
-		if (list.size() > 0)
-		{
-			rentAssessmentMapper.batchRentAssessment(list);
-		}
-	}
+
 
 
 	/**

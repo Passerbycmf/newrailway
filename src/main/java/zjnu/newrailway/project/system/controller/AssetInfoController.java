@@ -78,10 +78,10 @@ public class AssetInfoController extends BaseController
 	/**
 	 * 修改资产
 	 */
-	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") Integer id, ModelMap mmap)
+	@GetMapping("/edit/{assessmentId}")
+	public String edit(@PathVariable("assessmentId") Integer assessmentId, ModelMap mmap)
 	{
-		AssetInfo assetInfo = assetInfoService.selectAssetInfoById(id);
+		AssetInfo assetInfo = assetInfoService.selectAssetInfoById(assessmentId);
 		mmap.put("assetInfo", assetInfo);
 	    return prefix + "/edit";
 	}

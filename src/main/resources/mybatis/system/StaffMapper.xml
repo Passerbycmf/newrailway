@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where s.staff_id = #{staffId}
     </select>
         
-    <insert id="insertStaff" parameterType="Staff">
+    <insert id="insertStaff" parameterType="Staff" useGeneratedKeys="true" keyProperty="staffId">
         insert into sys_staff
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="staffId != null and staffId != '' ">staff_id,</if>

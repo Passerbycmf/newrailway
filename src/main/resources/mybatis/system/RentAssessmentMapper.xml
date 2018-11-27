@@ -27,11 +27,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
         
     <insert id="insertRentAssessment" parameterType="RentAssessment">
-        insert into sys_rent_assessment
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="rentId != null and rentId != '' ">rent_id,</if>
-			<if test="assessmentId != null and assessmentId != '' ">assessment_id,</if>
-         </trim>
+        insert into sys_rent_assessment(rent_id,assessment_id) values (#{rentId},#{assessmentId})
+
     </insert>
 	 
     <update id="updateRentAssessment" parameterType="RentAssessment">
@@ -53,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <insert id="batchRentAssessment">
+    <insert id="batchRentAssessment" parameterType="RentAssessment">
         insert into sys_rent_assessment(rent_id, assessment_id) values
         <foreach item="item" index="index" collection="list" separator=",">
             (#{item.rentId},#{item.assessmentId})

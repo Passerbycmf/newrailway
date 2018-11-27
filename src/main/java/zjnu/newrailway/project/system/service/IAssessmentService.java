@@ -14,10 +14,10 @@ public interface IAssessmentService
 	/**
      * 查询年度考核信息
      * 
-     * @param id 年度考核ID
+     * @param assessmentId 年度考核ID
      * @return 年度考核信息
      */
-	public Assessment selectAssessmentById(Integer id);
+	public Assessment selectAssessmentById(Integer assessmentId);
 	
 	/**
      * 查询年度考核列表

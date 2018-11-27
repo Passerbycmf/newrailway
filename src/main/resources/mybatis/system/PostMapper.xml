@@ -93,6 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectPostVo"/>
         where post_code=#{postCode}
     </select>
+
     <select id="selectPostAll" resultMap="PostResult">
         <include refid="selectPostVo"/>
     </select>

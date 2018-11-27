@@ -52,6 +52,7 @@ public class RentController extends BaseController
 	{
 		startPage();
         List<Rent> list = rentService.selectRentList(rent);
+
 		return getDataTable(list);
 	}
 
@@ -77,9 +78,9 @@ public class RentController extends BaseController
 	 * 新增承租项点
 	 */
 	@GetMapping("/add")
-	public String add()
+	public String add(ModelMap map)
 	{
-	    return prefix + "/add";
+		return prefix + "/add";
 	}
 	
 	/**
@@ -97,10 +98,10 @@ public class RentController extends BaseController
 	/**
 	 * 修改承租项点
 	 */
-	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") Integer id, ModelMap mmap)
+	@GetMapping("/edit/{rentId}")
+	public String edit(@PathVariable("rentId") Integer rentId, ModelMap mmap)
 	{
-		Rent rent = rentService.selectRentById(id);
+		Rent rent = rentService.selectRentById(rentId);
 		mmap.put("rent", rent);
 	    return prefix + "/edit";
 	}
@@ -132,10 +133,10 @@ public class RentController extends BaseController
 	/**
 	 * 查看承租项点详情
 	 */
-	@GetMapping("/detail/{id}")
-	public String detail(@PathVariable("id") Integer id, ModelMap mmap)
+	@GetMapping("/detail/{rentId}")
+	public String detail(@PathVariable("rentId") Integer rentId, ModelMap mmap)
 	{
-		Rent rent = rentService.selectRentById(id);
+		Rent rent = rentService.selectRentById(rentId);
 		mmap.put("rent", rent);
 		return prefix + "/detail";
 	}

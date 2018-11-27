@@ -14,10 +14,10 @@ public interface IRentService
 	/**
      * 查询承租项点信息
      * 
-     * @param id 承租项点ID
+     * @param rentId 承租项点ID
      * @return 承租项点信息
      */
-	public Rent selectRentById(Integer id);
+	public Rent selectRentById(Integer rentId);
 	
 	/**
      * 查询承租项点列表
@@ -57,4 +57,13 @@ public interface IRentService
 	 * @return
 	 */
     String checkAssetNameUnique(Rent rent);
+
+
+	List<Rent> selectRentListTest(Rent rent);
+
+	/**
+	 * 查询所有承租项点信息
+	 * @return
+	 */
+	List<Rent> selectRentAll();
 }

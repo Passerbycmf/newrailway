@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import zjnu.newrailway.common.utils.ExcelUtil;
+import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Contract;
@@ -43,7 +44,7 @@ public class ContractController extends BaseController
 	@GetMapping()
 	public String contract()
 	{
-	    return prefix + "/contract";
+		return prefix + "/contract";
 	}
 
 	/**
@@ -66,8 +67,8 @@ public class ContractController extends BaseController
 	public TableDataInfo list(Contract contract)
 	{
 		startPage();
-		List<Contract> list1 = contractService.selectContractList(contract);
-		return getDataTable(list1);
+		List<Contract> list = contractService.selectContractList(contract);
+		return getDataTable(list);
 	}
 
 
@@ -192,5 +193,31 @@ public class ContractController extends BaseController
 
 		model.addAttribute("message","hello");
 		return prefix+"/hello";
+	}
+
+	/**
+	 *校检合同名称
+	 */
+	@PostMapping("/checkContractName")
+	@ResponseBody
+	public String checkContractName(Contract contract){
+		String flag = "0";
+		if(StringUtils.isNotNull(contract)){
+			flag = contractService.checkContractName(contract);
+		}
+		return flag;
+	}
+
+	/**
+	 *校检合同编号
+	 */
+	@PostMapping("/checkContractNumber")
+	@ResponseBody
+	public String checkAssetNumber(Contract contract){
+		String flag = "0";
+		if(StringUtils.isNotNull(contract)){
+			flag = contractService.checkContractNumber(contract);
+		}
+		return flag;
 	}
 }

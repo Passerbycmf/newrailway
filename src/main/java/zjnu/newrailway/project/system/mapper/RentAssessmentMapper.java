@@ -59,9 +59,6 @@ public interface RentAssessmentMapper
      */
 	public int deleteRentAssessmentByIds(String[] rentIds);
 
-	/**
-	 * 添加年度考核与承租项点关联信息
-	 * @param list
-	 */
-    int batchRentAssessment(List<RentAssessment> list);
+
+	int batchRentAssessment(List<RentAssessment> list);
 }

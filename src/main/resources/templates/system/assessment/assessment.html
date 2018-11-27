@@ -23,13 +23,21 @@
 			</div>
 		</form>
 	</div>
+	<div class="btn-group hidden-xs" id="toolbar" role="group">
+
+		<a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" >
+			<i class="fa fa-plus"></i> 新增考核
+		</a>
+		<a class="btn btn-outline btn-danger btn-rounded" onclick="$.operate.batRemove()" >
+			<i class="fa fa-trash-o"></i> 删除
+		</a>
+	</div>
 	<div class="col-sm-12 select-info table-striped">
 		<table id="bootstrap-table" data-mobile-responsive="true"></table>
 	</div>
 </div>
 <div th:include="include :: footer"></div>
 <script th:inline="javascript">
-    var editFlag = [[${@permission.hasPermi('system:assessment:edit')}]];
     var checkFlag = [[${@permission.hasPermi('system:assessment:check')}]];
     var prefix = ctx + "system/assessment"
 
@@ -45,15 +53,7 @@
                 checkbox: true
             },
                 {
-                    field : 'id',
-                    title : '序号'
-                },
-                {
                     field : 'assetName',
-                    title : '对应资产名称'
-                },
-                {
-                    field : 'address',
                     title : '对应资产名称'
                 },
                 {
@@ -69,8 +69,7 @@
                     align: 'center',
                     formatter: function(value, row, index) {
                         var actions = [];
-                        actions.push('<a class="btn btn-success btn-xs ' + '" href="#" onclick="$.operate.add(\'' + row.id + '\')"><i class="fa fa-develop">添加考核</i></a>');
-                        actions.push('<a class="btn btn-danger btn-xs ' + checkFlag + '" href="#" onclick="check(\'' + row.id + '\')"><i class="fa fa-remove"></i>修改考核</a>');
+                        actions.push('<a class="btn btn-danger btn-xs ' + checkFlag + '" href="#" onclick="check(\'' + row.assessmentId + '\')"><i class="fa fa-remove"></i>修改考核</a>');
                         return actions.join('  ');
                     }
                 }]
@@ -78,10 +77,12 @@
         $.table.init(options);
     });
 
-    function check(id) {
-		url = prefix + "/check/" +id,
+    function check(assessmentId) {
+		url = prefix + "/check/" +assessmentId,
             $.modal.openFull("考核" + $.table._option.modalName, url);
     }
+
+
 </script>
 </body>
 </html>

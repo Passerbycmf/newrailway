@@ -68,5 +68,17 @@ public interface ContractMapper
 	 */
     List<Contract> selectPContractList(Contract contract);
 
+	/**
+	 *校验合同名称是否唯一
+	 * @param contractName
+	 * @return 结果
+	 */
+	public Contract checkContractName(String contractName);
 
+	/**
+	 *校验合同编号是否唯一
+	 * @param contractNumber
+	 * @return 结果
+	 */
+	public Contract checkContractNumber(Integer contractNumber);
 }

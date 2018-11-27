@@ -24,7 +24,7 @@ public class RentAssessment extends BaseEntity
 		this.rentId = rentId;
 	}
 
-	public Integer getRentId()
+	public Integer getRentId(Integer integer)
 	{
 		return rentId;
 	}
@@ -38,10 +38,11 @@ public class RentAssessment extends BaseEntity
 		return assessmentId;
 	}
 
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("rentId", getRentId())
-            .append("assessmentId", getAssessmentId())
-            .toString();
-    }
+	@Override
+	public String toString() {
+		return "RentAssessment{" +
+				"rentId=" + rentId +
+				", assessmentId=" + assessmentId +
+				'}';
+	}
 }

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zjnu.newrailway.common.constant.UserConstants;
 import zjnu.newrailway.common.utils.StringUtils;
+import zjnu.newrailway.project.system.bean.RentAssessment;
+import zjnu.newrailway.project.system.mapper.RentAssessmentMapper;
 import zjnu.newrailway.project.system.mapper.RentMapper;
 import zjnu.newrailway.project.system.bean.Rent;
 import zjnu.newrailway.project.system.service.IRentService;
@@ -22,16 +24,17 @@ public class RentServiceImpl implements IRentService
 	@Autowired
 	private RentMapper rentMapper;
 
+
 	/**
      * 查询承租项点信息
      * 
-     * @param id 承租项点ID
+     * @param rentId 承租项点ID
      * @return 承租项点信息
      */
     @Override
-	public Rent selectRentById(Integer id)
+	public Rent selectRentById(Integer rentId)
 	{
-	    return rentMapper.selectRentById(id);
+	    return rentMapper.selectRentById(rentId);
 	}
 	
 	/**
@@ -55,9 +58,13 @@ public class RentServiceImpl implements IRentService
 	@Override
 	public int insertRent(Rent rent)
 	{
-	    return rentMapper.insertRent(rent);
+		return rentMapper.insertRent(rent);
+
 	}
-	
+
+
+
+
 	/**
      * 修改承租项点
      * 
@@ -94,6 +101,16 @@ public class RentServiceImpl implements IRentService
 			return UserConstants.ASSETNAME_NOT_UNIQUE;
 		}
 		return UserConstants.ASSETNAME_UNIQUE;
+	}
+
+	@Override
+	public List<Rent> selectRentListTest(Rent rent) {
+		return rentMapper.selectRentListTest(rent);
+	}
+
+	@Override
+	public List<Rent> selectRentAll() {
+		return rentMapper.selectRentAll();
 	}
 
 

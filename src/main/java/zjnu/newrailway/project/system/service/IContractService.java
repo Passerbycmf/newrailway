@@ -61,5 +61,16 @@ public interface IContractService
 	 */
     List<Contract> selectPContractList(Contract contract);
 
-
+	/**
+	 * 校检合同名称
+	 * @param contract 合同管理信息
+	 * @return 结果
+	 */
+	public     String checkContractName(Contract contract);
+	/**
+	 * 校检合同编号
+	 * @param contract 合同管理信息
+	 * @return 结果
+	 */
+	public     String checkContractNumber(Contract contract);
 }

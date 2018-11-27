@@ -14,10 +14,10 @@ public interface RentMapper
 	/**
      * 查询承租项点信息
      * 
-     * @param id 承租项点ID
+     * @param rentId 承租项点Id
      * @return 承租项点信息
      */
-	public Rent selectRentById(Integer id);
+	public Rent selectRentById(Integer rentId);
 	
 	/**
      * 查询承租项点列表
@@ -46,10 +46,10 @@ public interface RentMapper
 	/**
      * 删除承租项点
      * 
-     * @param id 承租项点ID
+     * @param rentId 承租项点ID
      * @return 结果
      */
-	public int deleteRentById(Integer id);
+	public int deleteRentById(Integer rentId);
 	
 	/**
      * 批量删除承租项点
@@ -65,4 +65,13 @@ public interface RentMapper
 	 * @return
 	 */
    public Rent checkAssetNameUnique(String assetName);
+
+
+	List<Rent> selectRentListTest(Rent rent);
+
+	/**
+	 * 查询所有承租项点信息
+	 * @return
+	 */
+    List<Rent> selectRentAll();
 }

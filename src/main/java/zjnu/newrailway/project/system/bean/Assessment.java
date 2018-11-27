@@ -15,7 +15,7 @@ public class Assessment extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	/** 年度考核ID */
-	private Integer id;
+	private Integer assessmentId;
 	/** 承租项点营业额评分 */
 	private Integer businessSituation;
 	/** 承租方信誉度评分 */
@@ -25,14 +25,14 @@ public class Assessment extends BaseEntity
 	/** 承租项点组ID */
 	private Integer[] rentIds;
 
-	public void setId(Integer id) 
+	public void setAssessmentId(Integer assessmentId)
 	{
-		this.id = id;
+		this.assessmentId = assessmentId;
 	}
 
-	public Integer getId()
+	public Integer getAssessmentId()
 	{
-		return id;
+		return assessmentId;
 	}
 	public void setBusinessSituation(Integer businessSituation) 
 	{
@@ -73,7 +73,7 @@ public class Assessment extends BaseEntity
 	@Override
 	public String toString() {
 		return "Assessment{" +
-				"id=" + id +
+				"assessmentId=" + assessmentId +
 				", businessSituation=" + businessSituation +
 				", credit=" + credit +
 				", damage=" + damage +

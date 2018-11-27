@@ -78,7 +78,14 @@
         </if>
     </select>
 
-
+    <select id="checkContractName" parameterType="String" resultMap="ContractResult">
+    SELECT * FROM sys_contract
+    WHERE contract_name= #{contractName}
+</select>
+    <select id="checkContractNumber" parameterType="integer" resultMap="ContractResult">
+    SELECT * FROM sys_contract
+    WHERE contract_number= #{contractNumber}
+</select>
 
 
     <insert id="insertContract" parameterType="TestContract">
