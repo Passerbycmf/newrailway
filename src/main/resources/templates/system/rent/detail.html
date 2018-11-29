@@ -2,14 +2,17 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
+<link href="/ajax/libs/iCheck/custom.css" th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-rent-edit" th:object="${rent}">
-        <input id="id" name="id" th:field="*{id}"  type="hidden">
+        <input id="rentId" name="rentId" th:field="*{rentId}"  type="hidden">
         <div class="form-group">
             <label class="col-sm-3 control-label">资产名称：</label>
             <div class="col-sm-8">
-                <input id="assetName" name="assetName" th:field="*{assetName}" class="form-control" type="text" readonly="readonly">
+                <select  id="assetManagement" disabled="disabled" name="assetManagement" class="form-control select2-hidden-accessible" multiple="">
+                    <option th:each="assetManagement:${assets}" th:value="${assetManagement.id}" th:text="${assetManagement.assetName}" th:selected="${assetManagement.flag}"></option>
+                </select>
             </div>
         </div>
         <div class="form-group">
@@ -49,18 +52,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">开始时间：</label>
-            <div class="col-sm-8">
-                <input id="createTime" name="createTime" th:field="*{createTime}" class="form-control" type="text" readonly="readonly">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">更新时间：</label>
-            <div class="col-sm-8">
-                <input id="updateTime" name="updateTime" th:field="*{updateTime}" class="form-control" type="text" readonly="readonly">
-            </div>
-        </div>
-        <div class="form-group">
             <div class="form-control-static col-sm-offset-9">
                 <button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
             </div>
@@ -68,6 +59,8 @@
     </form>
 </div>
 <div th:include="include::footer"></div>
+<script th:src="@{/ajax/libs/iCheck/icheck.min.js}"></script>
+<script th:src="@{/ajax/libs/select/select2.js}"></script>
 
 
 </body>

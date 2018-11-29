@@ -2,14 +2,17 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
+<link href="/ajax/libs/iCheck/custom.css" th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-rent-edit" th:object="${rent}">
-            <input id="id" name="id" th:field="*{id}"  type="hidden">
+            <input id="rentId" name="rentId" th:field="*{rentId}"  type="hidden">
             <div class="form-group">	
                 <label class="col-sm-3 control-label">资产名称：</label>
                 <div class="col-sm-8">
-                    <input id="assetName" name="assetName" th:field="*{assetName}" class="form-control" type="text">
+                    <select id="asset" name="assetManagement" class="form-control select2-hidden-accessible" multiple="">
+                        <option th:each="assetManagement:${assets}" th:value="${assetManagement.id}" th:text="${assetManagement.assetName}" th:selected="${assetManagement.flag}"></option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">	
@@ -57,18 +60,52 @@
 		</form>
     </div>
     <div th:include="include::footer"></div>
+    <script th:src="@{/ajax/libs/iCheck/icheck.min.js}"></script>
+    <script th:src="@{/ajax/libs/select/select2.js}"></script>
     <script type="text/javascript">
 		var prefix = ctx + "system/rent"
 		$("#form-rent-edit").validate({
 			rules:{
-				xxxx:{
+				rentName:{
 					required:true,
 				},
 			},
-			submitHandler: function(form) {
-				$.operate.save(prefix + "/edit", $('#form-rent-edit').serialize());
-			}
-		});
+            submitHandler: function(form) {
+                edit();
+            }
+        });
+        function edit() {
+            var rentId = $("input[name='rentId']").val();
+            var address = $("input[name='address']").val();
+            var rentName = $("input[name='rentName']").val();
+            var area = $("input[name='area']").val();
+            var number = $("input[name='number']").val();
+            var telephone = $("input[name='telephone']").val();
+            var remark = $("input[name='remark']").val();
+            var assetIds = $.form.selectSelects("assetManagement");
+            $.ajax({
+                cache : true,
+                type : "POST",
+                url : ctx + "system/rent/edit",
+                data : {
+                    "rentId": rentId,
+                    "address": address,
+                    "rentName": rentName,
+                    "area": area,
+                    "number": number,
+                    "telephone": telephone,
+                    "remark": remark,
+                    "assetIds": assetIds
+                },
+                async : false,
+                error : function(request) {
+                    $.modal.alertError("系统错误");
+                },
+                success : function(data) {
+                    $.operate.saveSuccess(data);
+                }
+            });
+        }
 	</script>
 </body>
 </html>

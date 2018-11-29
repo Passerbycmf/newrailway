@@ -81,4 +81,19 @@ public interface ContractMapper
 	 * @return 结果
 	 */
 	public Contract checkContractNumber(Integer contractNumber);
+
+
+	/**
+	 * 查询租凭合同列表
+	 * @param contract 租凭合同信息
+	 * @return Test租凭合同集合
+	 */
+	public List<TestContract> selectTestContractList(Contract contract);
+
+	/**
+	 * 查询租凭历史合同列表
+	 * @param contract 租凭合同信息
+	 * @return Test租凭合同集合
+	 */
+	public List<TestContract> selectTestPContractList(Contract contract);
 }

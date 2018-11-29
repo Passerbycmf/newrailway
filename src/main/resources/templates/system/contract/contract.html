@@ -68,7 +68,7 @@
 					title : '合同名称' 
 				},
 				{
-					field : 'rentName', 
+					field : 'rent.rentName',
 					title : '承租项点名称' 
 				},
 				{
@@ -127,6 +127,12 @@
         function remark(id) {
             url = prefix+"/remark/"+id,
                 $.modal.openFull("备注"+$.table._option.modalName, url);
+        }
+
+        /*承租项点管理-承租项点*/
+        function rent() {
+            var url = ctx + "system/rent";
+            createMenuItem(url, "承租项点管理");
         }
 
 

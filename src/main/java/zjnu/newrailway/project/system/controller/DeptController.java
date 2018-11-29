@@ -54,7 +54,7 @@ public class DeptController extends BaseController
 	@ResponseBody
 	public List<Dept> list(Dept dept, String deptName, ModelMap map)
 	{
-
+		startPage();
 		List<Dept> deptList = deptService.selectDeptList(dept);
 		map.put("deptName",deptName);
 		return deptList;

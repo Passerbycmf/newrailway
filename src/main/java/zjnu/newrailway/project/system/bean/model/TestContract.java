@@ -1,6 +1,7 @@
 package zjnu.newrailway.project.system.bean.model;
 
 import zjnu.newrailway.framework.aspectj.lang.annotation.Excel;
+import zjnu.newrailway.project.system.bean.Rent;
 
 import java.util.Date;
 
@@ -78,6 +79,40 @@ public class TestContract {
     /** 合同状态(0完成 1未完成)*/
     @Excel(name = "合同状态(0完成 1未完成)")
     private String status;
+    /** 五年合同总金额 */
+    @Excel(name = "五年合同总金额")
+    private String value;
+    /** 承租项点编号 */
+    private Integer rentId;
+    /** 承租项点对象 */
+    private Rent rent;
+
+
+    public Rent getRent()
+    {
+        return rent;
+    }
+
+    public void setDept(Rent rent)
+    {
+        this.rent = rent;
+    }
+
+    public Integer getRentId() {
+        return rentId;
+    }
+
+    public void setRentId(Integer rentId) {
+        this.rentId = rentId;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

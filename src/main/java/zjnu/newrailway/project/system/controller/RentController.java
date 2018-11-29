@@ -1,6 +1,10 @@
 package zjnu.newrailway.project.system.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zjnu.newrailway.common.constant.UserConstants;
 import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Rent;
+import zjnu.newrailway.project.system.mapper.RentMapper;
+import zjnu.newrailway.project.system.service.IAssetManagementService;
 import zjnu.newrailway.project.system.service.IRentService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
@@ -34,6 +41,12 @@ public class RentController extends BaseController
 	
 	@Autowired
 	private IRentService rentService;
+
+	@Autowired
+	private RentMapper rentMapper;
+
+    @Autowired
+	private IAssetManagementService assetManagementService;
 	
 	@RequiresPermissions("system:rent:view")
 	@GetMapping()
@@ -48,12 +61,42 @@ public class RentController extends BaseController
 	@RequiresPermissions("system:rent:list")
 	@PostMapping("/list")
 	@ResponseBody
-	public TableDataInfo list(Rent rent)
+	public TableDataInfo list(Rent rent, ModelMap map,String rentName)
 	{
 		startPage();
         List<Rent> list = rentService.selectRentList(rent);
-
+		map.put("rentName",rentName);
 		return getDataTable(list);
+	}
+
+	/**
+	 * 选择承租项点名称(回显承租项点)
+	 */
+	@GetMapping("/selectRentTree/{rentId}")
+	public String selectRentTree(@PathVariable("rentId") Integer rentId, ModelMap mmap)
+	{
+		mmap.put("treeName", rentService.selectRentById(rentId).getRentName());
+		return prefix + "/tree";
+	}
+
+	/**
+	 * 加载承租项点名称
+	 * @return
+	 */
+	@GetMapping("/treeData")
+	@ResponseBody
+	public List<Map<String,Object>> treeData(){
+		List<Map<String,Object>> tree = new ArrayList<>();
+		List<Rent> rentList = rentMapper.selectRentAll();
+		//遍历
+		for(Rent rent : rentList){
+				Map<String,Object> rentMap = new HashMap<>();
+				rentMap.put("id", rent.getRentId());
+				rentMap.put("name", rent.getRentName());
+			    rentMap.put("title", rent.getRentName());
+				tree.add(rentMap);
+		}
+		return tree;
 	}
 
 	@Log(title = "承租项点管理", action = BusinessType.EXPORT)
@@ -80,6 +123,7 @@ public class RentController extends BaseController
 	@GetMapping("/add")
 	public String add(ModelMap map)
 	{
+		map.put("assets",assetManagementService.selectAssetName());
 		return prefix + "/add";
 	}
 	
@@ -101,6 +145,7 @@ public class RentController extends BaseController
 	@GetMapping("/edit/{rentId}")
 	public String edit(@PathVariable("rentId") Integer rentId, ModelMap mmap)
 	{
+		mmap.put("assets",assetManagementService.selectAssetName());
 		Rent rent = rentService.selectRentById(rentId);
 		mmap.put("rent", rent);
 	    return prefix + "/edit";
@@ -138,6 +183,7 @@ public class RentController extends BaseController
 	{
 		Rent rent = rentService.selectRentById(rentId);
 		mmap.put("rent", rent);
+		mmap.put("assets",assetManagementService.selectAssetsByRentId(rentId));
 		return prefix + "/detail";
 	}
 

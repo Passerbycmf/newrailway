@@ -67,13 +67,19 @@ public class ContractController extends BaseController
 	public TableDataInfo list(Contract contract)
 	{
 		startPage();
-		List<Contract> list = contractService.selectContractList(contract);
+		List<TestContract> list = contractService.selectTestContractList(contract);
+		int value_1,value_2,value_3,value_4,value_5;
+		for(TestContract tc : list){
+			value_1 = Integer.parseInt(tc.getFirstValue());
+			value_2 = Integer.parseInt(tc.getSecondValue());
+			value_3 = Integer.parseInt(tc.getThirdValue());
+			value_4 = Integer.parseInt(tc.getForthValue());
+			value_5 = Integer.parseInt(tc.getFifthValue());
+			String value = String.valueOf(value_1+value_2+value_3+value_4+value_5);
+			tc.setValue(value);
+		}
 		return getDataTable(list);
 	}
-
-
-
-
 
 	@Log(title = "承租合同管理", action = BusinessType.EXPORT)
 	@RequiresPermissions("system:contract:export")

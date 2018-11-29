@@ -48,7 +48,17 @@ public class PContractController extends BaseController
 	public TableDataInfo list(Contract contract)
 	{
 		startPage();
-        List<Contract> list = contractService.selectPContractList(contract);
+		List<TestContract> list = contractService.selectTestPContractList(contract);
+		int value_1,value_2,value_3,value_4,value_5;
+		for(TestContract tc : list){
+			value_1 = Integer.parseInt(tc.getFirstValue());
+			value_2 = Integer.parseInt(tc.getSecondValue());
+			value_3 = Integer.parseInt(tc.getThirdValue());
+			value_4 = Integer.parseInt(tc.getForthValue());
+			value_5 = Integer.parseInt(tc.getFifthValue());
+			String value = String.valueOf(value_1+value_2+value_3+value_4+value_5);
+			tc.setValue(value);
+		}
 		return getDataTable(list);
 	}
 
@@ -114,6 +124,20 @@ public class PContractController extends BaseController
 	public AjaxResult remove(String ids)
 	{		
 		return toAjax(contractService.deleteContractByIds(ids));
+	}
+
+	/**
+	 * 添加备注
+	 *
+	 * @param id
+	 * @param map
+	 * @return
+	 */
+	@GetMapping("/remark/{id}")
+	public String remark(@PathVariable("id") Integer id, ModelMap map) {
+		Contract contract = contractService.selectContractById(id);
+		map.put("contract", contract);
+		return prefix + "/remark";
 	}
 	
 }

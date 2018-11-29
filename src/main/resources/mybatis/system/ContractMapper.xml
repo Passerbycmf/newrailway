@@ -8,7 +8,6 @@
         <result property="id"    column="id"    />
         <result property="contractNumber"    column="contract_number"    />
         <result property="contractName"    column="contract_name"    />
-        <result property="rentName"    column="rent_name"    />
         <result property="margin"    column="margin"    />
         <result property="firstValue"    column="first_value"    />
         <result property="payment"    column="payment"    />
@@ -27,13 +26,14 @@
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
         <result property="status"    column="status"    />
+        <result property="rentId"    column="rent_id"    />
+        <association property="rent"    column="rent_id" javaType="Rent" resultMap="rentResult"/>
     </resultMap>
 
     <resultMap type="TestContract" id="TestContractResult">
         <result property="id"    column="id"    />
         <result property="contractNumber"    column="contract_number"    />
         <result property="contractName"    column="contract_name"    />
-        <result property="rentName"    column="rent_name"    />
         <result property="margin"    column="margin"    />
         <result property="firstValue"    column="first_value"    />
         <result property="payment"    column="payment"    />
@@ -52,9 +52,17 @@
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
         <result property="status"    column="status"    />
+        <result property="rentId"    column="rent_id"    />
+        <association property="rent"    column="rent_id" javaType="Rent" resultMap="rentResult"/>
+    </resultMap>
+
+    <resultMap id="rentResult" type="Rent">
+        <id     property="rentId"   column="rent_id"     />
+        <result property="rentName" column="rent_name"   />
     </resultMap>
     <sql id="selectContractVo">
-        select id, contract_number, contract_name, rent_name, margin, first_value, payment, department, agent, second_value, third_value, forth_value, fifth_value, file, begin_time, termination_remark, payment_remark, law_remark, remark, create_time, update_time, status from sys_contract
+        select c.id, c.contract_number, c.contract_name,c.rent_id, c.margin, c.first_value, c.payment, c.department, c.agent, c.second_value, c.third_value, c.forth_value, c.fifth_value, c.file, c.begin_time, c.termination_remark, c.payment_remark, c.law_remark, c.remark, c.create_time, c.update_time, c.status,r.rent_id,r.rent_name from sys_contract c
+        left join sys_rent r on c.rent_id = r.rent_id
     </sql>
 
     <select id="selectContractList" parameterType="Contract" resultMap="ContractResult">
@@ -87,6 +95,22 @@
     WHERE contract_number= #{contractNumber}
 </select>
 
+    <select id="selectTestContractList" parameterType="Contract" resultMap="TestContractResult">
+        <include refid="selectContractVo"/>
+        where status = 1
+        <if test="contractName != null and contractName != ''">
+            AND contract_name like concat('%', #{contractName}, '%')
+        </if>
+    </select>
+
+    <select id="selectTestPContractList" parameterType="Contract" resultMap="TestContractResult">
+        <include refid="selectContractVo"/>
+        where status = 0
+        <if test="contractName != null and contractName != ''">
+            AND contract_name like concat('%', #{contractName}, '%')
+        </if>
+    </select>
+
 
     <insert id="insertContract" parameterType="TestContract">
         insert into sys_contract
@@ -94,7 +118,6 @@
             <if test="id != null and id != '' ">id,</if>
             <if test="contractNumber != null and contractNumber != '' ">contract_number,</if>
             <if test="contractName != null and contractName != '' ">contract_name,</if>
-            <if test="rentName != null and rentName != '' ">rent_name,</if>
             <if test="margin != null and margin != '' ">margin,</if>
             <if test="firstValue != null and firstValue != '' ">first_value,</if>
             <if test="payment != null and payment != '' ">payment,</if>
@@ -113,12 +136,12 @@
             <if test="createTime != null and createTime != '' ">create_time,</if>
             <if test="updateTime != null and updateTime != '' ">update_time,</if>
             <if test="status != null and status != '' ">status,</if>
+            <if test="rentId != null and rentId != '' ">rent_id,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null and id != ''">#{id},</if>
             <if test="contractNumber != null and contractNumber != ''">#{contractNumber},</if>
             <if test="contractName != null and contractName != ''">#{contractName},</if>
-            <if test="rentName != null and rentName != ''">#{rentName},</if>
             <if test="margin != null and margin != ''">#{margin},</if>
             <if test="firstValue != null and firstValue != ''">#{firstValue},</if>
             <if test="payment != null and payment != ''">#{payment},</if>
@@ -137,6 +160,7 @@
             <if test="createTime != null and createTime != ''">#{createTime},</if>
             <if test="updateTime != null and updateTime != ''">#{updateTime},</if>
             <if test="status != null and status != ''">#{status},</if>
+            <if test="rentId != null and rentId != '' ">#{rentId},</if>
         </trim>
     </insert>
 
@@ -147,7 +171,6 @@
             <if test="id !=null ">id = #{id},</if>
             <if test="contractNumber != null  ">contract_number = #{contractNumber},</if>
             <if test="contractName != null  and contractName != ''  ">contract_name = #{contractName},</if>
-            <if test="rentName != null  and rentName != ''  ">rent_name = #{rentName},</if>
             <if test="margin != null  and margin != ''  ">margin = #{margin},</if>
             <if test="firstValue != null  and firstValue != ''  ">first_value = #{firstValue},</if>
             <if test="payment != null  and payment != ''  ">payment = #{payment},</if>
@@ -166,6 +189,7 @@
             <if test="paymentRemark != null  and paymentRemark != ''  ">payment_remark = #{paymentRemark},</if>
             <if test="lawRemark != null  and lawRemark != ''  ">law_remark = #{lawRemark},</if>
             <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="rentId != null and rentId != '' ">rent_id= #{rentId},</if>
         </trim>
         where id = #{id}
     </update>

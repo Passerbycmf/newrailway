@@ -80,9 +80,30 @@ public class Contract extends BaseEntity
 	/** 合同状态(0完成 1未完成)*/
 	@Excel(name = "合同状态(0完成 1未完成)")
 	private String status;
+	/** 承租项点编号 */
+	private Integer rentId;
+	/** 承租项点对象 */
+	private Rent rent;
 
+	public Rent getRent()
+	{
+		return rent;
+	}
 
-	public void setId(Integer id) 
+	public void setRent(Rent rent)
+	{
+		this.rent = rent;
+	}
+
+	public Integer getRentId() {
+		return rentId;
+	}
+
+	public void setRentId(Integer rentId) {
+		this.rentId = rentId;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
@@ -280,30 +301,33 @@ public class Contract extends BaseEntity
 		return status;
 	}
 
+	@Override
 	public String toString() {
-		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-				.append("id", getId())
-				.append("contractNumber", getContractNumber())
-				.append("contractName", getContractName())
-				.append("rentName", getRentName())
-				.append("margin", getMargin())
-				.append("firstValue", getFirstValue())
-				.append("payment", getPayment())
-				.append("department", getDepartment())
-				.append("agent", getAgent())
-				.append("secondValue", getSecondValue())
-				.append("thirdValue", getThirdValue())
-				.append("forthValue", getForthValue())
-				.append("fifthValue", getFifthValue())
-				.append("file", getFile())
-				.append("beginTime", getBeginTime())
-				.append("terminationRemark", getTerminationRemark())
-				.append("paymentRemark", getPaymentRemark())
-				.append("lawRemark", getLawRemark())
-				.append("remark", getRemark())
-				.append("createTime", getCreateTime())
-				.append("updateTime", getUpdateTime())
-				.append("status", getStatus())
-				.toString();
+		return "Contract{" +
+				"id=" + id +
+				", contractNumber=" + contractNumber +
+				", contractName='" + contractName + '\'' +
+				", rentName='" + rentName + '\'' +
+				", margin='" + margin + '\'' +
+				", firstValue='" + firstValue + '\'' +
+				", payment='" + payment + '\'' +
+				", department='" + department + '\'' +
+				", agent='" + agent + '\'' +
+				", secondValue='" + secondValue + '\'' +
+				", thirdValue='" + thirdValue + '\'' +
+				", forthValue='" + forthValue + '\'' +
+				", fifthValue='" + fifthValue + '\'' +
+				", file='" + file + '\'' +
+				", beginTime=" + beginTime +
+				", terminationRemark='" + terminationRemark + '\'' +
+				", paymentRemark='" + paymentRemark + '\'' +
+				", lawRemark='" + lawRemark + '\'' +
+				", remark='" + remark + '\'' +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				", status='" + status + '\'' +
+				", rentId=" + rentId +
+				", rent=" + rent +
+				'}';
 	}
 }

@@ -35,11 +35,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            </if>
        </where>
     </select>
-    
+
+
     <select id="selectRentById" parameterType="Integer" resultMap="RentResult">
-        <include refid="selectRentVo"/>
-        where rent_id = #{rentId}
-    </select>
+		select  r.rent_id,  r.rent_name,
+			(select rent_name from sys_rent  where rent_id = r.rent_id)
+		from sys_rent r
+		where rent_id = #{rentId}
+	</select>
 
     <select id="checkAssetNameUnique" resultType="zjnu.newrailway.project.system.bean.Rent">
         <include refid="selectRentVo"/>

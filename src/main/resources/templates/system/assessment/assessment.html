@@ -51,7 +51,7 @@
             search: false,
             columns: [{
                 checkbox: true
-            },
+                 },
                 {
                     field : 'assetName',
                     title : '对应资产名称'
@@ -69,7 +69,7 @@
                     align: 'center',
                     formatter: function(value, row, index) {
                         var actions = [];
-                        actions.push('<a class="btn btn-danger btn-xs ' + checkFlag + '" href="#" onclick="check(\'' + row.assessmentId + '\')"><i class="fa fa-remove"></i>修改考核</a>');
+                        actions.push('<a class="btn btn-primary btn-xs '+ checkFlag + '" href="#" onclick="check(\'' + row.assessmentId + '\')"><i class="fa fa-check">修改考核</i></a>');
                         return actions.join('  ');
                     }
                 }]
@@ -78,7 +78,7 @@
     });
 
     function check(assessmentId) {
-		url = prefix + "/check/" +assessmentId,
+		url = prefix + "/check/" +assessmentId;
             $.modal.openFull("考核" + $.table._option.modalName, url);
     }
 

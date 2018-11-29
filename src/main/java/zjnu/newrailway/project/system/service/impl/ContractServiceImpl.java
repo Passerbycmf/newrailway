@@ -132,5 +132,14 @@ public class ContractServiceImpl implements IContractService
 
 	}
 
+	@Override
+	public List<TestContract> selectTestContractList(Contract contract){
+		return contractMapper.selectTestContractList(contract);
+	}
+
+	@Override
+	public List<TestContract> selectTestPContractList(Contract contract){
+		return contractMapper.selectTestContractList(contract);
+	}
 
 }

@@ -2,13 +2,16 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/iCheck/custom.css}" rel="stylesheet"/>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-rent-add">
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">资产名称：</label>
 				<div class="col-sm-8">
-					<input id="assetName" name="assetName" class="form-control" type="text">
+					<select id="assetManagement" name="assetManagement" class="form-control select2-hidden-accessible" multiple="">
+						<option th:each="assetManagement:${assets}" th:value="${assetManagement.id}" th:text="${assetManagement.assetName}" ></option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
@@ -56,26 +59,15 @@
 		</form>
 	</div>
     <div th:include="include::footer"></div>
+	<script th:src="@{/ajax/libs/iCheck/icheck.min.js}"></script>
+	<script th:src="@{/ajax/libs/select/select2.js}"></script>
     <script type="text/javascript">
-		var prefix = ctx + "system/rent"
-		$("#form-rent-add").validate({
+        var prefix = ctx + "system/rent"
+        $("#form-rent-add").validate({
             rules:{
                 assetName:{
                     required:true,
-                    remote: {
-                        url: prefix + "/checkAssetNameUnique",
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            "assetName" : function() {
-                                return $("input[name='assetName']").val();
-                            }
-                        },
-                        dataFilter: function(data, type) {
-                            if (data == "0") return true;
-                            else return false;
-                        }
-                    }
+
                 },
                 telephone:{
                     required:true,
@@ -115,9 +107,7 @@
                 },
             },
             messages: {
-                "assetName": {
-                    remote: "资产已经存在"
-                },
+
                 "telephone": {
                     remote: "手机格式不正确"
                 },
@@ -125,17 +115,42 @@
                     remote: "身份证格式不正确"
                 }
             },
-
-
-			submitHandler: function(form) {
-				$.operate.save(prefix + "/add", $('#form-rent-add').serialize());
-			}
-		});
-        // $("#telephone").blur(function()
-		// { var telephone= $("#telephone").val();
-		// if(/^1[34578]\d{9}$/.test(telephone)){ return true; }
-		// else{ alert("请输入正确的手机号");
-		// $("#sub").prop("disabled",true); } });
+            submitHandler: function(form) {
+                add();
+            }
+        });
+        function add() {
+            var rentId = $("input[name='rentId']").val();
+            var address = $("input[name='address']").val();
+            var rentName = $("input[name='rentName']").val();
+            var area = $("input[name='area']").val();
+            var number = $("input[name='number']").val();
+            var telephone = $("input[name='telephone']").val();
+            var remark = $("input[name='remark']").val();
+            var assetIds = $.form.selectSelects("assetManagement");
+            $.ajax({
+                cache : true,
+                type : "POST",
+                url : ctx + "system/rent/add",
+                data : {
+                    "rentId": rentId,
+                    "address": address,
+                    "rentName": rentName,
+                    "area": area,
+                    "number": number,
+                    "telephone": telephone,
+                    "remark": remark,
+                    "assetIds": assetIds
+                },
+                async : false,
+                error : function(request) {
+                    $.modal.alertError("系统错误");
+                },
+                success : function(data) {
+                    $.operate.saveSuccess(data);
+                }
+            });
+        }
 
 	</script>
 </body>

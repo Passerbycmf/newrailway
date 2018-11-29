@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Excel;
 import zjnu.newrailway.framework.web.BaseEntity;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -47,6 +48,8 @@ public class Rent extends BaseEntity
 	/** 结束时间 */
 	@Excel(name = "结束时间")
 	private Date updateTime;
+	/** 资产组 */
+	private Integer[] assetIds;
 
 	public void setRentId(Integer rentId)
 	{
@@ -112,6 +115,14 @@ public class Rent extends BaseEntity
 		return telephone;
 	}
 
+	public Integer[] getAssetIds() {
+		return assetIds;
+	}
+
+	public void setAssetIds(Integer[] assetIds) {
+		this.assetIds = assetIds;
+	}
+
 	@Override
 	public String getRemark() {
 		return remark;
@@ -155,6 +166,7 @@ public class Rent extends BaseEntity
 				", remark='" + remark + '\'' +
 				", createTime=" + createTime +
 				", updateTime=" + updateTime +
+				", assetIds=" + Arrays.toString(assetIds) +
 				'}';
 	}
 }

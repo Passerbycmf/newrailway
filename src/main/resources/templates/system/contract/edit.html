@@ -7,6 +7,7 @@
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-contract-edit" th:object="${contract}">
             <input id="id" name="id" th:field="*{id}"  type="hidden">
+            <input name="rentId"  type="hidden"  th:field="*{rentId}" id="treeId"/>
             <div class="form-group">	
                 <label class="col-sm-3 control-label">合同编号：</label>
                 <div class="col-sm-8">
@@ -22,7 +23,7 @@
             <div class="form-group">	
                 <label class="col-sm-3 control-label">承租项点名称：</label>
                 <div class="col-sm-8">
-                    <input id="rentName" name="rentName" th:field="*{rentName}" class="form-control" type="text">
+                    <input class="form-control" type="text" name="rentName" onclick="selectRentTree()" readonly="true" id="treeName" th:field="*{rent.rentName}">
                 </div>
             </div>
             <div class="form-group">	
@@ -120,9 +121,24 @@
 		var prefix = ctx + "system/contract"
 		$("#form-contract-edit").validate({
 			rules:{
-				xxxx:{
-					required:true,
-				},
+                secondValue:{
+                    required:true,
+                },
+                firstValue:{
+                    required:true,
+                },
+                thirdValue:{
+                    required:true,
+                },
+                forthValue:{
+                    required:true,
+                },
+                fifthValue:{
+                    required:true,
+                },
+                rentName:{
+                    required:true,
+                },
 			},
 			submitHandler: function(form) {
                 edit();
@@ -145,6 +161,7 @@
             var file = $("input[name='file']").val();
             var beginTime = $("input[name='beginTime']").val();
             var status = $("input[name='status']").is(':checked') == true ? 0 : 1;
+            var rentId = $("input[name='rentId']").val();
 
             $.ajax({
                 cache : true,
@@ -166,7 +183,8 @@
                     "fifthValue": fifthValue,
                     "file": file,
                     "beginTime": beginTime,
-                    "status":status
+                    "status":status,
+                    "rentId": rentId
                 },
                 async : false,
                 error : function(request) {
@@ -176,6 +194,13 @@
                     $.operate.saveSuccess(data);
                 }
             });
+        }
+        /*承租项点管理-新增-选择承租项点名称*/
+        function selectRentTree() {
+            var treeId = $("#treeId").val();
+            var rentId = treeId == null || treeId == "" ? "1" : treeId;
+            var url = ctx + "system/rent/selectRentTree/" + rentId;
+            $.modal.open("选择承租项点名称", url, '380', '380');
         }
 	</script>
 </body>

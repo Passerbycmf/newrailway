@@ -46,19 +46,6 @@ public class AssessmentController extends BaseController
 	}
 
 	/**
-	 * 查询承租项点列表
-	 */
-	@RequiresPermissions("system:assessment:list")
-	@PostMapping("/listTest")
-	@ResponseBody
-	public TableDataInfo listTest(Rent rent)
-	{
-		startPage();
-		List<Rent> listTest = rentService.selectRentListTest(rent);
-		return getDataTable(listTest);
-	}
-	
-	/**
 	 * 查询年度考核列表
 	 */
 	@RequiresPermissions("system:assessment:list")
@@ -69,6 +56,19 @@ public class AssessmentController extends BaseController
 		startPage();
         List<Assessment> list = assessmentService.selectAssessmentList(assessment);
 		return getDataTable(list);
+	}
+
+	/**
+	 * 查询承租项点列表
+	 */
+	@RequiresPermissions("system:assessment:list")
+	@PostMapping("/listTest")
+	@ResponseBody
+	public TableDataInfo listTest(Rent rent)
+	{
+		startPage();
+		List<Rent> listTest = rentService.selectRentListTest(rent);
+		return getDataTable(listTest);
 	}
 	
 	/**
