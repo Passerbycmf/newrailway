@@ -2,6 +2,7 @@ package zjnu.newrailway.project.system.bean;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import zjnu.newrailway.framework.aspectj.lang.annotation.Excel;
 import zjnu.newrailway.framework.web.BaseEntity;
 import java.util.Date;
 
@@ -16,14 +17,18 @@ public class Car extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	/**  */
+	@Excel(name = "汽车ID")
 	private Integer id;
 	/** 创建时间 */
+	@Excel(name = "创建时间")
 	private Date crTime;
 	/**  */
 	private Date upTime;
 	/** 汽车到达数 */
+	@Excel(name = "汽车到达数量")
 	private Integer numberArrive;
 	/** 汽车服务费 */
+	@Excel(name = "汽车服务费")
 	private Integer serviceCharge;
 
 	public void setId(Integer id) 

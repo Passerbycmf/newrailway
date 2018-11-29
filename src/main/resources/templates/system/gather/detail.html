@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-gather-add" th:object="${gather}">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">合同ID：</label>
+				<div class="col-sm-8">
+					<input id="contractId" name="contractId" class="form-control" type="text" readonly="readonly" th:field="*{contractId}">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">金额：</label>
+				<div class="col-sm-8">
+					<input id="total" name="total" class="form-control" type="text" readonly="readonly"  th:field="*{total}">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">凭证号：</label>
+				<div class="col-sm-8">
+					<input id="gatherNumber" name="gatherNumber" class="form-control" type="text" readonly="readonly" th:field="*{gatherNumber}">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">收款时间：</label>
+				<div class="col-sm-8">
+					<input id="gatherTime" name="gatherTime" class="form-control" type="text" readonly="readonly" th:field="*{gatherTime}">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="form-control-static col-sm-offset-9">
+					<button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+
+</body>
+</html>

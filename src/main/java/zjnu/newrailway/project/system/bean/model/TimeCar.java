@@ -1,17 +1,23 @@
 package zjnu.newrailway.project.system.bean.model;
 
+import zjnu.newrailway.framework.aspectj.lang.annotation.Excel;
+
 public class TimeCar {
     private static final long serialVersionUID = 1L;
 
     /**  */
+    @Excel(name = "汽车ID")
     private Integer id;
     /** 创建时间 */
+    @Excel(name = "创建时间")
     private String  crTime;
     /**  */
     private String  upTime;
     /** 汽车到达数 */
+    @Excel(name = "汽车到达数量")
     private Integer numberArrive;
     /** 汽车服务费 */
+    @Excel(name = "汽车服务费")
     private Integer serviceCharge;
 
     public Integer getId() {

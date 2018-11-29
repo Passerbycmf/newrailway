@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zjnu.newrailway.project.system.mapper.GatherMapper">
+    
+    <resultMap type="Gather" id="GatherResult">
+        <result property="id"    column="id"    />
+        <result property="contractId"    column="contract_id"    />
+        <result property="total"    column="total"    />
+        <result property="gatherNumber"    column="gather_number"    />
+        <result property="gatherTime"    column="gather_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+	
+	<sql id="selectGatherVo">
+        select id, contract_id, total, gather_number, gather_time, create_time, update_time from sys_gather
+    </sql>
+	
+    <select id="selectGatherList" parameterType="Gather" resultMap="GatherResult">
+        <include refid="selectGatherVo"/>
+        <where>  
+            <if test="id != null and id != ''"> and id = #{id}</if>
+             <if test="contractId != null and contractId != ''"> and contract_id = #{contractId}</if>
+             <if test="total != null and total != ''"> and total = #{total}</if>
+             <if test="gatherNumber != null and gatherNumber != ''"> and gather_number = #{gatherNumber}</if>
+             <if test="gatherTime != null and gatherTime != ''"> and gather_time = #{gatherTime}</if>
+             <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+             <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectGatherById" parameterType="Integer" resultMap="GatherResult">
+        <include refid="selectGatherVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="checkContractID" parameterType="integer" resultMap="GatherResult">
+          SELECT * FROM sys_gather
+    WHERE contract_id= #{contractId}
+    </select>
+
+    <insert id="insertGather" parameterType="TestGather">
+        insert into sys_gather
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != '' ">id,</if>
+			<if test="contractId != null and contractId != '' ">contract_id,</if>
+			<if test="total != null and total != '' ">total,</if>
+			<if test="gatherNumber != null and gatherNumber != '' ">gather_number,</if>
+			<if test="gatherTime != null and gatherTime != '' ">gather_time,</if>
+			<if test="createTime != null and createTime != '' ">create_time,</if>
+			<if test="updateTime != null and updateTime != '' ">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">#{id},</if>
+			<if test="contractId != null and contractId != ''">#{contractId},</if>
+			<if test="total != null and total != ''">#{total},</if>
+			<if test="gatherNumber != null and gatherNumber != ''">#{gatherNumber},</if>
+			<if test="gatherTime != null and gatherTime != ''">#{gatherTime},</if>
+			<if test="createTime != null and createTime != ''">#{createTime},</if>
+			<if test="updateTime != null and updateTime != ''">#{updateTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateGather" parameterType="TestGather">
+        update sys_gather
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="contractId != null  ">contract_id = #{contractId},</if>
+            <if test="total != null  and total != ''  ">total = #{total},</if>
+            <if test="gatherNumber != null  ">gather_number = #{gatherNumber},</if>
+            <if test="gatherTime != null  ">gather_time = #{gatherTime},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteGatherById" parameterType="Integer">
+        delete from sys_gather where id = #{id}
+    </delete>
+	
+    <delete id="deleteGatherByIds" parameterType="String">
+        delete from sys_gather where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

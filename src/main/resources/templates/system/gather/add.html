@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-gather-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">合同ID：</label>
+				<div class="col-sm-8">
+					<input id="contractId" name="contractId" class="form-control" type="text" placeholder="请输入合同ID">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">金额：</label>
+				<div class="col-sm-8">
+					<input id="total" name="total" class="form-control" type="text" placeholder="请输入金额" >
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">凭证号：</label>
+				<div class="col-sm-8">
+					<input id="gatherNumber" name="gatherNumber" class="form-control" type="text" placeholder="请输入凭证号" >
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">收款时间：</label>
+				<div class="col-sm-8">
+					<input class="time form-control" id="startTime" name="gatherTime" placeholder="请选择收款日期" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="form-control-static col-sm-offset-9">
+					<button type="submit" class="btn btn-primary">提交</button>
+					<button onclick="$.modal.close()" class="btn btn-danger" type="button">关闭</button>
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/gather"
+		$("#form-gather-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			submitHandler: function(form) {
+				$.operate.save(prefix + "/add", $('#form-gather-add').serialize());
+			}
+		});
+
+
+        /*
+function add() {
+var id= $("input[name='id']").val();
+var contractId = $("input[name='contractId']").val();
+var total = $("input[name='total']").val();
+var gatherNumber = $("input[name='gatherNumber']").val();
+var gatherTime = $("input[name='gatherTime']").val();
+
+$.ajax({
+cache : true,
+type : "POST",
+url : ctx + "system/gather/add",
+data : {
+"id":id,
+"contractId": contractId,
+"total": total,
+"gatherNumber":  gatherNumber,
+"gatherTime": gatherTime,
+},
+async : false,
+error : function(request) {
+$.modal.alertError("系统错误");
+},
+success : function(data) {
+$.operate.saveSuccess(data);
+}
+});
+}
+* */
+
+
+	</script>
+</body>
+</html>
+

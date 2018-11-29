@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Car;
+import zjnu.newrailway.project.system.bean.Contract;
 import zjnu.newrailway.project.system.bean.model.TimeCar;
 import zjnu.newrailway.project.system.service.ICarService;
 import zjnu.newrailway.framework.web.TableDataInfo;
@@ -119,5 +121,33 @@ public class CarController extends BaseController
 		map.put("car",car);
 		return prefix + "/check" ;
 	}
-	
+
+
+
+	/**
+	 * 导出
+	 * @param car
+	 * @return
+	 * @throws Exception
+	 */
+	@Log(title = "汽车管理", action = BusinessType.EXPORT)
+	@RequiresPermissions("system:car:export")
+	@PostMapping("/export")
+	@ResponseBody
+	public AjaxResult export(Car car) throws Exception
+	{
+		try
+		{
+			List<TimeCar> list = carService.selectCarList(car);
+			ExcelUtil<TimeCar> util = new ExcelUtil<TimeCar>(TimeCar.class);
+			return util.exportExcel(list, "car");
+		}
+		catch (Exception e)
+		{
+			return error("导出Excel失败，请联系网站管理员！");
+		}
+	}
+
+
+
 }
