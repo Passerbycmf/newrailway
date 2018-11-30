@@ -16,14 +16,15 @@ public class Assessment extends BaseEntity
 	
 	/** 年度考核ID */
 	private Integer assessmentId;
+	/** 承租项点ID */
+	private Integer rentId;
 	/** 承租项点营业额评分 */
 	private Integer businessSituation;
 	/** 承租方信誉度评分 */
 	private Integer credit;
 	/** 承租项点受损情况 */
 	private Integer damage;
-	/** 承租项点组ID */
-	private Integer[] rentIds;
+
 
 	public void setAssessmentId(Integer assessmentId)
 	{
@@ -34,7 +35,16 @@ public class Assessment extends BaseEntity
 	{
 		return assessmentId;
 	}
-	public void setBusinessSituation(Integer businessSituation) 
+
+	public Integer getRentId() {
+		return rentId;
+	}
+
+	public void setRentId(Integer rentId) {
+		this.rentId = rentId;
+	}
+
+	public void setBusinessSituation(Integer businessSituation)
 	{
 		this.businessSituation = businessSituation;
 	}
@@ -62,22 +72,16 @@ public class Assessment extends BaseEntity
 		return damage;
 	}
 
-	public Integer[] getRentIds() {
-		return rentIds;
-	}
 
-	public void setRentIds(Integer[] rentIds) {
-		this.rentIds = rentIds;
-	}
 
 	@Override
 	public String toString() {
 		return "Assessment{" +
 				"assessmentId=" + assessmentId +
+				", rentId=" + rentId +
 				", businessSituation=" + businessSituation +
 				", credit=" + credit +
 				", damage=" + damage +
-				", rentIds=" + Arrays.toString(rentIds) +
 				'}';
 	}
 }

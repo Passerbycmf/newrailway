@@ -5,25 +5,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="zjnu.newrailway.project.system.mapper.AssessmentMapper">
     
     <resultMap type="Assessment" id="AssessmentResult">
+        <result property="rentId"    column="rent_id"    />
         <result property="assessmentId"    column="assessment_id"    />
         <result property="businessSituation"    column="business_situation"    />
         <result property="credit"    column="credit"    />
         <result property="damage"    column="damage"    />
+        <association property="rent"    column="rent_id" javaType="Rent" resultMap="rentResult"/>
     </resultMap>
 
-    <resultMap type="Rent" id="RentResult">
-        <result property="rentId"    column="rent_id"    />
-        <result property="assetName"    column="asset_name"    />
-        <result property="address"    column="address"    />
-        <result property="rentName"    column="rent_name"    />
-        <result property="area"    column="area"    />
-        <result property="number"    column="number"    />
-        <result property="telephone"    column="telephone"    />
-        <result property="remark"    column="remark"    />
+    <resultMap id="rentResult" type="Rent">
+        <id     property="rentId"   column="rent_id"     />
+        <result property="rentName" column="rent_name"   />
     </resultMap>
+
 	
 	<sql id="selectAssessmentVo">
-        select assessment_id, business_situation, credit, damage from sys_assessment
+        select a.rent_id,a.assessment_id, a.business_situation, a.credit, a.damage,r.rent_id,r.rent_name from sys_assessment a
+        left  join  sys_rent r on a.rent_id = r.rent_id
     </sql>
 	
     <select id="selectAssessmentList" parameterType="Assessment" resultMap="AssessmentResult">
@@ -47,12 +45,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into sys_assessment
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="assessmentId != null and assessmentId != '' ">assessment_id,</if>
+            <if test="rentId != null and rentId != '' ">rent_id,</if>
 			<if test="businessSituation != null and businessSituation != '' ">business_situation,</if>
 			<if test="credit != null and credit != '' ">credit,</if>
 			<if test="damage != null and damage != '' ">damage,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="assessmentId != null and assessmentId != ''">#{assessmentId},</if>
+            <if test="rentId != null and rentId != ''">#{rentId},</if>
 			<if test="businessSituation != null and businessSituation != ''">#{businessSituation},</if>
 			<if test="credit != null and credit != ''">#{credit},</if>
 			<if test="damage != null and damage != ''">#{damage},</if>

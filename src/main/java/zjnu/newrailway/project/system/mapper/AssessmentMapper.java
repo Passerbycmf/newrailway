@@ -1,7 +1,6 @@
 package zjnu.newrailway.project.system.mapper;
 
 import zjnu.newrailway.project.system.bean.Assessment;
-import zjnu.newrailway.project.system.bean.RentAssessment;
 
 import java.util.List;
 

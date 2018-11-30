@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="remark"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="status"       column="status"       />
         <association property="assetManagement"    column="id" javaType="AssetManagement" resultMap="assetResult"/>
     </resultMap>
 
@@ -24,9 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectRentVo">
-   select r.rent_id, r.asset_id, r.address, r.rent_name, r.area, r.number, r.telephone, r.remark, r.create_time, r.update_time ,am.asset_id,am.asset_name
+   select r.rent_id, r.asset_id, r.address, r.rent_name, r.area, r.number, r.telephone, r.remark, r.create_time, r.update_time,r.status ,am.asset_id,am.asset_name
     from sys_rent r
     left join sys_asset_management am on am.asset_id = r.asset_id
+    left join sys_assessment a on a.rent_id = r.rent_id
     </sql>
 	
     <select id="selectRentList" parameterType="Rent" resultMap="RentResult">
@@ -46,10 +48,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <select id="selectRentById" parameterType="Integer" resultMap="RentResult">
-		select  r.rent_id,  r.rent_name,r.address,r.area,r.number,r.telephone,r.remark,
-			(select rent_name from sys_rent  where rent_id = r.rent_id)
-		from sys_rent r
-		where rent_id = #{rentId}
+       select r.rent_id, r.asset_id, r.address, r.rent_name, r.area, r.number, r.telephone, r.remark, r.create_time, r.update_time,r.status ,am.asset_id,am.asset_name
+    from sys_rent r
+    left join sys_asset_management am on am.asset_id = r.asset_id
+    left join sys_assessment a on a.rent_id = r.rent_id
+		where r.rent_id = #{rentId}
 	</select>
 
     <select id="checkAssetNameUnique" resultType="zjnu.newrailway.project.system.bean.Rent">
@@ -58,24 +61,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectRentListTest" parameterType="Rent" resultMap="RentResult">
-         select r.asset_name,r.rent_name,r.telephone from  sys_assessment a
-        left join sys_rent_assessment  ra on a.assessment_id = ra.assessment_id
-        left join sys_rent r on r.rent_id = ra.rent_id
+        <include refid="selectRentVo"/>
         <where>
             <if test="rentName != null and rentName != ''">
-                AND r.rent_name like concat('%', #{rentName}, '%')
+                AND rent_name like concat('%', #{rentName}, '%')
             </if>
             <if test="params != null and params.createTime != ''"><!-- 开始时间检索 -->
-                AND date_format(r.create_time,'%y%m%d') &gt;= date_format(#{params.createTime},'%y%m%d')
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.createTime},'%y%m%d')
             </if>
             <if test="params != null and params.updateTime != ''"><!-- 结束时间检索 -->
-                AND date_format(r.create_time,'%y%m%d') &lt;= date_format(#{params.updateTime},'%y%m%d')
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.updateTime},'%y%m%d')
             </if>
+            status = 1
         </where>
     </select>
 
     <select id="selectRentAll" resultMap="RentResult">
         <include refid="selectRentVo"/>
+    </select>
+
+    <select id="getRentName" resultType="java.lang.String">
+        select  r.rent_name  from sys_rent r
+        left  join  sys_train t on t.rent_id = r.rent_id
+        where t.rent_id = #{rentId}
     </select>
 
 
@@ -91,6 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="telephone != null and telephone != '' ">telephone,</if>
 			<if test="remark != null and remark != '' ">remark,</if>
             <if test="createTime != null and createTime != '' ">create_time,</if>
+            <if test="status != null and status != ''">status,</if>
             create_time
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -103,6 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="telephone != null and telephone != ''">#{telephone},</if>
 			<if test="remark != null and remark != ''">#{remark},</if>
             <if test="createTime != null and createTime != ''">#{createTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
             sysdate()
          </trim>
     </insert>
@@ -118,12 +128,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="telephone != null  and telephone != ''  ">telephone = #{telephone},</if>
             <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
             <if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
             update_time = sysdate()
         </trim>
         where rent_id = #{rentId}
     </update>
 
-	<delete id="deleteRentById" parameterType="Integer">
+    <update id="updateRentStatus">
+        update sys_rent set status = 1 where rent_id = #{rentId}
+    </update>
+
+    <delete id="deleteRentById" parameterType="Integer">
         delete from sys_rent where rent_id = #{rentId}
     </delete>
 	

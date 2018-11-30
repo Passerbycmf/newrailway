@@ -1,6 +1,7 @@
 package zjnu.newrailway.project.system.service;
 
 import zjnu.newrailway.project.system.bean.Train;
+import zjnu.newrailway.project.system.bean.model.TestTrain;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface ITrainService
      * @param train 培训信息
      * @return 培训集合
      */
-	public List<Train> selectTrainList(Train train);
+	public List<TestTrain> selectTrainList(Train train);
 	
 	/**
      * 新增培训
