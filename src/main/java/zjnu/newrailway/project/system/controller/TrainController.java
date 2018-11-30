@@ -11,6 +11,9 @@ import zjnu.newrailway.framework.web.AjaxResult;
 import zjnu.newrailway.framework.web.BaseController;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.project.system.bean.Train;
+import zjnu.newrailway.project.system.bean.model.TestTrain;
+import zjnu.newrailway.project.system.mapper.RentMapper;
+import zjnu.newrailway.project.system.service.IRentService;
 import zjnu.newrailway.project.system.service.ITrainService;
 
 import java.util.List;
@@ -29,6 +32,9 @@ public class TrainController extends BaseController
 	
 	@Autowired
 	private ITrainService trainService;
+
+	@Autowired
+	private IRentService rentService;
 	
 	@RequiresPermissions("system:train:view")
 	@GetMapping()
@@ -41,6 +47,7 @@ public class TrainController extends BaseController
 	@GetMapping("/train/{rentId}")
 	public String trainTo(@PathVariable("rentId") Integer rentId)
 	{
+
 		return prefix + "/train";
 	}
 	/**
@@ -49,10 +56,14 @@ public class TrainController extends BaseController
 	@RequiresPermissions("system:train:list")
 	@PostMapping("/list")
 	@ResponseBody
-	public TableDataInfo list(Train train)
+	public TableDataInfo list(Train train,ModelMap map)
 	{
 		startPage();
-        List<Train> list = trainService.selectTrainList(train);
+        List<TestTrain> list = trainService.selectTrainList(train);
+		for(TestTrain tc : list){
+			String rentName = rentService.selectRentName(tc.getRentId());
+			tc.setRentName(rentName);
+		}
 		return getDataTable(list);
 	}
 	

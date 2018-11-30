@@ -60,14 +60,16 @@
         <id     property="rentId"   column="rent_id"     />
         <result property="rentName" column="rent_name"   />
     </resultMap>
+
     <sql id="selectContractVo">
         select c.id, c.contract_number, c.contract_name,c.rent_id, c.margin, c.first_value, c.payment, c.department, c.agent, c.second_value, c.third_value, c.forth_value, c.fifth_value, c.file, c.begin_time, c.termination_remark, c.payment_remark, c.law_remark, c.remark, c.create_time, c.update_time, c.status,r.rent_id,r.rent_name from sys_contract c
         left join sys_rent r on c.rent_id = r.rent_id
     </sql>
 
     <select id="selectContractList" parameterType="Contract" resultMap="ContractResult">
-        <include refid="selectContractVo"/>
-        where status = 1
+        select c.id, c.contract_number, c.contract_name,c.rent_id, c.margin, c.first_value, c.payment, c.department, c.agent, c.second_value, c.third_value, c.forth_value, c.fifth_value, c.file, c.begin_time, c.termination_remark, c.payment_remark, c.law_remark, c.remark, c.create_time, c.update_time, c.status,r.rent_id,r.rent_name from sys_contract c
+        left join sys_rent r on c.rent_id = r.rent_id
+        where c.status = 1
         <if test="contractName != null and contractName != ''">
             AND contract_name like concat('%', #{contractName}, '%')
         </if>
@@ -79,8 +81,9 @@
     </select>
 
     <select id="selectPContractList" parameterType="Contract" resultMap="ContractResult">
-        <include refid="selectContractVo"/>
-        where status = 0
+        select c.id, c.contract_number, c.contract_name,c.rent_id, c.margin, c.first_value, c.payment, c.department, c.agent, c.second_value, c.third_value, c.forth_value, c.fifth_value, c.file, c.begin_time, c.termination_remark, c.payment_remark, c.law_remark, c.remark, c.create_time, c.update_time, c.status,r.rent_id,r.rent_name from sys_contract c
+        left join sys_rent r on c.rent_id = r.rent_id
+        where c.status = 0
         <if test="contractName != null and contractName != ''">
             AND contract_name like concat('%', #{contractName}, '%')
         </if>
@@ -96,16 +99,18 @@
 </select>
 
     <select id="selectTestContractList" parameterType="Contract" resultMap="TestContractResult">
-        <include refid="selectContractVo"/>
-        where status = 1
+        select c.id, c.contract_number, c.contract_name,c.rent_id, c.margin, c.first_value, c.payment, c.department, c.agent, c.second_value, c.third_value, c.forth_value, c.fifth_value, c.file, c.begin_time, c.termination_remark, c.payment_remark, c.law_remark, c.remark, c.create_time, c.update_time, c.status,r.rent_id,r.rent_name from sys_contract c
+        left join sys_rent r on c.rent_id = r.rent_id
+        where c.status = 1
         <if test="contractName != null and contractName != ''">
             AND contract_name like concat('%', #{contractName}, '%')
         </if>
     </select>
 
     <select id="selectTestPContractList" parameterType="Contract" resultMap="TestContractResult">
-        <include refid="selectContractVo"/>
-        where status = 0
+        select c.id, c.contract_number, c.contract_name,c.rent_id, c.margin, c.first_value, c.payment, c.department, c.agent, c.second_value, c.third_value, c.forth_value, c.fifth_value, c.file, c.begin_time, c.termination_remark, c.payment_remark, c.law_remark, c.remark, c.create_time, c.update_time, c.status,r.rent_id,r.rent_name from sys_contract c
+        left join sys_rent r on c.rent_id = r.rent_id
+        where c.status = 0
         <if test="contractName != null and contractName != ''">
             AND contract_name like concat('%', #{contractName}, '%')
         </if>

@@ -74,4 +74,10 @@ public interface RentMapper
 	 * @return
 	 */
     List<Rent> selectRentAll();
+
+
+    String  getRentName(Integer rentId);
+
+
+    int updateRentStatus(Integer rentId);
 }

@@ -42,7 +42,7 @@ public class AssessmentController extends BaseController
 	@GetMapping()
 	public String assessment()
 	{
-	    return prefix + "/assessment";
+	    return prefix + "/rentTest";
 	}
 
 	/**
@@ -59,16 +59,25 @@ public class AssessmentController extends BaseController
 	}
 
 	/**
-	 * 查询承租项点列表
+	 * 新增年度考核
 	 */
-	@RequiresPermissions("system:assessment:list")
-	@PostMapping("/listTest")
-	@ResponseBody
-	public TableDataInfo listTest(Rent rent)
+	@GetMapping("/addTest")
+	public String addTest()
 	{
-		startPage();
-		List<Rent> listTest = rentService.selectRentListTest(rent);
-		return getDataTable(listTest);
+		return prefix + "/addTest";
+	}
+
+	/**
+	 * 新增保存年度考核
+	 */
+	@RequiresPermissions("system:assessment:add")
+	@Log(title = "年度考核", action = BusinessType.INSERT)
+	@PostMapping("/addTestTo")
+	@ResponseBody
+	public AjaxResult addTestTo(Integer rentId)
+	{
+
+		return toAjax(assessmentService.updateRentStatus(rentId));
 	}
 	
 	/**
@@ -96,10 +105,10 @@ public class AssessmentController extends BaseController
 	/**
 	 * 修改年度考核
 	 */
-	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") Integer id, ModelMap mmap)
+	@GetMapping("/edit/{assessmentId}")
+	public String edit(@PathVariable("assessmentId") Integer assessmentId, ModelMap mmap)
 	{
-		Assessment assessment = assessmentService.selectAssessmentById(id);
+		Assessment assessment = assessmentService.selectAssessmentById(assessmentId);
 		mmap.put("assessment", assessment);
 	    return prefix + "/edit";
 	}
@@ -116,18 +125,7 @@ public class AssessmentController extends BaseController
 		return toAjax(assessmentService.updateAssessment(assessment));
 	}
 
-	/**
-	 * 年度考核
-	 */
-	@GetMapping("/check/{id}")
-	public String check(@PathVariable("id") Integer id, ModelMap mmap)
-	{
-		Rent rent = rentService.selectRentById(id);
-		mmap.put("rent", rent);
-		Assessment assessment = assessmentService.selectAssessmentById(id);
-		mmap.put("assessment",assessment);
-		return prefix + "/check";
-	}
+
 
 	/**
 	 * 保存年度考核

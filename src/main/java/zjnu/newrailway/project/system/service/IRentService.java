@@ -61,4 +61,7 @@ public interface IRentService
 	 * @return
 	 */
 	List<Rent> selectRentAll();
+
+
+	String selectRentName(Integer rentId);
 }

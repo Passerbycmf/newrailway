@@ -53,6 +53,10 @@ public class Rent extends BaseEntity
 	/** 资产对象 */
 	private AssetManagement assetManagement;
 
+	/** 考核状态*/
+	@Excel(name = "考核状态")
+	private String status;
+
 	public void setRentId(Integer rentId)
 	{
 		this.rentId = rentId;
@@ -163,6 +167,14 @@ public class Rent extends BaseEntity
 		this.assetManagement = assetManagement;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "Rent{" +
@@ -178,6 +190,7 @@ public class Rent extends BaseEntity
 				", updateTime=" + updateTime +
 				", assetIds=" + Arrays.toString(assetIds) +
 				", assetManagement=" + assetManagement +
+				", status='" + status + '\'' +
 				'}';
 	}
 }

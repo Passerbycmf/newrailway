@@ -54,7 +54,22 @@ public class RentController extends BaseController
 	{
 	    return prefix + "/rent";
 	}
-	
+
+	/**
+	 * 查询承租项点列表
+	 */
+	@RequiresPermissions("system:rent:list")
+	@PostMapping("/listTest")
+	@ResponseBody
+	public TableDataInfo listTest(Rent rent, ModelMap map,String rentName)
+	{
+		startPage();
+		List<Rent> list = rentService.selectRentListTest(rent);
+		map.put("rentName",rentName);
+		return getDataTable(list);
+	}
+
+
 	/**
 	 * 查询承租项点列表
 	 */

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    <div class="container-div">
+			<div class="col-sm-12 select-info">
+				<form id="operlog-form">
+					<div class="select-list">
+						<ul>
+			               <li>
+							   <input type="text" placeholder="请输入承租方单位或个人名称" name="rentName"/>
+						   </li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							</li>
+
+						</ul>
+					</div>
+				</form>
+			</div>
+
+		<div class="btn-group hidden-xs" id="toolbar" role="group">
+
+			<a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" shiro:hasPermission="system:rent:add">
+				<i class="fa fa-plus"></i> 新增
+			</a>
+		</div>
+
+		<div class="col-sm-12 select-info table-striped">
+			<table id="bootstrap-table" data-mobile-responsive="true"></table>
+		</div>
+	</div>
+
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var prefix = ctx + "system/rent"
+        var prefixcopy = ctx + "system/assessment"
+        $(function() {
+            var options = {
+                url: prefix + "/listTest",
+                createUrl: prefixcopy + "/addTest",
+                updateUrl: prefixcopy + "/edit/{id}",
+                modalName: "承租项点",
+                search: false,
+                showExport: false,
+                columns: [{
+		            checkbox: true
+		        },
+                {
+					field : 'assetManagement.assetName',
+					title : '资产名称'
+                },
+				{
+					field : 'rentName', 
+					title : '承租方单位或个人名称' 
+				},
+				{
+					field : 'area',
+					title : '面积（平方米）'
+				},
+				{
+					field : 'telephone',
+					title : '联系电话'
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+                        actions.push('<a class="btn btn-primary btn-xs ' + '" href="#" onclick="$.operate.edit(\'' + row.assessmentId + '\')"><i class="fa fa-check">考核</i></a>');
+						return actions.join('  ');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+
+
+
+        /*资产管理*/
+        function assetManagement() {
+            var url = ctx + "system/assetManagement";
+            createMenuItem(url, "资产管理");
+        }
+
+    </script>
+</body>
+</html>

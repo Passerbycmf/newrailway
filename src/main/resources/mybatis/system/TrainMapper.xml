@@ -14,12 +14,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
-	
+
+    <resultMap type="TestTrain" id="TestTrainResult">
+        <result property="trainId"    column="train_id"    />
+        <result property="rentId"    column="rent_id"    />
+        <result property="trainContent"    column="train_content"    />
+        <result property="trainCategory"    column="train_category"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
 	<sql id="selectTrainVo">
-        select train_id, rent_id, train_content, train_category, start_time, end_time, create_time, update_time from sys_train
+        select t.train_id, t.rent_id, t.train_content, t.train_category, t.start_time, t.end_time, t.create_time, t.update_time,r.rent_id from sys_train t
+        left  join  sys_rent r on r.rent_id = t.rent_id
     </sql>
 	
-    <select id="selectTrainList" parameterType="Train" resultMap="TrainResult">
+    <select id="selectTrainList" parameterType="Train" resultMap="TestTrainResult">
         <include refid="selectTrainVo"/>
         <where>  
             <if test="trainId != null and trainId != ''"> and train_id = #{trainId}</if>

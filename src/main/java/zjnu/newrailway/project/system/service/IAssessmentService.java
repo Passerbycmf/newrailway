@@ -1,6 +1,8 @@
 package zjnu.newrailway.project.system.service;
 
 import zjnu.newrailway.project.system.bean.Assessment;
+import zjnu.newrailway.project.system.bean.Rent;
+
 import java.util.List;
 
 /**
@@ -50,5 +52,6 @@ public interface IAssessmentService
      * @return 结果
      */
 	public int deleteAssessmentByIds(String ids);
-	
+
+    int updateRentStatus(Integer rentId);
 }

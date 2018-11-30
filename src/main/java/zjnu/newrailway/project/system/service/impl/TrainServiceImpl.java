@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zjnu.newrailway.common.utils.Convert;
 import zjnu.newrailway.project.system.bean.Train;
+import zjnu.newrailway.project.system.bean.model.TestTrain;
 import zjnu.newrailway.project.system.mapper.TrainMapper;
 import zjnu.newrailway.project.system.service.ITrainService;
 
@@ -40,7 +41,7 @@ public class TrainServiceImpl implements ITrainService
      * @return 培训集合
      */
 	@Override
-	public List<Train> selectTrainList(Train train)
+	public List<TestTrain> selectTrainList(Train train)
 	{
 	    return trainMapper.selectTrainList(train);
 	}

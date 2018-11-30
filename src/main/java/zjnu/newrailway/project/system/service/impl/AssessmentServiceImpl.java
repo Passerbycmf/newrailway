@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import zjnu.newrailway.project.system.bean.RentAssessment;
+import zjnu.newrailway.project.system.bean.Rent;
 import zjnu.newrailway.project.system.mapper.AssessmentMapper;
 import zjnu.newrailway.project.system.bean.Assessment;
-import zjnu.newrailway.project.system.mapper.RentAssessmentMapper;
+import zjnu.newrailway.project.system.mapper.RentMapper;
 import zjnu.newrailway.project.system.service.IAssessmentService;
 import zjnu.newrailway.common.utils.Convert;
 
@@ -24,7 +24,9 @@ public class AssessmentServiceImpl implements IAssessmentService
 	private AssessmentMapper assessmentMapper;
 
 	@Autowired
-	private RentAssessmentMapper rentAssessmentMapper;
+	private RentMapper rentMapper;
+
+
 
 	/**
      * 查询年度考核信息
@@ -61,27 +63,12 @@ public class AssessmentServiceImpl implements IAssessmentService
 	public int insertAssessment(Assessment assessment)
 	{
 		int rows = assessmentMapper.insertAssessment(assessment);
-		// 新增用户岗位关联
-		insertRentAssessment(assessment);
+
 		return rows;
 
 	}
 
-	private void insertRentAssessment(Assessment assessment) {
-		// 新增员工与岗位管理
-		List<RentAssessment> list = new ArrayList<RentAssessment>();
-		for (Integer rentId : assessment.getRentIds())
-		{
-			RentAssessment up = new RentAssessment();
-			up.setAssessmentId(assessment.getAssessmentId());
-			up.setRentId(rentId);
-			list.add(up);
-		}
-		if (list.size() > 0)
-		{
-			rentAssessmentMapper.batchRentAssessment(list);
-		}
-	}
+
 
 
 	/**
@@ -110,5 +97,10 @@ public class AssessmentServiceImpl implements IAssessmentService
 	{
 		return assessmentMapper.deleteAssessmentByIds(Convert.toStrArray(ids));
 	}
-	
+
+	@Override
+	public int updateRentStatus(Integer rentId) {
+		return rentMapper.updateRentStatus(rentId);
+	}
+
 }
