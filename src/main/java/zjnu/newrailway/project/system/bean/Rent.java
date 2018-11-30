@@ -23,7 +23,7 @@ public class Rent extends BaseEntity
 	private Integer rentId;
 	/** 资产名称 */
 	@Excel(name = "资产名称")
-	private String assetName;
+	private Integer assetId;
 	/** 坐落地址 */
 	@Excel(name = "坐落地址")
 	private String address;
@@ -50,6 +50,8 @@ public class Rent extends BaseEntity
 	private Date updateTime;
 	/** 资产组 */
 	private Integer[] assetIds;
+	/** 资产对象 */
+	private AssetManagement assetManagement;
 
 	public void setRentId(Integer rentId)
 	{
@@ -60,16 +62,16 @@ public class Rent extends BaseEntity
 	{
 		return rentId;
 	}
-	public void setAssetName(String assetName) 
-	{
-		this.assetName = assetName;
+
+	public Integer getAssetId() {
+		return assetId;
 	}
 
-	public String getAssetName() 
-	{
-		return assetName;
+	public void setAssetId(Integer assetId) {
+		this.assetId = assetId;
 	}
-	public void setAddress(String address) 
+
+	public void setAddress(String address)
 	{
 		this.address = address;
 	}
@@ -153,11 +155,19 @@ public class Rent extends BaseEntity
 		this.updateTime = updateTime;
 	}
 
+	public AssetManagement getAssetManagement() {
+		return assetManagement;
+	}
+
+	public void setAssetManagement(AssetManagement assetManagement) {
+		this.assetManagement = assetManagement;
+	}
+
 	@Override
 	public String toString() {
 		return "Rent{" +
 				"rentId=" + rentId +
-				", assetName='" + assetName + '\'' +
+				", assetId=" + assetId +
 				", address='" + address + '\'' +
 				", rentName='" + rentName + '\'' +
 				", area='" + area + '\'' +
@@ -167,6 +177,7 @@ public class Rent extends BaseEntity
 				", createTime=" + createTime +
 				", updateTime=" + updateTime +
 				", assetIds=" + Arrays.toString(assetIds) +
+				", assetManagement=" + assetManagement +
 				'}';
 	}
 }

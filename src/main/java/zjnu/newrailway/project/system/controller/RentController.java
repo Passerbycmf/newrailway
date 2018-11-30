@@ -187,20 +187,7 @@ public class RentController extends BaseController
 		return prefix + "/detail";
 	}
 
-	/**
-	 * 资产名称唯一性校验
-	 * @param rent
-	 * @return
-	 */
-	@PostMapping("/checkAssetNameUnique")
-	@ResponseBody
-	public String checkAssetNameUnique(Rent rent){
-		String uniqueFlag = "0";
-		if(StringUtils.isNotNull(rent)){
-			uniqueFlag = rentService.checkAssetNameUnique(rent);
-		}
-		return uniqueFlag;
-	}
+
 
 	
 }

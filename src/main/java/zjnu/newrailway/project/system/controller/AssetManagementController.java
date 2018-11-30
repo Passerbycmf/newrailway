@@ -46,10 +46,11 @@ public class AssetManagementController extends BaseController
 	@RequiresPermissions("system:assetManagement:list")
 	@PostMapping("/list")
 	@ResponseBody
-	public TableDataInfo list(AssetManagement assetManagement)
+	public TableDataInfo list(AssetManagement assetManagement,String assetName,ModelMap map)
 	{
 		startPage();
         List<AssetManagement> list = assetManagementService.selectAssetManagementList(assetManagement);
+        map.put("assetName",assetName);
 		return getDataTable(list);
 	}
 	

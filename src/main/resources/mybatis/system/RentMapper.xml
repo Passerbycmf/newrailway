@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="Rent" id="RentResult">
         <result property="rentId"    column="rent_id"    />
-        <result property="assetName"    column="asset_name"    />
+        <result property="assetId"    column="asset_id"    />
         <result property="address"    column="address"    />
         <result property="rentName"    column="rent_name"    />
         <result property="area"    column="area"    />
@@ -15,10 +15,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="remark"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
+        <association property="assetManagement"    column="id" javaType="AssetManagement" resultMap="assetResult"/>
+    </resultMap>
+
+    <resultMap id="assetResult" type="AssetManagement">
+        <id     property="id"   column="id"     />
+        <result property="assetName" column="asset_name"   />
     </resultMap>
 	
 	<sql id="selectRentVo">
-        select rent_id, asset_name, address, rent_name, area, number, telephone, remark, create_time, update_time from sys_rent
+   select r.rent_id, r.asset_id, r.address, r.rent_name, r.area, r.number, r.telephone, r.remark, r.create_time, r.update_time ,am.id,am.asset_name
+    from sys_rent r
+    left join sys_asset_management am on am.id = r.asset_id
     </sql>
 	
     <select id="selectRentList" parameterType="Rent" resultMap="RentResult">
@@ -75,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into sys_rent
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="rentId != null and rentId != '' ">rent_id,</if>
-			<if test="assetName != null and assetName != '' ">asset_name,</if>
+			<if test="assetId != null and assetId != '' ">asset_id,</if>
 			<if test="address != null and address != '' ">address,</if>
 			<if test="rentName != null and rentName != '' ">rent_name,</if>
 			<if test="area != null and area != '' ">area,</if>
@@ -87,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="rentId != null and rentId != ''">#{rentId},</if>
-			<if test="assetName != null and assetName != ''">#{assetName},</if>
+			<if test="assetId != null and assetId != ''">#{assetId},</if>
 			<if test="address != null and address != ''">#{address},</if>
 			<if test="rentName != null and rentName != ''">#{rentName},</if>
 			<if test="area != null and area != ''">#{area},</if>
@@ -102,7 +110,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateRent" parameterType="Rent">
         update sys_rent
         <trim prefix="SET" suffixOverrides=",">
-            <if test="assetName != null  and assetName != ''  ">asset_name = #{assetName},</if>
+            <if test="assetId != null  and assetId != ''  ">asset_id = #{assetId},</if>
             <if test="address != null  and address != ''  ">address = #{address},</if>
             <if test="rentName != null  and rentName != ''  ">rent_name = #{rentName},</if>
             <if test="area != null  and area != ''  ">area = #{area},</if>

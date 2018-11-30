@@ -89,19 +89,6 @@ public class RentServiceImpl implements IRentService
 		return rentMapper.deleteRentByIds(Convert.toStrArray(ids));
 	}
 
-	/**
-	 * 资产名称唯一性校验
-	 * @param rent
-	 * @return
-	 */
-    @Override
-    public String checkAssetNameUnique(Rent rent) {
-		Rent info = rentMapper.checkAssetNameUnique(rent.getAssetName());
-		if(StringUtils.isNotNull(info)){
-			return UserConstants.ASSETNAME_NOT_UNIQUE;
-		}
-		return UserConstants.ASSETNAME_UNIQUE;
-	}
 
 	@Override
 	public List<Rent> selectRentListTest(Rent rent) {

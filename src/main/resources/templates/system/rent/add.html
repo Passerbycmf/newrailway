@@ -87,24 +87,7 @@
                         }
                     }
                 },
-                number:{
-                    required:true,
-                    remote: {
-                        url: prefix + "/checkAssetNameUnique",
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            "number" : function() {
-                                return $("input[name='number']").val();
-                            }
-                        },
-                        dataFilter: function() {
-                            var number= $("#number").val();
-                            if(/^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/.test(number)){ return true; }
-                            else return false;
-                        }
-                    }
-                },
+
             },
             messages: {
 

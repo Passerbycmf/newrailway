@@ -60,6 +60,10 @@
 					field : 'rentId',
 					title : '序号'
 				},
+                {
+					field : 'assetManagement.assetName',
+					title : '资产名称'
+                },
 				{
 					field : 'rentName', 
 					title : '承租方单位或个人名称' 
@@ -90,6 +94,11 @@
         function detail(rentId) {
 			url = prefix + "/detail/" + rentId;
             $.modal.open("详情" + $.table._option.modalName, url);
+        }
+        /*资产管理*/
+        function assetManagement() {
+            var url = ctx + "system/rent";
+            createMenuItem(url, "承租项点管理");
         }
 
     </script>
