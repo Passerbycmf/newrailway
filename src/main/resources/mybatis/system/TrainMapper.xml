@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zjnu.newrailway.project.system.mapper.TrainMapper">
+    
+    <resultMap type="Train" id="TrainResult">
+        <result property="trainId"    column="train_id"    />
+        <result property="rentId"    column="rent_id"    />
+        <result property="trainContent"    column="train_content"    />
+        <result property="trainCategory"    column="train_category"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+	
+	<sql id="selectTrainVo">
+        select train_id, rent_id, train_content, train_category, start_time, end_time, create_time, update_time from sys_train
+    </sql>
+	
+    <select id="selectTrainList" parameterType="Train" resultMap="TrainResult">
+        <include refid="selectTrainVo"/>
+        <where>  
+            <if test="trainId != null and trainId != ''"> and train_id = #{trainId}</if>
+             <if test="rentId != null and rentId != ''"> and rent_id = #{rentId}</if>
+             <if test="trainContent != null and trainContent != ''"> and train_content = #{trainContent}</if>
+             <if test="trainCategory != null and trainCategory != ''"> and train_category = #{trainCategory}</if>
+             <if test="startTime != null and startTime != ''"> and start_time = #{startTime}</if>
+             <if test="endTime != null and endTime != ''"> and end_time = #{endTime}</if>
+             <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
+             <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectTrainById" parameterType="Integer" resultMap="TrainResult">
+        <include refid="selectTrainVo"/>
+        where train_id = #{trainId}
+    </select>
+        
+    <insert id="insertTrain" parameterType="Train">
+        insert into sys_train
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="trainId != null and trainId != '' ">train_id,</if>
+			<if test="rentId != null and rentId != '' ">rent_id,</if>
+			<if test="trainContent != null and trainContent != '' ">train_content,</if>
+			<if test="trainCategory != null and trainCategory != '' ">train_category,</if>
+			<if test="startTime != null and startTime != '' ">start_time,</if>
+			<if test="endTime != null and endTime != '' ">end_time,</if>
+			<if test="createTime != null and createTime != '' ">create_time,</if>
+			<if test="updateTime != null and updateTime != '' ">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="trainId != null and trainId != ''">#{trainId},</if>
+			<if test="rentId != null and rentId != ''">#{rentId},</if>
+			<if test="trainContent != null and trainContent != ''">#{trainContent},</if>
+			<if test="trainCategory != null and trainCategory != ''">#{trainCategory},</if>
+			<if test="startTime != null and startTime != ''">#{startTime},</if>
+			<if test="endTime != null and endTime != ''">#{endTime},</if>
+			<if test="createTime != null and createTime != ''">#{createTime},</if>
+			<if test="updateTime != null and updateTime != ''">#{updateTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateTrain" parameterType="Train">
+        update sys_train
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="rentId != null  ">rent_id = #{rentId},</if>
+            <if test="trainContent != null  and trainContent != ''  ">train_content = #{trainContent},</if>
+            <if test="trainCategory != null  and trainCategory != ''  ">train_category = #{trainCategory},</if>
+            <if test="startTime != null  ">start_time = #{startTime},</if>
+            <if test="endTime != null  ">end_time = #{endTime},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+        </trim>
+        where train_id = #{trainId}
+    </update>
+
+	<delete id="deleteTrainById" parameterType="Integer">
+        delete from sys_train where train_id = #{trainId}
+    </delete>
+	
+    <delete id="deleteTrainByIds" parameterType="String">
+        delete from sys_train where train_id in 
+        <foreach item="trainId" collection="array" open="(" separator="," close=")">
+            #{trainId}
+        </foreach>
+    </delete>
+    
+</mapper>
