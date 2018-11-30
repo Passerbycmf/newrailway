@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zjnu.newrailway.common.utils.ExcelUtil;
 import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
+import zjnu.newrailway.project.system.bean.Contract;
 import zjnu.newrailway.project.system.bean.Gather;
+import zjnu.newrailway.project.system.bean.model.ListGather;
 import zjnu.newrailway.project.system.bean.model.TestGather;
 import zjnu.newrailway.project.system.service.IGatherService;
 import zjnu.newrailway.framework.web.TableDataInfo;
@@ -51,7 +54,7 @@ public class GatherController extends BaseController
 	public TableDataInfo list(Gather gather)
 	{
 		startPage();
-        List<Gather> list = gatherService.selectGatherList(gather);
+        List<ListGather> list = gatherService.selectGatherList(gather);
 		return getDataTable(list);
 	}
 
@@ -81,9 +84,9 @@ public class GatherController extends BaseController
 	@Log(title = "收款", action = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(TestGather testGather)
+	public AjaxResult addSave(TestGather gather)
 	{		
-		return toAjax(gatherService.insertGather(testGather));
+		return toAjax(gatherService.insertGather(gather));
 	}
 
 	/**
@@ -133,5 +136,23 @@ public class GatherController extends BaseController
 
 		}
 		return flag;
+	}
+
+	@Log(title = "财务收款管理", action = BusinessType.EXPORT)
+	@RequiresPermissions("system:gather:export")
+	@PostMapping("/export")
+	@ResponseBody
+	public AjaxResult export(Gather gather) throws Exception
+	{
+		try
+		{
+			List<ListGather> list = gatherService.selectGatherList(gather);
+			ExcelUtil<ListGather> util = new ExcelUtil<>(ListGather.class);
+			return util.exportExcel(list, "gather");
+		}
+		catch (Exception e)
+		{
+			return error("导出Excel失败，请联系网站管理员！");
+		}
 	}
 }

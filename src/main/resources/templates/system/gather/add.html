@@ -5,10 +5,11 @@
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-gather-add">
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">合同ID：</label>
+			<input name="contractId"  type="hidden" id="treeId"/>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">合同名称：</label>
 				<div class="col-sm-8">
-					<input id="contractId" name="contractId" class="form-control" type="text" placeholder="请输入合同ID">
+					<input class="form-control" type="text" name="contractName" onclick="selectContractTree()" readonly="true" id="treeName">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -81,7 +82,12 @@ $.operate.saveSuccess(data);
 });
 }
 * */
-
+	function selectContractTree() {
+	    var treeId = $("#treeId").val();
+        var contractId = treeId == null || treeId == "" ? "1" : treeId;
+	    var url = ctx + "system/contract/selectContractTree/" + contractId;
+        $.modal.open("选择合同名称", url, '380', '380');
+    }
 
 	</script>
 </body>

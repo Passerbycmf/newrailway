@@ -205,4 +205,7 @@
         </foreach>
     </delete>
 
+    <select id="selectContractAll" resultMap="ContractResult">
+        <include refid="selectContractVo"/>
+    </select>
 </mapper>

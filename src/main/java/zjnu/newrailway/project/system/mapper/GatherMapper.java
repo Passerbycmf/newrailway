@@ -1,6 +1,7 @@
 package zjnu.newrailway.project.system.mapper;
 
 import zjnu.newrailway.project.system.bean.Gather;
+import zjnu.newrailway.project.system.bean.model.ListGather;
 import zjnu.newrailway.project.system.bean.model.TestGather;
 
 import java.util.List;
@@ -27,15 +28,15 @@ public interface GatherMapper
      * @param gather 收款信息
      * @return 收款集合
      */
-	public List<Gather> selectGatherList(Gather gather);
+	public List<ListGather> selectGatherList(Gather gather);
 	
 	/**
      * 新增收款
      * 
-     * @param testGather 收款信息
+     * @param gather 收款信息
      * @return 结果
      */
-	public int insertGather(TestGather testGather);
+	public int insertGather(TestGather gather);
 	
 	/**
      * 修改收款

@@ -96,4 +96,10 @@ public interface ContractMapper
 	 * @return Test租凭合同集合
 	 */
 	public List<TestContract> selectTestPContractList(Contract contract);
+
+	/**
+	 * 加载合同名称使用的查询
+	 * @return
+	 */
+	List<Contract> selectContractAll();
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zjnu.newrailway.common.constant.UserConstants;
 import zjnu.newrailway.common.utils.StringUtils;
+import zjnu.newrailway.project.system.bean.model.ListGather;
 import zjnu.newrailway.project.system.bean.model.TestGather;
 import zjnu.newrailway.project.system.mapper.GatherMapper;
 import zjnu.newrailway.project.system.bean.Gather;
@@ -44,7 +45,7 @@ public class GatherServiceImpl implements IGatherService
      * @return 收款集合
      */
 	@Override
-	public List<Gather> selectGatherList(Gather gather)
+	public List<ListGather> selectGatherList(Gather gather)
 	{
 	    return gatherMapper.selectGatherList(gather);
 	}
@@ -52,15 +53,15 @@ public class GatherServiceImpl implements IGatherService
     /**
      * 新增收款
      * 
-     * @param testGather 收款信息
+     * @param gather 收款信息
      * @return 结果
      */
 	@Override
-	public int insertGather(TestGather testGather)
+	public int insertGather(TestGather gather)
 	{
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-		testGather.setGatherTime(df.format(new Date()));
-		return gatherMapper.insertGather(testGather);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		gather.setCreateTime(dateFormat.format(new Date()));
+		return gatherMapper.insertGather(gather);
 	}
 	
 	/**
@@ -73,7 +74,7 @@ public class GatherServiceImpl implements IGatherService
 	public int updateGather(TestGather testGather)
 	{
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-		testGather.setGatherTime(df.format(new Date()));
+		testGather.setUpdateTime(df.format(new Date()));
 		return gatherMapper.updateGather(testGather);
 	}
 

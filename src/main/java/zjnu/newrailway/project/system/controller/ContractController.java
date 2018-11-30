@@ -1,6 +1,9 @@
 package zjnu.newrailway.project.system.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -19,7 +22,9 @@ import zjnu.newrailway.common.utils.StringUtils;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.Contract;
+import zjnu.newrailway.project.system.bean.Rent;
 import zjnu.newrailway.project.system.bean.model.TestContract;
+import zjnu.newrailway.project.system.mapper.ContractMapper;
 import zjnu.newrailway.project.system.service.IContractService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
@@ -39,6 +44,9 @@ public class ContractController extends BaseController
 	
 	@Autowired
 	private IContractService contractService;
+
+	@Autowired
+	private ContractMapper contractMapper;
 	
 	@RequiresPermissions("system:contract:view")
 	@GetMapping()
@@ -82,22 +90,22 @@ public class ContractController extends BaseController
 	}
 
 	@Log(title = "承租合同管理", action = BusinessType.EXPORT)
-	@RequiresPermissions("system:contract:export")
-	@PostMapping("/export")
-	@ResponseBody
-	public AjaxResult export(Contract  contract) throws Exception
+@RequiresPermissions("system:contract:export")
+@PostMapping("/export")
+@ResponseBody
+public AjaxResult export(Contract  contract) throws Exception
+{
+	try
 	{
-		try
-		{
-			List<Contract> list = contractService.selectContractList(contract);
-			ExcelUtil<Contract> util = new ExcelUtil<>(Contract.class);
-			return util.exportExcel(list, "contract");
-		}
-		catch (Exception e)
-		{
-			return error("导出Excel失败，请联系网站管理员！");
-		}
+		List<Contract> list = contractService.selectContractList(contract);
+		ExcelUtil<Contract> util = new ExcelUtil<>(Contract.class);
+		return util.exportExcel(list, "contract");
 	}
+	catch (Exception e)
+	{
+		return error("导出Excel失败，请联系网站管理员！");
+	}
+}
 
 	/**
 	 * 查看详情
@@ -226,4 +234,36 @@ public class ContractController extends BaseController
 		}
 		return flag;
 	}
+
+	/**
+	 * 选择合同名称(回显合同)
+	 */
+	@GetMapping("/selectContractTree/{contractId}")
+	public String selectContractTree(@PathVariable("contractId") Integer contractId ,ModelMap map ){
+		System.out.println("selectContractTree");
+		map.put("contractName",contractService.selectContractById(contractId).getContractName());
+		return prefix + "/tree";
+	}
+
+	/**
+	 * 加载合同名称
+	 * @return
+	 */
+	@GetMapping("/treeData")
+	@ResponseBody
+	public List<Map<String,Object>> treeData(){
+		System.out.println("/treeData");
+		List<Map<String,Object>> tree = new ArrayList<>();
+		List<Contract> contractList =contractMapper.selectContractAll();
+		//遍历
+		for(Contract contract : contractList){
+			Map<String,Object> contractMap = new HashMap<>();
+			contractMap.put("id", contract.getRentId());
+			contractMap.put("name", contract.getContractName());
+			contractMap.put("title", contract.getContractName());
+			tree.add(contractMap);
+		}
+		return tree;
+}
+
 }

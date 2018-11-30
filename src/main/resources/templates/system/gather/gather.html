@@ -13,6 +13,7 @@
 						</li>
 						<li>
 							<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							<a class="btn btn-success btn-rounded btn-sm" onclick="$.table.exportExcel()" shiro:hasPermission="system:gather:export"><i class="fa fa-download"></i>&nbsp;导出</a>
 						</li>
 
 					</ul>
@@ -24,9 +25,6 @@
 
 			<a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" shiro:hasPermission="system:gather:add">
 				<i class="fa fa-plus"></i> 新增
-			</a>
-			<a class="btn btn-outline btn-danger btn-rounded" onclick="$.operate.batRemove()" shiro:hasPermission="system:gather:remove">
-				<i class="fa fa-trash-o"></i> 删除
 			</a>
 		</div>
 
@@ -47,17 +45,16 @@
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
                 modalName: "收款",
+				search:false,
+				showExport:false,
                 columns: [{
 		            checkbox: true
 		        },
 				{
-					field : 'id', 
-					title : '收款ID' 
-				},
-				{
-					field : 'contractId', 
-					title : '合同ID' 
+					field : 'contractName',
+					title : '合同名称'
 				},
 				{
 					field : 'total', 
@@ -89,6 +86,11 @@
         function detail(id) {
             url = prefix+"/detail/"+id,
                 $.modal.open("详情" + $.table._option.modalName, url);
+        }
+
+        function contract() {
+			var url = ctx + "system/contract";
+			createMenuItem(url,"合同管理");
         }
     </script>
 </body>

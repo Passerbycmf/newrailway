@@ -13,22 +13,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
+
+    <resultMap type="ListGather" id="ListGatherResult">
+        <result property="id"    column="id"    />
+        <result property="contractId"    column="contract_id"    />
+        <result property="total"    column="total"    />
+        <result property="gatherNumber"    column="gather_number"    />
+        <result property="gatherTime"    column="gather_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="contractName"  column="contract_name" />
+    </resultMap>
 	
 	<sql id="selectGatherVo">
         select id, contract_id, total, gather_number, gather_time, create_time, update_time from sys_gather
     </sql>
 	
-    <select id="selectGatherList" parameterType="Gather" resultMap="GatherResult">
-        <include refid="selectGatherVo"/>
-        <where>  
-            <if test="id != null and id != ''"> and id = #{id}</if>
-             <if test="contractId != null and contractId != ''"> and contract_id = #{contractId}</if>
-             <if test="total != null and total != ''"> and total = #{total}</if>
-             <if test="gatherNumber != null and gatherNumber != ''"> and gather_number = #{gatherNumber}</if>
-             <if test="gatherTime != null and gatherTime != ''"> and gather_time = #{gatherTime}</if>
-             <if test="createTime != null and createTime != ''"> and create_time = #{createTime}</if>
-             <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime}</if>
-         </where>
+    <select id="selectGatherList" parameterType="Gather" resultMap="ListGatherResult">
+        select g.id,contract_id,total,gather_number,gather_time,g.create_time,g.update_time,contract_name
+        from sys_gather g left join sys_contract c on c.id = contract_id
     </select>
     
     <select id="selectGatherById" parameterType="Integer" resultMap="GatherResult">
