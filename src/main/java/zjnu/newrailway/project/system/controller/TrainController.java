@@ -111,5 +111,15 @@ public class TrainController extends BaseController
 	{		
 		return toAjax(trainService.deleteTrainByIds(ids));
 	}
-	
+
+	/**
+	 * 查看详情
+	 */
+	@GetMapping("/detail/{trainId}")
+	public String detail(@PathVariable("trainId") Integer id, ModelMap mmap)
+	{
+		Train train = trainService.selectTrainById(id);
+		mmap.put("train",train);
+		return prefix + "/detail";
+	}
 }

@@ -4,13 +4,20 @@
 <head th:include="include :: header"></head>
 <body class="gray-bg">
     <div class="container-div">
-		<div class="btn-group hidden-xs" id="toolbar" role="group">
-			<a class="btn btn-outline btn-success btn-rounded" onclick="$.operate.add()" shiro:hasPermission="system:train:add">
-				<i class="fa fa-plus"></i> 新增
-			</a>
-			<a class="btn btn-outline btn-danger btn-rounded" onclick="$.operate.batRemove()" shiro:hasPermission="system:train:remove">
-				<i class="fa fa-trash-o"></i> 删除
-			</a>
+		<div class="col-sm-12 select-info">
+			<form id="operlog-form">
+				<div class="select-list">
+					<ul>
+						<li>
+							<input type="text" placeholder="请输入承租方单位或个人名称" name="rentName"/>
+						</li>
+						<li>
+							<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+						</li>
+
+					</ul>
+				</div>
+			</form>
 		</div>
 			
 		<div class="col-sm-12 select-info table-striped">
