@@ -19,14 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <resultMap id="assetResult" type="AssetManagement">
-        <id     property="id"   column="id"     />
+        <id     property="assetId"   column="asset_id"     />
         <result property="assetName" column="asset_name"   />
     </resultMap>
 	
 	<sql id="selectRentVo">
-   select r.rent_id, r.asset_id, r.address, r.rent_name, r.area, r.number, r.telephone, r.remark, r.create_time, r.update_time ,am.id,am.asset_name
+   select r.rent_id, r.asset_id, r.address, r.rent_name, r.area, r.number, r.telephone, r.remark, r.create_time, r.update_time ,am.asset_id,am.asset_name
     from sys_rent r
-    left join sys_asset_management am on am.id = r.asset_id
+    left join sys_asset_management am on am.asset_id = r.asset_id
     </sql>
 	
     <select id="selectRentList" parameterType="Rent" resultMap="RentResult">
@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <select id="selectRentById" parameterType="Integer" resultMap="RentResult">
-		select  r.rent_id,  r.rent_name,
+		select  r.rent_id,  r.rent_name,r.address,r.area,r.number,r.telephone,r.remark,
 			(select rent_name from sys_rent  where rent_id = r.rent_id)
 		from sys_rent r
 		where rent_id = #{rentId}

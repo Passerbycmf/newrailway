@@ -1,6 +1,10 @@
 package zjnu.newrailway.project.system.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import zjnu.newrailway.framework.aspectj.lang.annotation.Log;
 import zjnu.newrailway.framework.aspectj.lang.constant.BusinessType;
 import zjnu.newrailway.project.system.bean.AssetManagement;
+import zjnu.newrailway.project.system.mapper.AssetManagementMapper;
 import zjnu.newrailway.project.system.service.IAssetManagementService;
 import zjnu.newrailway.framework.web.TableDataInfo;
 import zjnu.newrailway.framework.web.AjaxResult;
@@ -29,9 +34,13 @@ import zjnu.newrailway.framework.web.BaseController;
 public class AssetManagementController extends BaseController
 {
     private String prefix = "system/assetManagement";
+
 	
 	@Autowired
 	private IAssetManagementService assetManagementService;
+
+	@Autowired
+	private AssetManagementMapper assetManagementMapper;
 	
 	@RequiresPermissions("system:assetManagement:view")
 	@GetMapping()
@@ -52,6 +61,36 @@ public class AssetManagementController extends BaseController
         List<AssetManagement> list = assetManagementService.selectAssetManagementList(assetManagement);
         map.put("assetName",assetName);
 		return getDataTable(list);
+	}
+
+	/**
+	 * 选择资产名称(回显资产)
+	 */
+	@GetMapping("/selectAssetTree/{assetId}")
+	public String selectAssetTree(@PathVariable("assetId") Integer assetId, ModelMap mmap)
+	{
+		mmap.put("treeName", assetManagementService.selectAssetManagementById(assetId).getAssetName());
+		return prefix + "/tree";
+	}
+
+	/**
+	 * 加载资产名称
+	 * @return
+	 */
+	@GetMapping("/treeData")
+	@ResponseBody
+	public List<Map<String,Object>> treeData(){
+		List<Map<String,Object>> tree = new ArrayList<>();
+		List<AssetManagement> assetManagementList = assetManagementMapper.selectAssetAll();
+		//遍历
+		for(AssetManagement assetManagement : assetManagementList){
+			Map<String,Object> assetMap = new HashMap<>();
+			assetMap.put("id", assetManagement.getAssetId());
+			assetMap.put("name", assetManagement.getAssetName());
+			assetMap.put("title", assetManagement.getAssetName());
+			tree.add(assetMap);
+		}
+		return tree;
 	}
 	
 	/**
@@ -78,10 +117,10 @@ public class AssetManagementController extends BaseController
 	/**
 	 * 修改资产管理
 	 */
-	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") Integer id, ModelMap mmap)
+	@GetMapping("/edit/{assetId}")
+	public String edit(@PathVariable("assetId") Integer assetId, ModelMap mmap)
 	{
-		AssetManagement assetManagement = assetManagementService.selectAssetManagementById(id);
+		AssetManagement assetManagement = assetManagementService.selectAssetManagementById(assetId);
 		mmap.put("assetManagement", assetManagement);
 	    return prefix + "/edit";
 	}

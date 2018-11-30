@@ -14,10 +14,10 @@ public interface AssetManagementMapper
 	/**
      * 查询资产管理信息
      * 
-     * @param id 资产管理ID
+     * @param assetId 资产管理ID
      * @return 资产管理信息
      */
-	public AssetManagement selectAssetManagementById(Integer id);
+	public AssetManagement selectAssetManagementById(Integer assetId);
 	
 	/**
      * 查询资产管理列表
@@ -46,10 +46,10 @@ public interface AssetManagementMapper
 	/**
      * 删除资产管理
      * 
-     * @param id 资产管理ID
+     * @param assetId 资产管理ID
      * @return 结果
      */
-	public int deleteAssetManagementById(Integer id);
+	public int deleteAssetManagementById(Integer assetId);
 	
 	/**
      * 批量删除资产管理
@@ -66,5 +66,8 @@ public interface AssetManagementMapper
 	List<AssetManagement> selectAssetsAll();
 
 
-    List<AssetManagement> selectAssetsByRentId(Integer rentId);
+
+
+
+    List<AssetManagement> selectAssetAll();
 }

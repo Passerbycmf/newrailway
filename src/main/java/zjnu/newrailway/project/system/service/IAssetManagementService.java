@@ -14,10 +14,10 @@ public interface IAssetManagementService
 	/**
      * 查询资产管理信息
      * 
-     * @param id 资产管理ID
+     * @param assetId 资产管理ID
      * @return 资产管理信息
      */
-	public AssetManagement selectAssetManagementById(Integer id);
+	public AssetManagement selectAssetManagementById(Integer assetId);
 	
 	/**
      * 查询资产管理列表
@@ -57,5 +57,7 @@ public interface IAssetManagementService
 	 */
 	List<AssetManagement> selectAssetName();
 
-	List<AssetManagement> selectAssetsByRentId(Integer rentId);
+
+
+
 }

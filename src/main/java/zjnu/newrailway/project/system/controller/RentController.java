@@ -145,7 +145,6 @@ public class RentController extends BaseController
 	@GetMapping("/edit/{rentId}")
 	public String edit(@PathVariable("rentId") Integer rentId, ModelMap mmap)
 	{
-		mmap.put("assets",assetManagementService.selectAssetName());
 		Rent rent = rentService.selectRentById(rentId);
 		mmap.put("rent", rent);
 	    return prefix + "/edit";
@@ -183,7 +182,6 @@ public class RentController extends BaseController
 	{
 		Rent rent = rentService.selectRentById(rentId);
 		mmap.put("rent", rent);
-		mmap.put("assets",assetManagementService.selectAssetsByRentId(rentId));
 		return prefix + "/detail";
 	}
 

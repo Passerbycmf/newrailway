@@ -6,12 +6,11 @@
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-rent-add">
-			<div class="form-group">	
+			<input name="assetId"  type="hidden" id="treeId"/>
+			<div class="form-group">
 				<label class="col-sm-3 control-label">资产名称：</label>
 				<div class="col-sm-8">
-					<select id="assetManagement" name="assetManagement" class="form-control select2-hidden-accessible" multiple="">
-						<option th:each="assetManagement:${assets}" th:value="${assetManagement.id}" th:text="${assetManagement.assetName}" ></option>
-					</select>
+					<input class="form-control" type="text" name="assetName" onclick="selectAssetTree()" readonly="true" id="treeName">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -67,36 +66,7 @@
             rules:{
                 assetName:{
                     required:true,
-
                 },
-                telephone:{
-                    required:true,
-                    remote: {
-                        url: prefix + "/checkAssetNameUnique",
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            "telephone" : function() {
-                                return $("input[name='telephone']").val();
-                            }
-                        },
-                        dataFilter: function() {
-                            var telephone= $("#telephone").val();
-                            if(/^1[34578]\d{9}$/.test(telephone)){ return true; }
-                            else return false;
-                        }
-                    }
-                },
-
-            },
-            messages: {
-
-                "telephone": {
-                    remote: "手机格式不正确"
-                },
-                "number": {
-                    remote: "身份证格式不正确"
-                }
             },
             submitHandler: function(form) {
                 add();
@@ -104,26 +74,29 @@
         });
         function add() {
             var rentId = $("input[name='rentId']").val();
+            var assetName = $("input[name='assetName']").val();
             var address = $("input[name='address']").val();
             var rentName = $("input[name='rentName']").val();
             var area = $("input[name='area']").val();
             var number = $("input[name='number']").val();
             var telephone = $("input[name='telephone']").val();
             var remark = $("input[name='remark']").val();
-            var assetIds = $.form.selectSelects("assetManagement");
+            var assetId = $("input[name='assetId']").val();
+
             $.ajax({
                 cache : true,
                 type : "POST",
                 url : ctx + "system/rent/add",
                 data : {
                     "rentId": rentId,
+                    "assetName": assetName,
                     "address": address,
                     "rentName": rentName,
                     "area": area,
                     "number": number,
                     "telephone": telephone,
                     "remark": remark,
-                    "assetIds": assetIds
+                    "assetId": assetId,
                 },
                 async : false,
                 error : function(request) {
@@ -133,6 +106,14 @@
                     $.operate.saveSuccess(data);
                 }
             });
+        }
+
+        /*资产管理-新增-选择资产名称*/
+        function selectAssetTree() {
+            var treeId = $("#treeId").val();
+            var assetId = treeId == null || treeId == "" ? "1" : treeId;
+            var url = ctx + "system/assetManagement/selectAssetTree/" + assetId;
+            $.modal.open("选择资产名称", url, '380', '380');
         }
 
 	</script>

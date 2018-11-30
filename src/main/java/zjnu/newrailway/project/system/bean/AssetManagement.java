@@ -15,7 +15,7 @@ public class AssetManagement extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	/** id */
-	private Integer id;
+	private Integer assetId;
 	/** 资产名称 */
 	private String assetName;
 	/** 资产编号 */
@@ -53,14 +53,14 @@ public class AssetManagement extends BaseEntity
 	/** 是否存在此标识 默认不存在 */
 	private boolean flag = false;
 
-	public void setId(Integer id) 
+	public void setAssetId(Integer assetId)
 	{
-		this.id = id;
+		this.assetId = assetId;
 	}
 
-	public Integer getId() 
+	public Integer getAssetId()
 	{
-		return id;
+		return assetId;
 	}
 	public void setAssetName(String assetName) 
 	{
@@ -227,7 +227,7 @@ public class AssetManagement extends BaseEntity
 
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
+            .append("id", getAssetId())
             .append("assetName", getAssetName())
             .append("assetNumber", getAssetNumber())
             .append("assetTranslation", getAssetTranslation())

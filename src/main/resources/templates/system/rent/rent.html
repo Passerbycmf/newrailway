@@ -56,10 +56,6 @@
                 columns: [{
 		            checkbox: true
 		        },
-				{
-					field : 'rentId',
-					title : '序号'
-				},
                 {
 					field : 'assetManagement.assetName',
 					title : '资产名称'
@@ -97,8 +93,8 @@
         }
         /*资产管理*/
         function assetManagement() {
-            var url = ctx + "system/rent";
-            createMenuItem(url, "承租项点管理");
+            var url = ctx + "system/assetManagement";
+            createMenuItem(url, "资产管理");
         }
 
     </script>

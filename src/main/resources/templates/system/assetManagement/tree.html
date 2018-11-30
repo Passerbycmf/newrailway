@@ -40,7 +40,7 @@ button{font-family: "SimSun","Helvetica Neue",Helvetica,Arial;}
 				$("#treeName").val(treeName);
 			}}
 		}, tree, loadTree = function(){
-			$.get(ctx + "system/rent/treeData", function(data) {
+			$.get(ctx + "system/assetManagement/treeData", function(data) {
 				var treeName = $("#treeName").val();
 			    tree = $.fn.zTree.init($("#tree"), setting, data);
 			    // 展开第一级节点
@@ -125,7 +125,7 @@ button{font-family: "SimSun","Helvetica Neue",Helvetica,Arial;}
 		}
 	
 		function hideAllNode(nodes){
-			var tree = $.fn.zTree.getZTreeObj("tree");
+			var tree = $.fn.zTree.getZTreeObj("templates.system.assetManagement.tree");
 			nodes = tree.transformToArray(nodes);
 			for(var i=nodes.length-1; i>=0; i--) {
 				tree.hideNode(nodes[i]);

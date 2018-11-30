@@ -89,17 +89,7 @@ public class AssetManagementServiceImpl implements IAssetManagementService
 		return assetManagementMapper.selectAssetsAll();
 	}
 
-	@Override
-	public List<AssetManagement> selectAssetsByRentId(Integer rentId) {
-		List<AssetManagement> assetManagements = assetManagementMapper.selectAssetsByRentId(rentId);
-		List<AssetManagement> assets = assetManagementMapper.selectAssetsAll();
-		for (AssetManagement assetManagement : assetManagements)
-		{
-			assetManagement.setFlag(true);
-			break;
-		}
-		return assets;
 
-	}
+
 
 }
