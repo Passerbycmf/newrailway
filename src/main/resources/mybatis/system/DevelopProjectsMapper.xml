@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     <select id="getAssetName" resultType="java.lang.String">
         select distinct r.asset_name from sys_develop_projects r
-        LEFT JOIN sys_asset_management a ON r.id =a.id
+        LEFT JOIN sys_asset_management a ON r.id =a.asset_id
         where a.asset_difference = 1;
     </select>
 

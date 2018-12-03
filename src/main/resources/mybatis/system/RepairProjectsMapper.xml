@@ -132,7 +132,7 @@
 
     <select id="getHouseAssetName" resultType="java.lang.String" parameterType="String">
         select distinct r.asset_name from sys_repair_projects r
-        LEFT JOIN sys_asset_management a ON r.id =a.id and r.difference = a.asset_difference
+        LEFT JOIN sys_asset_management a ON r.id =a.asset_id and r.difference = a.asset_difference
         where a.asset_difference = 0;
     </select>
 

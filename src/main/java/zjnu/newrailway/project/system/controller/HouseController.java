@@ -102,10 +102,10 @@ public class HouseController extends BaseController
 	/**
 	 * 修改资产管理
 	 */
-	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") Integer id, ModelMap mmap)
+	@GetMapping("/edit/{assetId}")
+	public String edit(@PathVariable("assetId") Integer assetId, ModelMap mmap)
 	{
-		Asset house = houseService.selectHouseById(id);
+		Asset house = houseService.selectHouseById(assetId);
 		mmap.put("house", house);
 	    return prefix + "/edit";
 	}
@@ -136,10 +136,10 @@ public class HouseController extends BaseController
 	/**
 	 * 查看资产管理
 	 */
-	@GetMapping("/check/{id}")
-	public String check(@PathVariable("id") Integer id, ModelMap mmap)
+	@GetMapping("/check/{assetId}")
+	public String check(@PathVariable("assetId") Integer assetId, ModelMap mmap)
 	{
-		Asset house = houseService.selectHouseById(id);
+		Asset house = houseService.selectHouseById(assetId);
 		mmap.put("house", house);
 		return prefix + "/check";
 	}
@@ -172,13 +172,13 @@ public class HouseController extends BaseController
 
 	/**
 	 * 查看修缮信息
-	 * @param id
+	 * @param assetId
 	 * @param map
 	 * @return
 	 */
-	@GetMapping("/repair/{id}")
-	public String repair(@PathVariable("id") Integer id,ModelMap map){
-		map.put("repair",repairProjectsService.selectRepairProjectsById(id));
+	@GetMapping("/repair/{assetId}")
+	public String repair(@PathVariable("assetId") Integer assetId,ModelMap map){
+		map.put("repair",repairProjectsService.selectRepairProjectsById(assetId));
 		map.put("assetList",repairProjectsService.selectRepairProjectsAll());
 		return "system/house/repairList";
 	}

@@ -83,7 +83,7 @@ public class TrainController extends BaseController
 	@Log(title = "培训", action = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Train train)
+	public AjaxResult addSave(TestTrain train)
 	{		
 		return toAjax(trainService.insertTrain(train));
 	}
@@ -106,7 +106,7 @@ public class TrainController extends BaseController
 	@Log(title = "培训", action = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
-	public AjaxResult editSave(Train train)
+	public AjaxResult editSave(TestTrain train)
 	{		
 		return toAjax(trainService.updateTrain(train));
 	}

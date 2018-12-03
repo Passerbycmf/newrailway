@@ -57,10 +57,6 @@
                 columns: [{
 		            checkbox: true
 		        },
-				{
-					field : 'id', 
-					title : '序号'
-				},
 					{
                         field : 'assetNumber',
                         title : '资产编号'
@@ -87,11 +83,11 @@
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		            	var actions = [];
-                        actions.push('<a class="btn btn-primary btn-xs ' + '" href="#" onclick="check(\'' + row.id + '\')"><i class="fa fa-check">查看</i></a>');
-		            	actions.push('<a class="btn btn-info btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-warning btn-xs ' + '" href="#" onclick="repair(\'' + row.id + '\')"><i class="fa fa-repair">修缮</i></a>');
-                        actions.push('<a class="btn btn-success btn-xs ' + '" href="#" onclick="develop(\'' + row.id + '\')"><i class="fa fa-develop">开发</i></a>');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        actions.push('<a class="btn btn-primary btn-xs ' + '" href="#" onclick="check(\'' + row.assetId + '\')"><i class="fa fa-check">查看</i></a>');
+		            	actions.push('<a class="btn btn-info btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.assetId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-warning btn-xs ' + '" href="#" onclick="repair(\'' + row.assetId + '\')"><i class="fa fa-repair">修缮</i></a>');
+                        actions.push('<a class="btn btn-success btn-xs ' + '" href="#" onclick="develop(\'' + row.assetId + '\')"><i class="fa fa-develop">开发</i></a>');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.assetId + '\')"><i class="fa fa-remove"></i>删除</a>');
 
 						return actions.join('  ');
 		            }
@@ -100,11 +96,11 @@
             $.table.init(options);
         });
 
-        function remove(id) {
+        function remove(assetId) {
             $.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function() {
                 $.ajax({
                     type : 'post',
-                    url: prefix + "/remove/" + id,
+                    url: prefix + "/remove/" + assetId,
                     success : function(result) {
                         if (result.code == web_status.SUCCESS) {
                             $.modal.alertSuccess(result.msg);
@@ -117,19 +113,19 @@
             });
         }
 
-        function check(id) {
-            url = prefix+"/check/"+id,
+        function check(assetId) {
+            url = prefix+"/check/"+assetId,
                 $.modal.open("查看" + $.table._option.modalName, url);
 
         }
 
-        function repair(id) {
-			url = prefix + "/repair/" + id;
+        function repair(assetId) {
+			url = prefix + "/repair/" + assetId;
             createMenuItem(url, "修缮信息");
       }
 
-      	function develop(id) {
-		  url = prefix + "/develop/" + id;
+      	function develop(assetId) {
+		  url = prefix + "/develop/" + assetId;
 		  createMenuItem(url,"开发信息");
       }
 

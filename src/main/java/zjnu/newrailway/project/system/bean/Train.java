@@ -32,6 +32,17 @@ public class Train extends BaseEntity
 	private Date createTime;
 	/** 更新时间 */
 	private Date updateTime;
+	/** 承租项点对象 */
+	private Rent rent;
+	public Rent getRent()
+	{
+		return rent;
+	}
+
+	public void setRent(Rent rent)
+	{
+		this.rent = rent;
+	}
 
 	public void setTrainId(Integer trainId) 
 	{
@@ -106,16 +117,18 @@ public class Train extends BaseEntity
 		return updateTime;
 	}
 
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("trainId", getTrainId())
-            .append("rentId", getRentId())
-            .append("trainContent", getTrainContent())
-            .append("trainCategory", getTrainCategory())
-            .append("startTime", getStartTime())
-            .append("endTime", getEndTime())
-            .append("createTime", getCreateTime())
-            .append("updateTime", getUpdateTime())
-            .toString();
-    }
+	@Override
+	public String toString() {
+		return "Train{" +
+				"trainId=" + trainId +
+				", rentId=" + rentId +
+				", trainContent='" + trainContent + '\'' +
+				", trainCategory='" + trainCategory + '\'' +
+				", startTime=" + startTime +
+				", endTime=" + endTime +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				", rent=" + rent +
+				'}';
+	}
 }

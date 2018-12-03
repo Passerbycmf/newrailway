@@ -24,12 +24,12 @@ public class LandServiceImpl implements ILandService {
 	/**
 	 * 查询资产管理信息
 	 *
-	 * @param id 资产管理ID
+	 * @param assetId 资产管理ID
 	 * @return 资产管理信息
 	 */
 	@Override
-	public Asset selectLandById(Integer id) {
-		return landMapper.selectLandById(id);
+	public Asset selectLandById(Integer assetId) {
+		return landMapper.selectLandById(assetId);
 	}
 
 	/**

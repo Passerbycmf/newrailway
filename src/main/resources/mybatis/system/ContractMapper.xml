@@ -76,8 +76,9 @@
     </select>
 
     <select id="selectContractById" parameterType="Integer" resultMap="ContractResult">
-        <include refid="selectContractVo"/>
-        where id = #{id}
+       select c.id, c.contract_number, c.contract_name,c.rent_id, c.margin, c.first_value, c.payment, c.department, c.agent, c.second_value, c.third_value, c.forth_value, c.fifth_value, c.file, c.begin_time, c.termination_remark, c.payment_remark, c.law_remark, c.remark, c.create_time, c.update_time, c.status,r.rent_id,r.rent_name from sys_contract c
+        left join sys_rent r on c.rent_id = r.rent_id
+     where  c.id = #{id}
     </select>
 
     <select id="selectPContractList" parameterType="Contract" resultMap="ContractResult">

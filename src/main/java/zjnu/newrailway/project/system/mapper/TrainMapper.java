@@ -35,7 +35,7 @@ public interface TrainMapper
      * @param train 培训信息
      * @return 结果
      */
-	public int insertTrain(Train train);
+	public int insertTrain(TestTrain train);
 	
 	/**
      * 修改培训
@@ -43,7 +43,7 @@ public interface TrainMapper
      * @param train 培训信息
      * @return 结果
      */
-	public int updateTrain(Train train);
+	public int updateTrain(TestTrain train);
 	
 	/**
      * 删除培训

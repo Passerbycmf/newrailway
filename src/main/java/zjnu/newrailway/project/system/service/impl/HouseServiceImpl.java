@@ -26,12 +26,12 @@ public class HouseServiceImpl implements IHouseService {
 	/**
 	 * 查询资产管理信息
 	 *
-	 * @param id 资产管理ID
+	 * @param assetId 资产管理ID
 	 * @return 资产管理信息
 	 */
 	@Override
-	public Asset selectHouseById(Integer id) {
-		return houseMapper.selectHouseById(id);
+	public Asset selectHouseById(Integer assetId) {
+		return houseMapper.selectHouseById(assetId);
 	}
 
 	/**

@@ -5,7 +5,7 @@
 <mapper namespace="zjnu.newrailway.project.system.mapper.HouseMapper">
 
     <resultMap type="Asset" id="HouseResult">
-        <result property="id"    column="id"    />
+        <result property="assetId"    column="asset_id"    />
         <result property="assetName"    column="asset_name"    />
         <result property="assetNumber"    column="asset_number"    />
         <result property="assetTranslation"    column="asset_translation"    />
@@ -26,7 +26,7 @@
     </resultMap>
 
     <sql id="selectHouseVo">
-        select id, asset_name, asset_number, asset_translation, asset_area, asset_location, police_station, fire_brigade, asset_type, squatter_house, legacy, asset_deliver, satelite_fix, ownership_certificate, aerial_map, live_pic, safe_certificate, asset_difference from sys_asset_management
+        select asset_id, asset_name, asset_number, asset_translation, asset_area, asset_location, police_station, fire_brigade, asset_type, squatter_house, legacy, asset_deliver, satelite_fix, ownership_certificate, aerial_map, live_pic, safe_certificate, asset_difference from sys_asset_management
     </sql>
 
     <select id="selectHouseList" parameterType="Asset" resultMap="HouseResult">
@@ -40,7 +40,7 @@
 
     <select id="selectHouseById" parameterType="Integer" resultMap="HouseResult">
         <include refid="selectHouseVo"/>
-        where id = #{id}
+        where asset_id = #{assetId}
     </select>
 
     <select id="checkAssetName" parameterType="String" resultMap="HouseResult">
@@ -56,7 +56,7 @@
     <insert id="insertHouse" parameterType="Asset">
         insert into sys_asset_management
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null and id != '' ">id,</if>
+            <if test="assetId != null and assetId != '' ">asset_id,</if>
             <if test="assetName != null and assetName != '' ">asset_name,</if>
             <if test="assetNumber != null and assetNumber != '' ">asset_number,</if>
             <if test="assetTranslation != null and assetTranslation != '' ">asset_translation,</if>
@@ -76,7 +76,7 @@
             <if test="assetDifference != null and assetDifference != '' ">asset_difference,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null and id != ''">#{id},</if>
+            <if test="assetId != null and assetId != ''">#{assetId},</if>
             <if test="assetName != null and assetName != ''">#{assetName},</if>
             <if test="assetNumber != null and assetNumber != ''">#{assetNumber},</if>
             <if test="assetTranslation != null and assetTranslation != ''">#{assetTranslation},</if>
@@ -97,8 +97,8 @@
         </trim>
     </insert>
     <insert id="insertHouseTest" parameterType="Asset">
-        insert into sys_asset_management(id, asset_name, asset_number, asset_translation, asset_area, asset_location, police_station, fire_brigade, asset_type, squatter_house, legacy, asset_deliver, satelite_fix, ownership_certificate, aerial_map, live_pic, safe_certificate, asset_difference )
-        values (#{id},#{assetName},#{assetNumber},#{assetTranslation},#{assetArea},#{assetLocation},#{policeStation},#{fireBrigade},#{assetType},#{squatterHouse},#{legacy},#{assetDeliver},#{sateliteFix},#{ownershipCertificate},#{aerialMap},#{livePic},#{safeCertificate},#{assetDifference})
+        insert into sys_asset_management(asset_id, asset_name, asset_number, asset_translation, asset_area, asset_location, police_station, fire_brigade, asset_type, squatter_house, legacy, asset_deliver, satelite_fix, ownership_certificate, aerial_map, live_pic, safe_certificate, asset_difference )
+        values (#{assetId},#{assetName},#{assetNumber},#{assetTranslation},#{assetArea},#{assetLocation},#{policeStation},#{fireBrigade},#{assetType},#{squatterHouse},#{legacy},#{assetDeliver},#{sateliteFix},#{ownershipCertificate},#{aerialMap},#{livePic},#{safeCertificate},#{assetDifference})
     </insert>
 
     <update id="updateHouse" parameterType="Asset">
@@ -122,17 +122,17 @@
             <if test="safeCertificate != null  and safeCertificate != ''  ">safe_certificate = #{safeCertificate},</if>
             <if test="assetDifference != null  ">asset_difference = #{assetDifference},</if>
         </trim>
-        where id = #{id}
+        where asset_id = #{assetId}
     </update>
 
     <delete id="deleteHouseById" parameterType="Integer">
-        delete from sys_asset_management where id = #{id}
+        delete from sys_asset_management where asset_id = #{assetId}
     </delete>
 
     <delete id="deleteHouseByIds" parameterType="String">
-        delete from sys_asset_management where id in
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
+        delete from sys_asset_management where asset_id in
+        <foreach item="assetId" collection="array" open="(" separator="," close=")">
+            #{assetId}
         </foreach>
     </delete>
 

@@ -8,6 +8,8 @@ import zjnu.newrailway.project.system.bean.model.TestTrain;
 import zjnu.newrailway.project.system.mapper.TrainMapper;
 import zjnu.newrailway.project.system.service.ITrainService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,8 +55,11 @@ public class TrainServiceImpl implements ITrainService
      * @return 结果
      */
 	@Override
-	public int insertTrain(Train train)
+	public int insertTrain(TestTrain train)
 	{
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		train.setStartTime(df.format(new Date()));
+		train.setEndTime(df.format(new Date()));
 	    return trainMapper.insertTrain(train);
 	}
 	
@@ -65,9 +70,12 @@ public class TrainServiceImpl implements ITrainService
      * @return 结果
      */
 	@Override
-	public int updateTrain(Train train)
+	public int updateTrain(TestTrain train)
 	{
-	    return trainMapper.updateTrain(train);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		train.setStartTime(df.format(new Date()));
+		train.setEndTime(df.format(new Date()));
+		return trainMapper.updateTrain(train);
 	}
 
 	/**

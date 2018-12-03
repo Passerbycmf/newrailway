@@ -5,10 +5,11 @@
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-train-add">
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">承租项点ID：</label>
+			<input name="rentId"  type="hidden" id="treeId"/>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">承租项点名称：</label>
 				<div class="col-sm-8">
-					<input id="rentId" name="rentId" class="form-control" type="text" >
+					<input class="form-control" type="text" name="rentName" onclick="selectRentTree()" readonly="true" id="treeName">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -52,14 +53,53 @@
 		var prefix = ctx + "system/train"
 		$("#form-train-add").validate({
 			rules:{
-				xxxx:{
-					required:true,
-				},
-			},
-			submitHandler: function(form) {
-				$.operate.save(prefix + "/add", $('#form-train-add').serialize());
-			}
-		});
+                rentName:{
+                    required:true,
+                },
+
+            },
+            submitHandler: function(form) {
+                add();
+            }
+        });
+
+        function add() {
+            var trainId= $("input[name='trainId']").val();
+            var trainContent = $("input[name='trainContent']").val();
+            var beginTime = $("input[name='beginTime']").val();
+            var rentName = $("input[name='rentName']").val();
+            var endTime = $("input[name='endTime']").val();
+            var rentId = $("input[name='rentId']").val();
+
+            $.ajax({
+                cache : true,
+                type : "POST",
+                url : ctx + "system/train/add",
+                data : {
+                    "trainId": trainId,
+                    "trainContent": trainContent,
+                    "beginTime": beginTime,
+                    "rentName": rentName,
+                    "endTime": endTime,
+                    "rentId": rentId,
+                },
+                async : false,
+                error : function(request) {
+                    $.modal.alertError("系统错误");
+                },
+                success : function(data) {
+                    $.operate.saveSuccess(data);
+                }
+            });
+        }
+
+        /*承租项点管理-新增-选择承租项点名称*/
+        function selectRentTree() {
+            var treeId = $("#treeId").val();
+            var rentId = treeId == null || treeId == "" ? "1" : treeId;
+            var url = ctx + "system/rent/selectRentTree/" + rentId;
+            $.modal.open("选择承租项点名称", url, '380', '380');
+        }
 	</script>
 </body>
 </html>

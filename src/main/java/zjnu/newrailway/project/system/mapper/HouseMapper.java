@@ -18,7 +18,7 @@ public interface HouseMapper
      * @param id 资产管理ID
      * @return 资产管理信息
      */
-	public Asset selectHouseById(Integer id);
+	public Asset selectHouseById(Integer assetId);
 	
 	/**
      * 查询资产管理列表
@@ -50,7 +50,7 @@ public interface HouseMapper
      * @param id 资产管理ID
      * @return 结果
      */
-	public int deleteHouseById(Integer id);
+	public int deleteHouseById(Integer assetId);
 	
 	/**
      * 批量删除资产管理

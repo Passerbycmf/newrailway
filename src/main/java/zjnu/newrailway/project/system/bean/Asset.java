@@ -17,7 +17,7 @@ public class Asset extends BaseEntity
 
     /** 资产IDid */
     @Excel(name = "资产ID")
-    private Integer id;
+    private Integer assetId;
     /** 资产名称 */
     @Excel(name = "资产名称")
     private String assetName;
@@ -70,15 +70,14 @@ public class Asset extends BaseEntity
     @Excel(name = "资产类型（0房屋/1土地）")
     private Integer assetDifference;
 
-    public void setId(Integer id)
-    {
-        this.id = id;
+    public Integer getAssetId() {
+        return assetId;
     }
 
-    public Integer getId()
-    {
-        return id;
+    public void setAssetId(Integer assetId) {
+        this.assetId = assetId;
     }
+
     public void setAssetName(String assetName)
     {
         this.assetName = assetName;
@@ -235,7 +234,7 @@ public class Asset extends BaseEntity
 
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", getId())
+                .append("assetId", getAssetId())
                 .append("assetName", getAssetName())
                 .append("assetNumber", getAssetNumber())
                 .append("assetTranslation", getAssetTranslation())

@@ -15,10 +15,10 @@ public interface ILandService
 	/**
      * 查询资产管理信息
      * 
-     * @param id 资产管理ID
+     * @param assetId 资产管理ID
      * @return 资产管理信息
      */
-	public Asset selectLandById(Integer id);
+	public Asset selectLandById(Integer assetId);
 	
 	/**
      * 查询资产管理列表

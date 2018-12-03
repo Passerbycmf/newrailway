@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="zjnu.newrailway.project.system.mapper.LandMapper">
     
     <resultMap type="Asset" id="LandResult">
-        <result property="id"    column="id"    />
+        <result property="assetId"    column="asset_id"    />
         <result property="assetName"    column="asset_name"    />
         <result property="assetNumber"    column="asset_number"    />
         <result property="assetTranslation"    column="asset_translation"    />
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectLandVo">
-        select id, asset_name, asset_number, asset_translation, asset_area, asset_location, police_station, fire_brigade, asset_type, squatter_house, legacy, asset_deliver, satelite_fix, ownership_certificate, aerial_map, live_pic, safe_certificate, asset_difference from sys_asset_management
+        select asset_id, asset_name, asset_number, asset_translation, asset_area, asset_location, police_station, fire_brigade, asset_type, squatter_house, legacy, asset_deliver, satelite_fix, ownership_certificate, aerial_map, live_pic, safe_certificate, asset_difference from sys_asset_management
     </sql>
 	
     <select id="selectLandList" parameterType="Asset" resultMap="LandResult">
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectLandById" parameterType="Integer" resultMap="LandResult">
         <include refid="selectLandVo"/>
-        where id = #{id}
+        where asset_id = #{assetId}
     </select>
 
     <select id="checkAssetName" parameterType="String" resultMap="LandResult">
@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertLand" parameterType="Asset">
         insert into sys_asset_management
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != '' ">id,</if>
+			<if test="assetId != null and assetId != '' ">asset_id,</if>
 			<if test="assetName != null and assetName != '' ">asset_name,</if>
 			<if test="assetNumber != null and assetNumber != '' ">asset_number,</if>
 			<if test="assetTranslation != null and assetTranslation != '' ">asset_translation,</if>
@@ -76,7 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="assetDifference != null and assetDifference != '' ">asset_difference,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null and id != ''">#{id},</if>
+			<if test="assetId != null and assetId != ''">#{assetId},</if>
 			<if test="assetName != null and assetName != ''">#{assetName},</if>
 			<if test="assetNumber != null and assetNumber != ''">#{assetNumber},</if>
 			<if test="assetTranslation != null and assetTranslation != ''">#{assetTranslation},</if>
@@ -118,17 +118,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="safeCertificate != null  and safeCertificate != ''  ">safe_certificate = #{safeCertificate},</if>
             <if test="assetDifference != null  ">asset_difference = #{assetDifference},</if>
         </trim>
-        where id = #{id}
+        where asset_id = #{assetId}
     </update>
 
 	<delete id="deleteLandById" parameterType="Integer">
-        delete from sys_asset_management where id = #{id}
+        delete from sys_asset_management where asset_id = #{assetId}
     </delete>
 	
     <delete id="deleteLandByIds" parameterType="String">
-        delete from sys_asset_management where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
+        delete from sys_asset_management where asset_id in
+        <foreach item="assetId" collection="array" open="(" separator="," close=")">
+            #{assetId}
         </foreach>
     </delete>
     

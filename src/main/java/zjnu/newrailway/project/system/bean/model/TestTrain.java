@@ -25,13 +25,11 @@ public class TestTrain extends BaseEntity
 	/** 培训类别 */
 	private String trainCategory;
 	/** 培训开始时间 */
-	private Date startTime;
+	private String  startTime;
 	/** 培训结束时间 */
-	private Date endTime;
+	private String  endTime;
 	/** 创建时间 */
-	private Date createTime;
-	/** 更新时间 */
-	private Date updateTime;
+
 	/**承租项点名称*/
 	private String rentName;
 
@@ -79,42 +77,20 @@ public class TestTrain extends BaseEntity
 	{
 		return trainCategory;
 	}
-	public void setStartTime(Date startTime) 
-	{
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
-	public Date getStartTime() 
-	{
-		return startTime;
-	}
-	public void setEndTime(Date endTime) 
-	{
-		this.endTime = endTime;
-	}
-
-	public Date getEndTime() 
-	{
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setCreateTime(Date createTime) 
-	{
-		this.createTime = createTime;
-	}
 
-	public Date getCreateTime() 
-	{
-		return createTime;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
-	public void setUpdateTime(Date updateTime) 
-	{
-		this.updateTime = updateTime;
-	}
-
-	public Date getUpdateTime() 
-	{
-		return updateTime;
-	}
-
-
 }
